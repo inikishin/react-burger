@@ -2,6 +2,18 @@
   text-align: center;
 }
 
+@media screen and (min-width: 1200px) {
+  .App {
+    margin-left: 20em;
+    margin-right: 20em;
+  }
+}
+
+main {
+  display: flex;
+
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
