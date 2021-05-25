@@ -1,13 +1,11 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
-import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-
-import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import Ingredient from "./Ingredient";
+import Ingredient from "./ingredient";
 
-import style from "./BurgerIngredients.module.css";
+import style from "./burger-ingredients.module.css";
 
 class BurgerIngredients extends React.Component {
 
@@ -43,6 +41,10 @@ class BurgerIngredients extends React.Component {
             </section>
         )
     }
+}
+
+BurgerIngredients.propTypes = {
+    data: PropTypes.array
 }
 
 export default BurgerIngredients

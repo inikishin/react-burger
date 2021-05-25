@@ -1,0 +1,21 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navItem {
+    outline: none;
+    text-decoration: none;
+    color: #4c4cff;
+    padding: 15px;
+    z-index: 2;
+}
+
+.navItem:visited {
+    color: #4c4cff;
+}
+
+.navItem:hover {
+    color: #ffffff;
+}

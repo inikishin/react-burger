@@ -1,0 +1,37 @@
+@media screen and (min-width: 1200px) {
+  .app {
+    margin-left: 20em;
+    margin-right: 20em;
+  }
+}
+
+.app {
+  text-align: center;
+}
+
+.mainDashboard {
+    display: flex;
+    justify-content: center;
+}
+
+.sectionHeader{
+    text-align: left;
+    composes: pt-5 from '../../../../react-burger/node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css';
+    composes: pb-1 from '../../../../react-burger/node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css';
+}
+
+ul::-webkit-scrollbar {
+    width: 12px;
+}
+
+ul::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background: #8585AD;
+	border: 3px solid #2F2F37;
+	border-radius: 6px;
+}
+
+

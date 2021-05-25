@@ -1,0 +1,19 @@
+.ul {
+    list-style: none;
+    height: 70vh;
+    overflow: auto;
+}
+
+.li {
+    display: grid;
+    list-style: none;
+    grid-template-columns: 0.05fr 0.95fr;
+    align-items: center;
+    composes: p-2 from '../../../../react-burger/node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css';
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
