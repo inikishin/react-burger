@@ -1,0 +1,25 @@
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1c1c21;
+    /*max-width: 1280px;*/
+}
+
+.navItem {
+    outline: none;
+    text-decoration: none;
+    color: #4c4cff;
+    padding: 15px;
+    z-index: 2;
+    display: inline-flex;
+    vertical-align: center;
+}
+
+.navItem:visited {
+    color: #4c4cff;
+}
+
+.navItem:hover {
+    color: #ffffff;
+}

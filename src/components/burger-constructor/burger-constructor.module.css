@@ -1,0 +1,24 @@
+.ul {
+    list-style: none;
+    height: 45vh;
+    overflow: auto;
+}
+
+.li {
+    display: grid;
+    list-style: none;
+    grid-template-columns: 0.05fr 0.95fr;
+    align-items: center;
+}
+
+.bunLi {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
