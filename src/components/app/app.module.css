@@ -1,12 +1,8 @@
 @media screen and (min-width: 1200px) {
-  .app {
-    margin-left: 20em;
-    margin-right: 20em;
-  }
-}
-
-.app {
-  text-align: center;
+    .app {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
 }
 
 .mainDashboard {
@@ -16,8 +12,6 @@
 
 .sectionHeader{
     text-align: left;
-    composes: pt-5 from '../../../../react-burger/node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css';
-    composes: pb-1 from '../../../../react-burger/node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css';
 }
 
 ul::-webkit-scrollbar {
@@ -29,7 +23,7 @@ ul::-webkit-scrollbar-track {
 }
 
 ul::-webkit-scrollbar-thumb {
-  background: #8585AD;
+    background: #8585AD;
 	border: 3px solid #2F2F37;
 	border-radius: 6px;
 }

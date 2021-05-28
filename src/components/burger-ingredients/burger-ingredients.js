@@ -13,6 +13,8 @@ class BurgerIngredients extends React.Component {
 
     setCurrent = (currentValue) => {
         this.setState({currentTab: currentValue});
+
+        window.location.href = '/#' + currentValue;
     }
 
     render(props) {
@@ -31,9 +33,22 @@ class BurgerIngredients extends React.Component {
                 </div>
                 <div>
                     <ul className={style.ul}>
-                        {this.props.data.filter(x => x.type === this.state.currentTab).map((item, index) => (
+                        <h2 className="text text_type_main-medium mt-15 mb-15">Булки</h2><a name="bun"></a>
+                        {this.props.data.filter(x => x.type === "bun").map((item, index) => (
                             <li key={index}>
-                                <Ingredient image={item.image} name={item.name} price={item.price}></Ingredient>
+                                <Ingredient image={item.image} name={item.name} price={item.price} count={3}></Ingredient>
+                            </li>
+                        ))}
+                        <h2 className="text text_type_main-medium mt-15 mb-15">Соусы</h2><a name="sauce"></a>
+                        {this.props.data.filter(x => x.type === "sauce").map((item, index) => (
+                            <li key={index}>
+                                <Ingredient image={item.image} name={item.name} price={item.price} count={2}></Ingredient>
+                            </li>
+                        ))}
+                        <h2 className="text text_type_main-medium mt-15 mb-15">Начинка</h2><a name="main"></a>
+                        {this.props.data.filter(x => x.type === "main").map((item, index) => (
+                            <li key={index}>
+                                <Ingredient image={item.image} name={item.name} price={item.price} count={1}></Ingredient>
                             </li>
                         ))}
                     </ul>
@@ -44,7 +59,11 @@ class BurgerIngredients extends React.Component {
 }
 
 BurgerIngredients.propTypes = {
-    data: PropTypes.array
+    data: PropTypes.arrayOf(PropTypes.shape({
+            image: PropTypes.string,
+            name: PropTypes.string,
+            price: PropTypes.number
+        }))
 }
 
 export default BurgerIngredients

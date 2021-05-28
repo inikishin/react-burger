@@ -1,6 +1,6 @@
 .ul {
     list-style: none;
-    height: 70vh;
+    height: 45vh;
     overflow: auto;
 }
 
@@ -9,7 +9,12 @@
     list-style: none;
     grid-template-columns: 0.05fr 0.95fr;
     align-items: center;
-    composes: p-2 from '../../../../react-burger/node_modules/@ya.praktikum/react-developer-burger-ui-components/dist/ui/box.css';
+}
+
+.bunLi {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 30px;
 }
 
 .footer {

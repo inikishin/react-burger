@@ -4,21 +4,22 @@ import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-dev
 
 import style from "./app-header.module.css";
 
+
 class AppHeader extends React.Component {
     render() {
         return (
-            <header className="mb-10">
+            <header className={style.header}>
                 <nav className={style.nav}>
-                    <div>
-                        <a className={style.navItem} href="#"><BurgerIcon type="secondary"></BurgerIcon> <span
-                            className="text text_type_main-default">Конструктор</span></a>
-                        <a className={style.navItem} href="#"><ListIcon type="secondary"></ListIcon> <span
-                            className="text text_type_main-default">Лента заказов</span></a>
+                    <div className="pl-30">
+                        <a className={style.navItem} href="#"><BurgerIcon type="secondary" /> <span
+                            className="text text_type_main-default pl-2"> Конструктор</span></a>
+                        <a className={style.navItem} href="#"><ListIcon type="secondary" /> <span
+                            className="text text_type_main-default pl-2"> Лента заказов</span></a>
                     </div>
                     <Logo/>
-                    <div>
-                        <a className={style.navItem} href="#"><ProfileIcon type="secondary"></ProfileIcon> <span
-                            className="text text_type_main-default">Личный
+                    <div className="pr-30">
+                        <a className={style.navItem} href="#"><ProfileIcon type="secondary" /> <span
+                            className="text text_type_main-default pl-2">Личный
                         кабинет</span></a>
                     </div>
                 </nav>

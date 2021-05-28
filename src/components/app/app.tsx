@@ -8,16 +8,20 @@ import style from "./app.module.css";
 import data from "../../utils/data";
 
 function App() {
-  return (
-    <div className={style.app}>
+    return (
+    <>
         <AppHeader/>
-        <p className={style.sectionHeader}><span className="text text_type_main-large">Соберите бургер</span></p>
-        <main className={style.mainDashboard}>
-            <BurgerIngredients data={data}></BurgerIngredients>
-            <BurgerConstructor data={data}></BurgerConstructor>
-        </main>
-    </div>
-  );
+        <div className={style.app}>
+            <h1 className={`${style.sectionHeader} pt-5 pb-1`}><span className="text text_type_main-large">Соберите бургер</span>
+            </h1>
+            <main className={style.mainDashboard}>
+                <BurgerIngredients data={data}></BurgerIngredients>
+                <BurgerConstructor data={data}></BurgerConstructor>
+            </main>
+        </div>
+    </>
+)
+    ;
 }
 
 export default App;
