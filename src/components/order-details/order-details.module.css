@@ -1,0 +1,9 @@
+.bodyContent {
+    text-align: center;
+}
+
+.secondaryText {
+    color: #7a7b9c;
+    composes: text from global;
+    composes: text_type_main-default from global;
+}

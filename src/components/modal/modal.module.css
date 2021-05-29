@@ -1,0 +1,36 @@
+.modalContent {
+    position: relative;
+    background-color: #1c1c21;
+    margin: auto;
+    border: 1px solid #000000;
+    border-radius: 40px 40px 40px 40px;
+    width: 700px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    composes: p-5 from global;
+}
+
+@keyframes animatetop {
+    from {top:-320px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+.close {
+    cursor: pointer;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    composes: pl-2 from global;
+    composes: pr-2 from global;
+}
+
+.modalMain {
+    composes: text from global;
+    composes: p-5 from global;
+}
