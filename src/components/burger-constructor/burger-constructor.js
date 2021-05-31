@@ -4,27 +4,28 @@ import PropTypes from 'prop-types';
 import { CurrencyIcon, DragIcon, Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import style from './burger-constructor.module.css';
-import ModalOverlay from "../modal-overlay/modal-overlay";
 import OrderDetails from "../order-details/order-details";
+import Modal from "../modal/modal";
 
 function BurgerConstructor(props) {
 
     const [modalVisible, setModalVisible] = useState(false);
 
     const openModal = (e) => {
-        console.log(e);
         setModalVisible(true);
     }
 
     const closeModal = (e) => {
-        console.log(e);
-        setModalVisible(false);
+        if ((e.target.id === 'my-modal') || (e.currentTarget.id === "close-modal") || (e.key === 'Escape')) {
+            setModalVisible(false);
+            e.stopPropagation();
+        }
     }
 
     const modal = (
-        <ModalOverlay onClose={closeModal} title="">
+        <Modal onClose={closeModal} title="">
             <OrderDetails />
-        </ModalOverlay>
+        </Modal>
     );
 
     const bun = props.data.filter(x => (x.type === 'bun'))[0];
@@ -33,7 +34,7 @@ function BurgerConstructor(props) {
     return (
         <section style={{width: "50%"}}>
             <div className={`${style.bunLi} p-2 mr-5`}>
-                {typeof bun !== 'undefined' && <ConstructorElement
+                {bun && <ConstructorElement
                     type="top"
                     isLocked={true} text={bun.name} thumbnail={bun.image}
                     price={bun.price}/>}
@@ -43,13 +44,13 @@ function BurgerConstructor(props) {
                     <li className={`${style.li} p-2`} key={ingr._id}>
                         <DragIcon/>
                         <ConstructorElement
-                            isLocked={true} text={ingr.name} thumbnail={ingr.image}
+                            text={ingr.name} thumbnail={ingr.image}
                             price={ingr.price} style={{display: "block"}}/>
                     </li>
                 ))}
             </ul>
             <div className={`${style.bunLi} p-2`}>
-                {typeof bun !== 'undefined' && <ConstructorElement
+                {bun && <ConstructorElement
                     type="bottom"
                     isLocked={true} text={bun.name} thumbnail={bun.image}
                     price={bun.price} style={{display: "block"}}/>}

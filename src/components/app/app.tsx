@@ -5,7 +5,6 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 import style from "./app.module.css";
-import data from "../../utils/data";
 
 function App() {
 
@@ -18,16 +17,21 @@ function App() {
     React.useEffect(() => {
         const getData = async () => {
             setIsLoading(true);
-            fetch(url).then((res) => res.json()).then((d) => {
+            fetch(url).then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Error: ${res.status}`);
+            }).then((d) => {
                 if (typeof d.data === 'undefined') {
                     throw new Error("No data");
                 } else {
-                    setIsLoading(false);
                     setData(d.data);
                 }
             }).catch(e => {
-                setIsLoading(false);
                 setHasError(true);
+            }).finally(function () {
+                setIsLoading(false);
             });
         }
 
@@ -47,11 +51,10 @@ function App() {
                     <h2 className="text text_type_main-medium">Ошибка при получении данных</h2>
                     :
                     <main className={style.mainDashboard}>
-                        <BurgerIngredients data={data}></BurgerIngredients>
-                        <BurgerConstructor data={data}></BurgerConstructor>
+                        <BurgerIngredients data={data} />
+                        <BurgerConstructor data={data} />
                     </main>
             }
-
         </div>
     </>
 )
