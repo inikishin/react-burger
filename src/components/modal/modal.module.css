@@ -26,8 +26,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    composes: pl-2 from global;
-    composes: pr-2 from global;
+    composes: pl-2 pr-2 from global;
 }
 
 .modalMain {

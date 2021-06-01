@@ -15,11 +15,8 @@ function BurgerConstructor(props) {
         setModalVisible(true);
     }
 
-    const closeModal = (e) => {
-        if ((e.target.id === 'my-modal') || (e.currentTarget.id === "close-modal") || (e.key === 'Escape')) {
+    const closeModal = () => {
             setModalVisible(false);
-            e.stopPropagation();
-        }
     }
 
     const modal = (
@@ -33,15 +30,15 @@ function BurgerConstructor(props) {
 
     return (
         <section style={{width: "50%"}}>
-            <div className={`${style.bunLi} p-2 mr-5`}>
+            <div className={`${style.bunItem} p-2 mr-5`}>
                 {bun && <ConstructorElement
                     type="top"
                     isLocked={true} text={bun.name} thumbnail={bun.image}
                     price={bun.price}/>}
             </div>
-            <ul className={style.ul}>
+            <ul className={style.itemList}>
                 {main.map((ingr, index) => (
-                    <li className={`${style.li} p-2`} key={ingr._id}>
+                    <li className={`${style.mainItem} p-2`} key={ingr._id}>
                         <DragIcon/>
                         <ConstructorElement
                             text={ingr.name} thumbnail={ingr.image}
@@ -49,14 +46,14 @@ function BurgerConstructor(props) {
                     </li>
                 ))}
             </ul>
-            <div className={`${style.bunLi} p-2`}>
+            <div className={`${style.bunItem} p-2`}>
                 {bun && <ConstructorElement
                     type="bottom"
                     isLocked={true} text={bun.name} thumbnail={bun.image}
                     price={bun.price} style={{display: "block"}}/>}
             </div>
 
-            <div className={`${style.footer} p-5`}>
+            <div className={`${style.orderFooter} p-5`}>
                 <p className="text text_type_digits-medium">1234 <CurrencyIcon/></p>
                 <Button type="primary" size="large" onClick={openModal}>
                     Оформить заказ

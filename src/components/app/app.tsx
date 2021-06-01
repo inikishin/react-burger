@@ -10,7 +10,7 @@ function App() {
 
     const url = 'https://norma.nomoreparties.space/api/ingredients';
 
-    const [data, setData] = React.useState( []);
+    const [ingredients, setIngredients] = React.useState([]);
     const [hasError, setHasError] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
 
@@ -22,11 +22,11 @@ function App() {
                     return res.json();
                 }
                 return Promise.reject(`Error: ${res.status}`);
-            }).then((d) => {
-                if (typeof d.data === 'undefined') {
+            }).then((apiData) => {
+                if (!apiData.data) {
                     throw new Error("No data");
                 } else {
-                    setData(d.data);
+                    setIngredients(apiData.data);
                 }
             }).catch(e => {
                 setHasError(true);
@@ -47,12 +47,12 @@ function App() {
             {(isLoading) ?
                 <h2 className="text text_type_main-medium">Загрузка данных...</h2>
                 :
-                (data.length === 0 || hasError) ?
+                (ingredients.length === 0 || hasError) ?
                     <h2 className="text text_type_main-medium">Ошибка при получении данных</h2>
                     :
                     <main className={style.mainDashboard}>
-                        <BurgerIngredients data={data} />
-                        <BurgerConstructor data={data} />
+                        <BurgerIngredients data={ingredients} />
+                        <BurgerConstructor data={ingredients} />
                     </main>
             }
         </div>

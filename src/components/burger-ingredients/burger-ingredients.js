@@ -11,21 +11,18 @@ import Modal from "../modal/modal";
 
 function BurgerIngredients(props) {
 
-    const [state, setState] = React.useState("bun");
+    const [currentTab, setCurrentTab] = React.useState("bun");
     const [modalVisible, setModalVisible] = useState(false);
     const [currentIngedient, setCurrentIngedient] = useState({});
 
 
-    const openModal = (e) => {
-        setCurrentIngedient(e);
+    const openModal = (item) => {
+        setCurrentIngedient(item);
         setModalVisible(true);
     }
 
-    const closeModal = (e) => {
-        if ((e.target.id === 'my-modal') || (e.currentTarget.id === "close-modal") || (e.key === 'Escape')) {
+    const closeModal = () => {
             setModalVisible(false);
-            e.stopPropagation();
-        }
     }
 
     const modal = (
@@ -35,41 +32,41 @@ function BurgerIngredients(props) {
     );
 
     function setCurrent(currentValue) {
-        setState(currentValue);
+        setCurrentTab(currentValue);
         window.location.href = '/#' + currentValue;
     }
 
         return (
             <section style={{flexBasis: "content", width: "50%"}}>
                 <div style={{display: 'flex'}}>
-                    <Tab value="bun" active={state === 'bun'} onClick={setCurrent}>
+                    <Tab value="bun" active={currentTab === 'bun'} onClick={setCurrent}>
                         Булки
                     </Tab>
-                    <Tab value="sauce" active={state === 'sauce'} onClick={setCurrent}>
+                    <Tab value="sauce" active={currentTab === 'sauce'} onClick={setCurrent}>
                         Соусы
                     </Tab>
-                    <Tab value="main" active={state === 'main'} onClick={setCurrent}>
+                    <Tab value="main" active={currentTab === 'main'} onClick={setCurrent}>
                         Начинки
                     </Tab>
                 </div>
                 <div>
-                    <ul className={style.ul}>
+                    <ul className={style.ingredients}>
                         <h2 className="text text_type_main-medium mt-15 mb-15">Булки</h2><a name="bun" />
                         {props.data.filter(x => x.type === "bun").map((item, index) => (
                             <li key={index}>
-                                <Ingredient {...item} count={3} openModal={openModal} />
+                                <Ingredient ingredient={item} count={3} openModal={openModal} />
                             </li>
                         ))}
                         <h2 className="text text_type_main-medium mt-15 mb-15">Соусы</h2><a name="sauce" />
                         {props.data.filter(x => x.type === "sauce").map((item, index) => (
                             <li key={index}>
-                                <Ingredient {...item} count={2} openModal={openModal} />
+                                <Ingredient ingredient={item} count={2} openModal={openModal} />
                             </li>
                         ))}
                         <h2 className="text text_type_main-medium mt-15 mb-15">Начинка</h2><a name="main" />
                         {props.data.filter(x => x.type === "main").map((item, index) => (
                             <li key={index}>
-                                <Ingredient {...item} count={1} openModal={openModal} />
+                                <Ingredient ingredient={item} count={1} openModal={openModal} />
                             </li>
                         ))}
                     </ul>
