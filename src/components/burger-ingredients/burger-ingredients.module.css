@@ -1,8 +1,7 @@
-.ul {
+.ingredients {
     list-style: none;
     display: grid;
     grid-template-columns: 1fr 1fr;
-
     height: 70vh;
     overflow: auto;
 }

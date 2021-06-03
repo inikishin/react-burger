@@ -1,0 +1,15 @@
+.bodyContent {
+    text-align: center;
+}
+
+.details {
+    composes: mt-10 from global;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.secondaryText {
+    color: #7a7b9c;
+    composes: text from global;
+    composes: text_type_main-default from global;
+}

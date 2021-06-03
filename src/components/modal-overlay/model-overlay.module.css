@@ -1,0 +1,12 @@
+.modal {
+    display: block;
+    position: fixed;
+    padding-top: 100px; /* Location of the box */
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7); /* Black w/ opacity */
+}

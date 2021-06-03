@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from 'prop-types';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,56 +6,74 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Ingredient from "./ingredient";
 
 import style from "./burger-ingredients.module.css";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
 
-class BurgerIngredients extends React.Component {
+function BurgerIngredients(props) {
 
-    state = {currentTab: "bun"}
+    const [currentTab, setCurrentTab] = React.useState("bun");
+    const [modalVisible, setModalVisible] = useState(false);
+    const [currentIngedient, setCurrentIngedient] = useState({});
 
-    setCurrent = (currentValue) => {
-        this.setState({currentTab: currentValue});
 
+    const openModal = (item) => {
+        setCurrentIngedient(item);
+        setModalVisible(true);
+    }
+
+    const closeModal = () => {
+            setModalVisible(false);
+    }
+
+    const modal = (
+        <Modal onClose={closeModal} title="Детали ингредиента">
+            <IngredientDetails {...currentIngedient} />
+        </Modal>
+    );
+
+    function setCurrent(currentValue) {
+        setCurrentTab(currentValue);
         window.location.href = '/#' + currentValue;
     }
 
-    render(props) {
         return (
             <section style={{flexBasis: "content", width: "50%"}}>
                 <div style={{display: 'flex'}}>
-                    <Tab value="bun" active={this.state.currentTab === 'bun'} onClick={this.setCurrent}>
+                    <Tab value="bun" active={currentTab === 'bun'} onClick={setCurrent}>
                         Булки
                     </Tab>
-                    <Tab value="sauce" active={this.state.currentTab === 'sauce'} onClick={this.setCurrent}>
+                    <Tab value="sauce" active={currentTab === 'sauce'} onClick={setCurrent}>
                         Соусы
                     </Tab>
-                    <Tab value="main" active={this.state.currentTab === 'main'} onClick={this.setCurrent}>
+                    <Tab value="main" active={currentTab === 'main'} onClick={setCurrent}>
                         Начинки
                     </Tab>
                 </div>
                 <div>
-                    <ul className={style.ul}>
-                        <h2 className="text text_type_main-medium mt-15 mb-15">Булки</h2><a name="bun"></a>
-                        {this.props.data.filter(x => x.type === "bun").map((item, index) => (
+                    <ul className={style.ingredients}>
+                        <h2 className="text text_type_main-medium mt-15 mb-15">Булки</h2><a name="bun" />
+                        {props.data.filter(x => x.type === "bun").map((item, index) => (
                             <li key={index}>
-                                <Ingredient image={item.image} name={item.name} price={item.price} count={3}></Ingredient>
+                                <Ingredient ingredient={item} count={3} openModal={openModal} />
                             </li>
                         ))}
-                        <h2 className="text text_type_main-medium mt-15 mb-15">Соусы</h2><a name="sauce"></a>
-                        {this.props.data.filter(x => x.type === "sauce").map((item, index) => (
+                        <h2 className="text text_type_main-medium mt-15 mb-15">Соусы</h2><a name="sauce" />
+                        {props.data.filter(x => x.type === "sauce").map((item, index) => (
                             <li key={index}>
-                                <Ingredient image={item.image} name={item.name} price={item.price} count={2}></Ingredient>
+                                <Ingredient ingredient={item} count={2} openModal={openModal} />
                             </li>
                         ))}
-                        <h2 className="text text_type_main-medium mt-15 mb-15">Начинка</h2><a name="main"></a>
-                        {this.props.data.filter(x => x.type === "main").map((item, index) => (
+                        <h2 className="text text_type_main-medium mt-15 mb-15">Начинка</h2><a name="main" />
+                        {props.data.filter(x => x.type === "main").map((item, index) => (
                             <li key={index}>
-                                <Ingredient image={item.image} name={item.name} price={item.price} count={1}></Ingredient>
+                                <Ingredient ingredient={item} count={1} openModal={openModal} />
                             </li>
                         ))}
                     </ul>
                 </div>
+                {modalVisible && modal}
             </section>
         )
-    }
 }
 
 BurgerIngredients.propTypes = {
