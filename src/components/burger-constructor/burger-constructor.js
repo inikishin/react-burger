@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState, useReducer, useEffect} from "react";
 import PropTypes from 'prop-types';
 
 import { CurrencyIcon, DragIcon, Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,17 +6,42 @@ import { CurrencyIcon, DragIcon, Button, ConstructorElement } from '@ya.praktiku
 import style from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
+import {BurgerContext} from "../../utils/burgerContext";
 
 function BurgerConstructor(props) {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const ingredientsContext = useContext(BurgerContext);
+
+    const bun = ingredientsContext.filter(x => (x.type === 'bun'))[0];
+    const main = ingredientsContext.filter(x => (x.type !== 'bun')).slice(0, 4);
+
+    const initialCost = 0;
+    function reducer(state, action) {
+        switch (action.type) {
+            case 'update': {
+                let total = bun.price * 2;
+                main.forEach((item) => {total += item.price});
+                return total;
+            }
+            case 'reset':
+                return initialCost;
+            default:
+                throw new Error(`Wrong type of action: ${action.type}`);
+        }
+    }
+    const [totalCost, dispatchTotalCost] = useReducer(reducer, initialCost);
+
+    useEffect(() => {
+        dispatchTotalCost({ type: "update" });
+    }, [ingredientsContext]);
 
     const openModal = (e) => {
         setModalVisible(true);
     }
 
     const closeModal = () => {
-            setModalVisible(false);
+        setModalVisible(false);
     }
 
     const modal = (
@@ -24,9 +49,6 @@ function BurgerConstructor(props) {
             <OrderDetails />
         </Modal>
     );
-
-    const bun = props.data.filter(x => (x.type === 'bun'))[0];
-    const main = props.data.filter(x => (x.type !== 'bun'));
 
     return (
         <section style={{width: "50%"}}>
@@ -54,7 +76,7 @@ function BurgerConstructor(props) {
             </div>
 
             <div className={`${style.orderFooter} p-5`}>
-                <p className="text text_type_digits-medium">1234 <CurrencyIcon/></p>
+                <p className="text text_type_digits-medium">{totalCost} <CurrencyIcon/></p>
                 <Button type="primary" size="large" onClick={openModal}>
                     Оформить заказ
                 </Button>
