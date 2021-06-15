@@ -6,38 +6,80 @@ import { CurrencyIcon, DragIcon, Button, ConstructorElement } from '@ya.praktiku
 import style from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import {BurgerContext} from "../../utils/burgerContext";
+import {BurgerContext} from "../../contexts/burgerContext";
+
+const url = "https://norma.nomoreparties.space/api/orders";
 
 function BurgerConstructor(props) {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [orderNumber, setOrderNumber] = useState(null);
+
     const ingredientsContext = useContext(BurgerContext);
 
     const bun = ingredientsContext.filter(x => (x.type === 'bun'))[0];
     const main = ingredientsContext.filter(x => (x.type !== 'bun')).slice(0, 4);
 
-    const initialCost = 0;
+    const ingredientsIds = [bun._id];
+    main.forEach((item) => {ingredientsIds.push(item._id)});
+
+    useEffect(() => {
+        const postOrder = async () => {
+            fetch(url, {method: 'POST',
+                            headers: {
+                                        'Content-Type': 'application/json;charset=utf-8'
+                                      },
+                            body: JSON.stringify({ingredients: ingredientsIds})
+                            }).then((res) => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Error: ${res.status}`);
+            }).then((apiData) => {
+                console.log(apiData);
+                if (!apiData.order.number) {
+                    throw new Error("No data");
+                } else {
+                    setOrderNumber(apiData.order.number);
+                }
+            }).catch(e => {
+                console.log(e);
+            }).finally(function () {
+                setIsLoading(false);
+            });
+        }
+
+        isLoading && postOrder();
+        (!isLoading && orderNumber) && setModalVisible(true);
+    }, [isLoading]);
+
+    const initialConstructorState = {
+        bun: bun,
+        main: main,
+        total: 0
+    };
     function reducer(state, action) {
         switch (action.type) {
             case 'update': {
-                let total = bun.price * 2;
-                main.forEach((item) => {total += item.price});
-                return total;
+                let total = state.bun.price * 2;
+                state.main.forEach((item) => {total += item.price});
+                return {...state, total: total};
             }
             case 'reset':
-                return initialCost;
+                return initialConstructorState;
             default:
                 throw new Error(`Wrong type of action: ${action.type}`);
         }
     }
-    const [totalCost, dispatchTotalCost] = useReducer(reducer, initialCost);
+    const [constructorState, dispatchConstructorState] = useReducer(reducer, initialConstructorState);
 
     useEffect(() => {
-        dispatchTotalCost({ type: "update" });
+        dispatchConstructorState({ type: "update" });
     }, [ingredientsContext]);
 
     const openModal = (e) => {
-        setModalVisible(true);
+        setIsLoading(true);
     }
 
     const closeModal = () => {
@@ -46,7 +88,7 @@ function BurgerConstructor(props) {
 
     const modal = (
         <Modal onClose={closeModal} title="">
-            <OrderDetails />
+            <OrderDetails orderNumber={orderNumber} />
         </Modal>
     );
 
@@ -59,7 +101,7 @@ function BurgerConstructor(props) {
                     price={bun.price}/>}
             </div>
             <ul className={style.itemList}>
-                {main.map((ingr, index) => (
+                {main.map((ingr) => (
                     <li className={`${style.mainItem} p-2`} key={ingr._id}>
                         <DragIcon/>
                         <ConstructorElement
@@ -76,7 +118,7 @@ function BurgerConstructor(props) {
             </div>
 
             <div className={`${style.orderFooter} p-5`}>
-                <p className="text text_type_digits-medium">{totalCost} <CurrencyIcon/></p>
+                <p className="text text_type_digits-medium">{constructorState.total} <CurrencyIcon/></p>
                 <Button type="primary" size="large" onClick={openModal}>
                     Оформить заказ
                 </Button>

@@ -3,7 +3,7 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import {BurgerContext} from "../../utils/burgerContext";
+import {BurgerContext} from "../../contexts/burgerContext";
 
 import style from "./app.module.css";
 
@@ -52,8 +52,8 @@ function App() {
                     <h2 className="text text_type_main-medium">Ошибка при получении данных</h2>
                     :
                     <main className={style.mainDashboard}>
-                        <BurgerIngredients data={ingredients}/>
                         <BurgerContext.Provider value={ingredients}>
+                            <BurgerIngredients data={ingredients}/>
                             <BurgerConstructor/>
                         </BurgerContext.Provider>
                     </main>
