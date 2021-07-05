@@ -13,6 +13,7 @@ export const GET_ORDER_NUMBER_SUCCESS = 'GET_ORDER_NUMBER_SUCCESS';
 export const GET_ORDER_NUMBER_FAILED = 'GET_ORDER_NUMBER_FAILED';
 
 export const ADD_INGREDIENT_TO_BURGER = 'ADD_INGREDIENT_TO_BURGER';
+export const DELETE_INGREDIENT_FROM_BURGER = 'DELETE_INGREDIENT_FROM_BURGER';
 
 export function getIngredients() {
     return function (dispatch) {

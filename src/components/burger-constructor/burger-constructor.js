@@ -11,7 +11,7 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {getOrderNumber} from "../../services/actions/burger";
 
-import {ADD_INGREDIENT_TO_BURGER} from "../../services/actions/burger";
+import {ADD_INGREDIENT_TO_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/burger";
 
 function BurgerConstructor() {
 
@@ -72,16 +72,8 @@ function BurgerConstructor() {
                         </div>}
 
             {main.length > 0 ? <ul className={style.itemList}>
-                    {main.map((ingr) => (
-                        <li className={`${style.mainItem} p-2`} key={uuidv4()}>
-                            <DragIcon/>
-                            <ConstructorElement
-                                text={ingr.name}
-                                thumbnail={ingr.image}
-                                price={ingr.price}
-                                style={{display: "block"}}
-                                handleClose={handleDeleteElement}/>
-                        </li>
+                    {main.map((ingr, index) => (
+                        <ConstructorElementCusomized item={ingr} index={index} />
                     ))}
                 </ul>
                 :
@@ -106,6 +98,23 @@ function BurgerConstructor() {
             </div>
         </section>
     )
+}
+
+
+function ConstructorElementCusomized(props) {
+    const dispatch = useDispatch();
+    const u_key = uuidv4();
+
+    const handleDeleteElement = () => {
+        dispatch({type: DELETE_INGREDIENT_FROM_BURGER, ingredientIndex: props.index});
+    };
+
+    return (<li className={`${style.mainItem} p-2`} key={u_key}>
+                <DragIcon/>
+                <ConstructorElement
+                    isLocked={false} text={props.item.name} thumbnail={props.item.image}
+                    price={props.item.price} handleClose={handleDeleteElement} style={{display: "block"}}/>
+            </li>)
 }
 
 BurgerConstructor.propTypes = {

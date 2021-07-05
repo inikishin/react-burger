@@ -8,7 +8,8 @@ import {
     GET_ORDER_NUMBER_REQUEST,
     GET_ORDER_NUMBER_SUCCESS,
     GET_ORDER_NUMBER_FAILED,
-    ADD_INGREDIENT_TO_BURGER
+    ADD_INGREDIENT_TO_BURGER,
+    DELETE_INGREDIENT_FROM_BURGER,
 } from '../actions/burger';
 
 const initialState = {
@@ -75,6 +76,12 @@ export const burger = (state = initialState, action) => {
             newState.currentBurger.main.forEach((item) => {total += item.price});
             newState = {...newState, currentBurger: {...newState.currentBurger, total: total} }
             return newState
+        }
+
+        case DELETE_INGREDIENT_FROM_BURGER: {
+            let newMain = state.currentBurger.main;
+            newMain.splice(action.ingredientIndex, 1);
+            return {...state, currentBurger: {...state.currentBurger, main: newMain}}
         }
 
         default: {
