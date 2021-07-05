@@ -60,27 +60,36 @@ function BurgerConstructor() {
     }
 
     return (
-        <section style={{width: "50%"}}>
-            <div className={`${style.bunItem} p-2 mr-5`} ref={dropTarget}>
-                {bun._id ? <ConstructorElement
-                    type="top"
-                    isLocked={true} text={bun.name} thumbnail={bun.image}
-                    price={bun.price}/> :
-                    <p className="text text_type_main-default">Булка не выбрана!</p>}
-            </div>
-            <ul className={style.itemList}>
-                {main.length > 0 ? main.map((ingr) => (
-                    <li className={`${style.mainItem} p-2`} key={uuidv4()}>
-                        <DragIcon/>
-                        <ConstructorElement
-                            text={ingr.name}
-                            thumbnail={ingr.image}
-                            price={ingr.price}
-                            style={{display: "block"}}
-                            handleClose={handleDeleteElement}/>
-                    </li>
-                )) : <p className="text text_type_main-default">Добавьте ингридиенты</p>}
-            </ul>
+        <section style={{width: "50%"}} ref={dropTarget}>
+            {bun._id ? <div className={`${style.bunItem} p-2 mr-5`}>
+                            <ConstructorElement
+                            type="top"
+                            isLocked={true} text={bun.name} thumbnail={bun.image}
+                            price={bun.price}/>
+                        </div> :
+                        <div className={`${style.emptyItems} m-2 p-2`}>
+                            <p className="text text_type_main-default">Выберите булку для космического бургера</p>
+                        </div>}
+
+            {main.length > 0 ? <ul className={style.itemList}>
+                    {main.map((ingr) => (
+                        <li className={`${style.mainItem} p-2`} key={uuidv4()}>
+                            <DragIcon/>
+                            <ConstructorElement
+                                text={ingr.name}
+                                thumbnail={ingr.image}
+                                price={ingr.price}
+                                style={{display: "block"}}
+                                handleClose={handleDeleteElement}/>
+                        </li>
+                    ))}
+                </ul>
+                :
+                <div className={`${style.emptyItems} m-2 p-2`}>
+                    <p className="text text_type_main-default">Добавьте ингридиенты</p>
+                </div>
+            }
+
             <div className={`${style.bunItem} p-2`}>
                 {bun._id && <ConstructorElement
                     type="bottom"
