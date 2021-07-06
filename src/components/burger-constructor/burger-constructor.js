@@ -1,6 +1,6 @@
 import React, {useState, useReducer, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useDrop} from 'react-dnd';
+import {useDrop, useDrag} from 'react-dnd';
 import { v4 as uuidv4 } from 'uuid';
 import PropTypes from 'prop-types';
 
@@ -11,11 +11,12 @@ import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
 import {getOrderNumber} from "../../services/actions/burger";
 
-import {ADD_INGREDIENT_TO_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/burger";
+import {ADD_INGREDIENT_TO_BURGER, CHANGE_INGREDIENT_IN_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/burger";
 
 function BurgerConstructor() {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState( -1); // стейт для определения текущего ингредиента, на который наведен курсор
 
     const { currentBurger, order } = useSelector(store => ({...store.burger}));
     const dispatch = useDispatch();
@@ -24,7 +25,12 @@ function BurgerConstructor() {
     const main = currentBurger.main;
 
     const onDropHandler = (itemId) => {
-        dispatch({type: ADD_INGREDIENT_TO_BURGER, ingredientId: itemId});
+        if (itemId.change) {
+            dispatch({type: CHANGE_INGREDIENT_IN_BURGER, oldIndex: itemId.index, currentIndex: currentIndex});
+        }
+        else {
+            dispatch({type: ADD_INGREDIENT_TO_BURGER, ingredientId: itemId, ingredientIndex: currentIndex});
+        }
     }
 
     const [, dropTarget] = useDrop({
@@ -55,10 +61,6 @@ function BurgerConstructor() {
         </Modal>
     );
 
-    const handleDeleteElement = (e) => {
-        console.log(e);
-    }
-
     return (
         <section style={{width: "50%"}} ref={dropTarget}>
             {bun._id ? <div className={`${style.bunItem} p-2 mr-5`}>
@@ -73,7 +75,7 @@ function BurgerConstructor() {
 
             {main.length > 0 ? <ul className={style.itemList}>
                     {main.map((ingr, index) => (
-                        <ConstructorElementCusomized item={ingr} index={index} />
+                        <ConstructorElementCusomized item={ingr} index={index} setCurrentIndex={setCurrentIndex} />
                     ))}
                 </ul>
                 :
@@ -105,16 +107,45 @@ function ConstructorElementCusomized(props) {
     const dispatch = useDispatch();
     const u_key = uuidv4();
 
+    const [{isOver}, dropRef ] = useDrop({
+        accept: "ingredient",
+        collect: monitor => ({
+            isOver: monitor.isOver(),
+        })
+    });
+
+    const [{isDrag}, dragRef] = useDrag({
+        type: 'ingredient',
+        item: {id: props.item._id, index: props.index, change: true},
+        collect: monitor => ({
+            isDrag: monitor.isDragging(),
+        })
+    });
+
+    useEffect(() => {
+        if (isOver) {
+            props.setCurrentIndex(props.index);
+        }
+    });
+
     const handleDeleteElement = () => {
-        dispatch({type: DELETE_INGREDIENT_FROM_BURGER, ingredientIndex: props.index});
+        dispatch({
+            type: DELETE_INGREDIENT_FROM_BURGER,
+            ingredientIndex: props.index,
+            ingredientId: props.item._id});
     };
 
-    return (<li className={`${style.mainItem} p-2`} key={u_key}>
-                <DragIcon/>
-                <ConstructorElement
-                    isLocked={false} text={props.item.name} thumbnail={props.item.image}
-                    price={props.item.price} handleClose={handleDeleteElement} style={{display: "block"}}/>
-            </li>)
+    return (<div ref={dragRef}>
+                {!isDrag && <li className={`${style.mainItem} p-2`} key={u_key} ref={dropRef}>
+                                <DragIcon/>
+                                <ConstructorElement
+                                    isLocked={false} text={props.item.name} thumbnail={props.item.image}
+                                    price={props.item.price} handleClose={handleDeleteElement} style={{display: "block"}}/>
+
+                            </li>}
+                {isOver && <li className={`${style.mainItem} m-5 p-2`}></li>}
+            </div>
+            )
 }
 
 BurgerConstructor.propTypes = {

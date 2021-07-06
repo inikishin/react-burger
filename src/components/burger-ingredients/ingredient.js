@@ -24,7 +24,7 @@ function Ingredient(props) {
         !isDrag &&
         <div className={style.container} onClick={callBack} ref={dragRef}>
             <img src={props.ingredient.image} alt={props.ingredient.name}/>
-            { props.count && <Counter count={props.count} size="small" /> }
+            { props.count > 0 && <Counter count={props.count} size="small" /> }
             <p className="text text_type_digits-default">{props.ingredient.price} <CurrencyIcon /></p>
             <p className="text text_type_main-default">{props.ingredient.name}</p>
         </div>

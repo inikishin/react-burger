@@ -9,6 +9,7 @@ import {
     GET_ORDER_NUMBER_SUCCESS,
     GET_ORDER_NUMBER_FAILED,
     ADD_INGREDIENT_TO_BURGER,
+    CHANGE_INGREDIENT_IN_BURGER,
     DELETE_INGREDIENT_FROM_BURGER,
 } from '../actions/burger';
 
@@ -55,20 +56,33 @@ export const burger = (state = initialState, action) => {
             let newState = {};
 
             if (ingredient.type === "bun") {
+                let updatedIngredients = state.ingredients;
+                updatedIngredients.forEach(item => {
+                    if (item.type === 'bun') {
+                        (item._id === ingredient._id) ? item.counter = 1 : item.counter = 0
+                    }
+                });
+
                 newState = {...state,
-                currentBurger: {...state.currentBurger, bun: ingredient},
-                ingredients: [...state.ingredients.filter(item => item._id !== ingredient._id),
-                    {...state.ingredients.filter(item => item._id === ingredient._id)[0], counter: 1}]}
+                    currentBurger: {...state.currentBurger, bun: ingredient},
+                    ingredients: updatedIngredients,
+                }
             }
             else
             {
-                let item = state.ingredients.filter(item => item._id === ingredient._id)[0];
-                item.counter ? item = {...item, counter: item.counter + 1} : item = {...item, counter: 1}
+                let item = state.ingredients.find(item => item._id === ingredient._id);
+                let itemIndex = state.ingredients.findIndex(item => item._id === ingredient._id);
+                item.counter ? item = {...item, counter: item.counter + 1} : item = {...item, counter: 1};
+                let updatedIngredients = state.ingredients;
+                updatedIngredients.splice(itemIndex, 1, item);
+
+                let updatedConstructor = state.currentBurger.main;
+                updatedConstructor.splice(action.ingredientIndex + 1, 0, ingredient);
 
                 newState = {...state,
-                    currentBurger: {...state.currentBurger, main: [...state.currentBurger.main, ingredient]},
-                    ingredients: [...state.ingredients.filter(item => item._id !== ingredient._id), item]
-                }
+                    currentBurger: {...state.currentBurger, main: updatedConstructor},
+                    ingredients: updatedIngredients //[...state.ingredients.filter(item => item._id !== ingredient._id), item]
+                };
             }
 
             let total = 0;
@@ -78,15 +92,34 @@ export const burger = (state = initialState, action) => {
             return newState
         }
 
+        case CHANGE_INGREDIENT_IN_BURGER: {
+            let updatedMain = state.currentBurger.main;
+            let item = updatedMain.splice(action.oldIndex, 1);
+            updatedMain.splice(action.currentIndex+1, 0, item[0]);
+
+            return {...state, currentBurger: {...state.currentBurger, main: updatedMain}};
+        }
+
         case DELETE_INGREDIENT_FROM_BURGER: {
+            // Удаляем элемент из конструктора
             let newMain = state.currentBurger.main;
             newMain.splice(action.ingredientIndex, 1);
 
+            // Обновляем тотал
             let total = 0;
             state.currentBurger.bun.price && (total = state.currentBurger.bun.price * 2);
             newMain.forEach((item) => {total += item.price});
 
-            return {...state, currentBurger: {...state.currentBurger, main: newMain, total: total}}
+            // Ищем ингредиент в списке ингредиентов, уменьшаем количество на 1 и обновляем элемент в массиве
+            let item = state.ingredients.find(item => item._id === action.ingredientId);
+            let itemIndex = state.ingredients.findIndex(item => item._id === action.ingredientId);
+            item.counter ? item = {...item, counter: item.counter - 1} : item = {...item, counter: 0};
+            let updatedIngredients = state.ingredients;
+            updatedIngredients.splice(itemIndex, 1, item);
+
+            return {...state,
+                    currentBurger: {...state.currentBurger, main: newMain, total: total},
+                    ingredients: updatedIngredients}
         }
 
         default: {
