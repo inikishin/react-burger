@@ -83,12 +83,4 @@ function BurgerIngredients() {
     )
 }
 
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-            image: PropTypes.string,
-            name: PropTypes.string,
-            price: PropTypes.number
-        }))
-}
-
 export default BurgerIngredients
