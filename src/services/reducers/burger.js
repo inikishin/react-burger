@@ -1,3 +1,4 @@
+import {v4 as uuidv4} from "uuid";
 import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
@@ -76,12 +77,13 @@ export const burger = (state = initialState, action) => {
                 let updatedIngredients = state.ingredients;
                 updatedIngredients.splice(itemIndex, 1, item);
 
+                ingredient.key = uuidv4();
                 let updatedConstructor = state.currentBurger.main;
                 updatedConstructor.splice(action.ingredientIndex + 1, 0, ingredient);
 
                 newState = {...state,
                     currentBurger: {...state.currentBurger, main: updatedConstructor},
-                    ingredients: updatedIngredients //[...state.ingredients.filter(item => item._id !== ingredient._id), item]
+                    ingredients: updatedIngredients
                 };
             }
 

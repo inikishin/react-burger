@@ -1,8 +1,6 @@
-import React, {useState, useReducer, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop, useDrag} from 'react-dnd';
-import { v4 as uuidv4 } from 'uuid';
-import PropTypes from 'prop-types';
 
 import { CurrencyIcon, DragIcon, Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -75,7 +73,7 @@ function BurgerConstructor() {
 
             {main.length > 0 ? <ul className={style.itemList}>
                     {main.map((ingr, index) => (
-                        <ConstructorElementCusomized item={ingr} index={index} setCurrentIndex={setCurrentIndex} />
+                        <ConstructorElementCusomized item={ingr} key={ingr.key} index={index} setCurrentIndex={setCurrentIndex} />
                     ))}
                 </ul>
                 :
@@ -105,7 +103,6 @@ function BurgerConstructor() {
 
 function ConstructorElementCusomized(props) {
     const dispatch = useDispatch();
-    const u_key = uuidv4();
 
     const [{isOver}, dropRef ] = useDrop({
         accept: "ingredient",
@@ -136,7 +133,7 @@ function ConstructorElementCusomized(props) {
     };
 
     return (<div ref={dragRef}>
-                {!isDrag && <li className={`${style.mainItem} p-2`} key={u_key} ref={dropRef}>
+                {!isDrag && <li className={`${style.mainItem} p-2`} ref={dropRef}>
                                 <DragIcon/>
                                 <ConstructorElement
                                     isLocked={false} text={props.item.name} thumbnail={props.item.image}
