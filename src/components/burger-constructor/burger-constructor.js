@@ -38,9 +38,18 @@ function BurgerConstructor() {
         }
     });
 
+    const [{isOver}, dropRef ] = useDrop({
+        accept: "ingredient",
+        collect: monitor => ({
+            isOver: monitor.isOver(),
+        })
+    });
+
     useEffect(() => {
-        (!order.isLoadingOrderNumber && order.number) && setModalVisible(true);
-    }, [order.number]);
+        if (isOver) {
+            setCurrentIndex(0);
+        }
+    }, [isOver]);
 
     const createOrder = (e) => {
         const ingredientsIds = [];
@@ -48,6 +57,10 @@ function BurgerConstructor() {
         main.forEach((item) => {ingredientsIds.push(item._id)});
         dispatch(getOrderNumber(ingredientsIds));
     }
+
+    useEffect(() => {
+        (!order.isLoadingOrderNumber && order.number) && setModalVisible(true);
+    }, [order.number]);
 
     const closeModal = () => {
         setModalVisible(false);
@@ -61,15 +74,20 @@ function BurgerConstructor() {
 
     return (
         <section style={{width: "50%"}} ref={dropTarget}>
-            {bun._id ? <div className={`${style.bunItem} p-2 mr-5`}>
-                            <ConstructorElement
+            <div ref={dropRef}>
+                {bun._id ?
+                    <div className={`${style.bunItem} p-2 mr-5`}>
+                        <ConstructorElement
                             type="top"
                             isLocked={true} text={bun.name} thumbnail={bun.image}
                             price={bun.price}/>
-                        </div> :
-                        <div className={`${style.emptyItems} m-2 p-2`}>
-                            <p className="text text_type_main-default">Выберите булку для космического бургера</p>
-                        </div>}
+                    </div>
+                    :
+                    <div className={`${style.emptyItems} m-2 p-2`}>
+                        <p className="text text_type_main-default">Выберите булку для космического бургера</p>
+                    </div>}
+                {isOver && <div className={`${style.mainItem} m-5 p-2`}></div>}
+            </div>
 
             {main.length > 0 ? <ul className={style.itemList}>
                     {main.map((ingr, index) => (
@@ -100,7 +118,6 @@ function BurgerConstructor() {
     )
 }
 
-
 function ConstructorElementCusomized(props) {
     const dispatch = useDispatch();
 
@@ -121,7 +138,7 @@ function ConstructorElementCusomized(props) {
 
     useEffect(() => {
         if (isOver) {
-            props.setCurrentIndex(props.index);
+            props.setCurrentIndex(props.index + 1);
         }
     });
 

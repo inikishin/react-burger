@@ -79,7 +79,7 @@ export const burger = (state = initialState, action) => {
 
                 ingredient.key = uuidv4();
                 let updatedConstructor = state.currentBurger.main;
-                updatedConstructor.splice(action.ingredientIndex + 1, 0, ingredient);
+                updatedConstructor.splice(action.ingredientIndex, 0, ingredient);
 
                 newState = {...state,
                     currentBurger: {...state.currentBurger, main: updatedConstructor},
@@ -97,7 +97,7 @@ export const burger = (state = initialState, action) => {
         case CHANGE_INGREDIENT_IN_BURGER: {
             let updatedMain = state.currentBurger.main;
             let item = updatedMain.splice(action.oldIndex, 1);
-            updatedMain.splice(action.currentIndex+1, 0, item[0]);
+            updatedMain.splice(action.currentIndex, 0, item[0]);
 
             return {...state, currentBurger: {...state.currentBurger, main: updatedMain}};
         }
