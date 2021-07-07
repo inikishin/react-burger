@@ -6,7 +6,6 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 
 import style from "./app.module.css";
-import {RootState} from "@reduxjs/toolkit/dist/query/core/apiState";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
 
@@ -16,7 +15,7 @@ function App() {
         isLoadingIngredients,
         hasErrorIngredients,
         ingredients
-    } = useSelector((state: RootState<any, any, any>) => ({...state}));
+    } = useSelector((state) => ({...state}));
 
     return (
     <>
