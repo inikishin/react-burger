@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import PropTypes from 'prop-types';
+import { useInView } from 'react-intersection-observer';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Ingredient from "./ingredient";
@@ -17,6 +17,22 @@ function BurgerIngredients() {
 
     const { ingredients, currentIngredient } = useSelector(store => ({...store.burger}));
     const dispatch = useDispatch();
+
+    const [refBun, inViewBun] = useInView();
+    const [refSauce, inViewSauce] = useInView();
+    const [refMain, inViewMain] = useInView();
+
+    useEffect(() => {
+        if (inViewBun) {
+            setCurrentTab('bun');
+        }
+        else if (inViewSauce) {
+            setCurrentTab('sauce');
+        }
+        else if (inViewMain) {
+            setCurrentTab('main');
+        }
+    }, [inViewBun, inViewSauce, inViewMain]);
 
     useEffect(() => {
         dispatch(getIngredients());
@@ -58,19 +74,19 @@ function BurgerIngredients() {
             </div>
             <div>
                 <ul className={style.ingredients}>
-                    <h2 className="text text_type_main-medium mt-15 mb-15">Булки</h2><a name="bun" />
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refBun}>Булки</h2><a name="bun" />
                     {ingredients.filter(x => x.type === "bun").map((item, index) => (
                         <li key={index}>
                             <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
                         </li>
                     ))}
-                    <h2 className="text text_type_main-medium mt-15 mb-15">Соусы</h2><a name="sauce" />
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refSauce}>Соусы</h2><a name="sauce" />
                     {ingredients.filter(x => x.type === "sauce").map((item, index) => (
                         <li key={index}>
                             <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
                         </li>
                     ))}
-                    <h2 className="text text_type_main-medium mt-15 mb-15">Начинка</h2><a name="main" />
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refMain}>Начинка</h2><a name="main" />
                     {ingredients.filter(x => x.type === "main").map((item, index) => (
                         <li key={index}>
                             <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
