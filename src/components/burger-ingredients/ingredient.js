@@ -10,7 +10,7 @@ import {useDrag} from "react-dnd";
 function Ingredient(props) {
     const [{isDrag}, dragRef] = useDrag({
         type: 'ingredient',
-        item: {id: props.ingredient._id},
+        item: {...props.ingredient},
         collect: monitor => ({
             isDrag: monitor.isDragging()
         })

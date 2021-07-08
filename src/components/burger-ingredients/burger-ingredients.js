@@ -7,7 +7,7 @@ import Ingredient from "./ingredient";
 import style from "./burger-ingredients.module.css";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import {getIngredients, ADD_INGREDIENT_DATA, DELETE_INGREDIENT_DATA} from "../../services/actions/burger";
+import {getIngredients, ADD_INGREDIENT_DATA, DELETE_INGREDIENT_DATA} from "../../services/actions/ingredients";
 
 
 function BurgerIngredients() {
@@ -15,7 +15,7 @@ function BurgerIngredients() {
     const [currentTab, setCurrentTab] = React.useState("bun");
     const [modalVisible, setModalVisible] = useState(false);
 
-    const { ingredients, currentIngredient } = useSelector(store => ({...store.burger}));
+    const { ingredients, currentIngredient } = useSelector(store => ({...store.ingredients}));
     const dispatch = useDispatch();
 
     const [refBun, inViewBun] = useInView();

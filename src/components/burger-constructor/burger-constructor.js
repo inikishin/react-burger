@@ -7,34 +7,35 @@ import { CurrencyIcon, DragIcon, Button, ConstructorElement } from '@ya.praktiku
 import style from './burger-constructor.module.css';
 import OrderDetails from "../order-details/order-details";
 import Modal from "../modal/modal";
-import {getOrderNumber} from "../../services/actions/burger";
 
-import {ADD_INGREDIENT_TO_BURGER, CHANGE_INGREDIENT_IN_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/burger";
+import {getOrderNumber, ADD_INGREDIENT_TO_BURGER, CHANGE_INGREDIENT_IN_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/order";
+import { INCREASE_INGREDIENT_COUNTER, DECSEASE_INGREDIENT_COUNTER } from "../../services/actions/ingredients";
 
 function BurgerConstructor() {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [currentIndex, setCurrentIndex] = useState( -1); // стейт для определения текущего ингредиента, на который наведен курсор
 
-    const { currentBurger, order } = useSelector(store => ({...store.burger}));
+    const { currentBurger, order } = useSelector(store => ({...store.order}));
     const dispatch = useDispatch();
 
     const bun = currentBurger.bun;
     const main = currentBurger.main;
 
-    const onDropHandler = (itemId) => {
-        if (itemId.change) {
-            dispatch({type: CHANGE_INGREDIENT_IN_BURGER, oldIndex: itemId.index, currentIndex: currentIndex});
+    const onDropHandler = (item) => {
+        if (item.change) {
+            dispatch({type: CHANGE_INGREDIENT_IN_BURGER, oldIndex: item.index, currentIndex: currentIndex});
         }
         else {
-            dispatch({type: ADD_INGREDIENT_TO_BURGER, ingredientId: itemId, ingredientIndex: currentIndex});
+            dispatch({type: ADD_INGREDIENT_TO_BURGER, ingredient: item, ingredientIndex: currentIndex});
+            dispatch({type: INCREASE_INGREDIENT_COUNTER, ingredient: item});
         }
     }
 
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(itemId) {
-            onDropHandler(itemId);
+        drop(item) {
+            onDropHandler(item);
         }
     });
 
@@ -147,6 +148,12 @@ function ConstructorElementCusomized(props) {
             type: DELETE_INGREDIENT_FROM_BURGER,
             ingredientIndex: props.index,
             ingredientId: props.item._id});
+
+        dispatch({
+                type: DECSEASE_INGREDIENT_COUNTER,
+                ingredient: props.item
+            }
+        );
     };
 
     return (<div ref={dragRef}>
