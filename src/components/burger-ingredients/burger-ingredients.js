@@ -1,33 +1,56 @@
-import React, {useState} from "react";
-import PropTypes from 'prop-types';
+import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import { useInView } from 'react-intersection-observer';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import Ingredient from "./ingredient";
-
 import style from "./burger-ingredients.module.css";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+import {getIngredients, ADD_INGREDIENT_DATA, DELETE_INGREDIENT_DATA} from "../../services/actions/ingredients";
 
-function BurgerIngredients(props) {
+
+function BurgerIngredients() {
 
     const [currentTab, setCurrentTab] = React.useState("bun");
     const [modalVisible, setModalVisible] = useState(false);
-    const [currentIngedient, setCurrentIngedient] = useState({});
 
+    const { ingredients, currentIngredient } = useSelector(store => ({...store.ingredients}));
+    const dispatch = useDispatch();
+
+    const [refBun, inViewBun] = useInView();
+    const [refSauce, inViewSauce] = useInView();
+    const [refMain, inViewMain] = useInView();
+
+    useEffect(() => {
+        if (inViewBun) {
+            setCurrentTab('bun');
+        }
+        else if (inViewSauce) {
+            setCurrentTab('sauce');
+        }
+        else if (inViewMain) {
+            setCurrentTab('main');
+        }
+    }, [inViewBun, inViewSauce, inViewMain]);
+
+    useEffect(() => {
+        dispatch(getIngredients());
+    }, [dispatch])
 
     const openModal = (item) => {
-        setCurrentIngedient(item);
+        dispatch({type: ADD_INGREDIENT_DATA, currentIngredient: item})
         setModalVisible(true);
     }
 
     const closeModal = () => {
-            setModalVisible(false);
+        dispatch({type: DELETE_INGREDIENT_DATA});
+        setModalVisible(false);
     }
 
     const modal = (
         <Modal onClose={closeModal} title="Детали ингредиента">
-            <IngredientDetails {...currentIngedient} />
+            <IngredientDetails {...currentIngredient} />
         </Modal>
     );
 
@@ -36,52 +59,44 @@ function BurgerIngredients(props) {
         window.location.href = '/#' + currentValue;
     }
 
-        return (
-            <section style={{flexBasis: "content", width: "50%"}}>
-                <div style={{display: 'flex'}}>
-                    <Tab value="bun" active={currentTab === 'bun'} onClick={setCurrent}>
-                        Булки
-                    </Tab>
-                    <Tab value="sauce" active={currentTab === 'sauce'} onClick={setCurrent}>
-                        Соусы
-                    </Tab>
-                    <Tab value="main" active={currentTab === 'main'} onClick={setCurrent}>
-                        Начинки
-                    </Tab>
-                </div>
-                <div>
-                    <ul className={style.ingredients}>
-                        <h2 className="text text_type_main-medium mt-15 mb-15">Булки</h2><a name="bun" />
-                        {props.data.filter(x => x.type === "bun").map((item, index) => (
-                            <li key={index}>
-                                <Ingredient ingredient={item} count={3} openModal={openModal} />
-                            </li>
-                        ))}
-                        <h2 className="text text_type_main-medium mt-15 mb-15">Соусы</h2><a name="sauce" />
-                        {props.data.filter(x => x.type === "sauce").map((item, index) => (
-                            <li key={index}>
-                                <Ingredient ingredient={item} count={2} openModal={openModal} />
-                            </li>
-                        ))}
-                        <h2 className="text text_type_main-medium mt-15 mb-15">Начинка</h2><a name="main" />
-                        {props.data.filter(x => x.type === "main").map((item, index) => (
-                            <li key={index}>
-                                <Ingredient ingredient={item} count={1} openModal={openModal} />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                {modalVisible && modal}
-            </section>
-        )
-}
-
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(PropTypes.shape({
-            image: PropTypes.string,
-            name: PropTypes.string,
-            price: PropTypes.number
-        }))
+    return (
+        <section style={{flexBasis: "content", width: "50%"}}>
+            <div style={{display: 'flex'}}>
+                <Tab value="bun" active={currentTab === 'bun'} onClick={setCurrent}>
+                    Булки
+                </Tab>
+                <Tab value="sauce" active={currentTab === 'sauce'} onClick={setCurrent}>
+                    Соусы
+                </Tab>
+                <Tab value="main" active={currentTab === 'main'} onClick={setCurrent}>
+                    Начинки
+                </Tab>
+            </div>
+            <div>
+                <ul className={style.ingredients}>
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refBun}>Булки</h2><a name="bun" />
+                    {ingredients.filter(x => x.type === "bun").map((item, index) => (
+                        <li key={index}>
+                            <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
+                        </li>
+                    ))}
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refSauce}>Соусы</h2><a name="sauce" />
+                    {ingredients.filter(x => x.type === "sauce").map((item, index) => (
+                        <li key={index}>
+                            <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
+                        </li>
+                    ))}
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refMain}>Начинка</h2><a name="main" />
+                    {ingredients.filter(x => x.type === "main").map((item, index) => (
+                        <li key={index}>
+                            <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            {modalVisible && modal}
+        </section>
+    )
 }
 
 export default BurgerIngredients

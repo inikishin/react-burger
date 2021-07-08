@@ -5,6 +5,15 @@
     margin: 0px;
 }
 
+.emptyItems {
+    border: dashed #8585AD;
+    border-radius: 20px;
+    min-height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .mainItem {
     display: grid;
     list-style: none;
