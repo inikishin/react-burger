@@ -5,6 +5,7 @@ import HomePage from '../../pages/homepage';
 import LoginPage from "../../pages/loginpage";
 import RegisterPage from "../../pages/register";
 import ForgotPasswordPage from "../../pages/forgot-password-page";
+import ResetPasswordPage from "../../pages/reset-password-page";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/login" exact={true}><LoginPage /></Route>
                 <Route path="/register" exact={true}><RegisterPage /></Route>
                 <Route path="/forgot-password" exact={true}><ForgotPasswordPage /></Route>
+                <Route path="/reset-password" exact={true}><ResetPasswordPage /></Route>
             </Switch>
         </Router>
 )
