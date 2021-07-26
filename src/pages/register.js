@@ -1,14 +1,14 @@
 import React from "react";
-import Login from "../components/login/login";
+import Register from "../components/register/register";
 import AppHeader from "../components/app-header/app-header";
 
-function LoginPage() {
+function RegisterPage() {
     return (
         <>
             <AppHeader />
-            <Login />
+            <Register />
         </>
     )
 }
 
-export default LoginPage;
+export default RegisterPage;
