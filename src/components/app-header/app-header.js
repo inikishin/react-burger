@@ -11,12 +11,14 @@ function AppHeader() {
         <header className={style.header}>
             <nav className={style.nav}>
                 <div className="pl-30">
-                    <a className={style.navItem} href="#"><BurgerIcon type="secondary"/> <span
-                        className="text text_type_main-default pl-2"> Конструктор</span></a>
+                    <Link className={style.navItem} to="/"><BurgerIcon type="secondary"/> <span
+                        className="text text_type_main-default pl-2"> Конструктор</span></Link>
                     <a className={style.navItem} href="#"><ListIcon type="secondary"/> <span
                         className="text text_type_main-default pl-2"> Лента заказов</span></a>
                 </div>
-                <Logo/>
+                <Link to="/">
+                    <Logo/>
+                </Link>
                 <div className="pr-30">
                     <Link to="/login" className={style.navItem}><ProfileIcon type="secondary"/> <span
                         className="text text_type_main-default pl-2">Личный
