@@ -1,0 +1,25 @@
+.menuWrapper {
+    width: 320px;
+}
+
+.profileMenu {
+    padding: 0px;
+    composes: mb-20 from global;
+}
+
+.profileMenuItem {
+    height: 64px;
+    list-style-type: none;
+}
+
+.link {
+    outline: none;
+    text-decoration: none;
+    color: #8585ad;
+}
+
+.linkActive {
+    outline: none;
+    text-decoration: none;
+    color: #ffffff;
+}

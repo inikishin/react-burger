@@ -1,0 +1,10 @@
+.inputContainer {
+    display: flex;
+    justify-content: start;
+    composes: mb-6 from global;
+}
+
+.settingsWrapper {
+    width: 480px;
+    composes: ml-20 from global;
+}

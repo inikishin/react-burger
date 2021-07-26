@@ -20,7 +20,7 @@ function AppHeader() {
                     <Logo/>
                 </Link>
                 <div className="pr-30">
-                    <Link to="/login" className={style.navItem}><ProfileIcon type="secondary"/> <span
+                    <Link to="/profile" className={style.navItem}><ProfileIcon type="secondary"/> <span
                         className="text text_type_main-default pl-2">Личный
                         кабинет</span></Link>
                 </div>

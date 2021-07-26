@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import HomePage from '../../pages/homepage';
-import LoginPage from "../../pages/loginpage";
+import HomePage from '../../pages/home';
+import LoginPage from "../../pages/login";
 import RegisterPage from "../../pages/register";
-import ForgotPasswordPage from "../../pages/forgot-password-page";
-import ResetPasswordPage from "../../pages/reset-password-page";
+import ForgotPasswordPage from "../../pages/forgot-password";
+import ResetPasswordPage from "../../pages/reset-password";
+import ProfilePage from "../../pages/profile";
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
                 <Route path="/register" exact={true}><RegisterPage /></Route>
                 <Route path="/forgot-password" exact={true}><ForgotPasswordPage /></Route>
                 <Route path="/reset-password" exact={true}><ResetPasswordPage /></Route>
+                <Route path="/profile" exact={true}><ProfilePage /></Route>
             </Switch>
         </Router>
 )
