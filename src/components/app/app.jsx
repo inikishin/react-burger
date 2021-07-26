@@ -1,18 +1,16 @@
 import React from 'react';
-import { useSelector } from "react-redux";
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 import HomePage from '../../pages/homepage';
-
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import LoginPage from "../../pages/loginpage";
 
 function App() {
 
     return (
         <Router>
             <Switch>
-                <Route path="/">
-                    <HomePage />
-                </Route>
+                <Route path="/" exact={true}><HomePage /></Route>
+                <Route path="/login" exact={true}><LoginPage /></Route>
             </Switch>
         </Router>
 )

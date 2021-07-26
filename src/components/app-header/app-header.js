@@ -3,6 +3,7 @@ import React from "react";
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import style from "./app-header.module.css";
+import {Link} from "react-router-dom";
 
 
 function AppHeader() {
@@ -17,9 +18,9 @@ function AppHeader() {
                 </div>
                 <Logo/>
                 <div className="pr-30">
-                    <a className={style.navItem} href="#"><ProfileIcon type="secondary"/> <span
+                    <Link to="/login" className={style.navItem}><ProfileIcon type="secondary"/> <span
                         className="text text_type_main-default pl-2">Личный
-                        кабинет</span></a>
+                        кабинет</span></Link>
                 </div>
             </nav>
         </header>
