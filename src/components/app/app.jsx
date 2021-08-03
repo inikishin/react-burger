@@ -10,6 +10,7 @@ import ForgotPasswordPage from "../../pages/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password";
 import ProfilePage from "../../pages/profile";
 import NotFound404 from "../../pages/not-found-404";
+import IngredientPage from "../../pages/ingredient";
 import {ProtectedRoute} from "../protected-route/protected-route";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
                     <Route path="/forgot-password" exact={true}><ForgotPasswordPage/></Route>
                     <Route path="/reset-password" exact={true}><ResetPasswordPage/></Route>
                     <ProtectedRoute path="/profile" exact={true}><ProfilePage/></ProtectedRoute>
+                    <Route path={'/ingredients/:id'}><IngredientPage /></Route>
                     <Route><NotFound404/></Route>
                 </Switch>
             </Router>
