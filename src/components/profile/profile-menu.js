@@ -1,9 +1,24 @@
-import React from "react";
+import React, {useCallback} from "react";
 import styles from './profile-menu.module.css';
 
-import {Link, NavLink} from "react-router-dom";
+import {Link, NavLink, useHistory} from "react-router-dom";
+import {useAuth} from "../../services/auth";
 
 function ProfileMenu() {
+    const history = useHistory();
+    let auth = useAuth();
+
+    const logout = useCallback(
+        () => {
+            // Вызовем функцию signOut
+            auth.signOut().then(() => {
+                // После выхода переадресуем пользователя на маршрут /login
+                history.replace({pathname: '/login'});
+            });
+        },
+        [auth, history]
+    );
+
     return (
         <div className={styles.menuWrapper}>
             <ul className={styles.profileMenu}>
@@ -19,7 +34,7 @@ function ProfileMenu() {
                 </li>
                 <li className={styles.profileMenuItem}>
                     <NavLink to={{ pathname: `/logout` }} className={styles.link} activeClassName={styles.linkActive}>
-                        <span className="text text_type_main-medium" activeClassName={styles.linkActive}>Выход</span>
+                        <span className="text text_type_main-medium" activeClassName={styles.linkActive} onClick={logout}>Выход</span>
                     </NavLink>
                 </li>
             </ul>

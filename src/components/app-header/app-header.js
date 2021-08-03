@@ -4,9 +4,11 @@ import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-dev
 
 import style from "./app-header.module.css";
 import {Link} from "react-router-dom";
-
+import {useAuth} from "../../services/auth";
 
 function AppHeader() {
+    let auth = useAuth();
+
     return (
         <header className={style.header}>
             <nav className={style.nav}>
@@ -20,9 +22,14 @@ function AppHeader() {
                     <Logo/>
                 </Link>
                 <div className="pr-30">
-                    <Link to="/profile" className={style.navItem}><ProfileIcon type="secondary"/> <span
+                    {auth.user ?
+                        <Link to="/profile" className={style.navItem}><ProfileIcon type="secondary"/> <span
                         className="text text_type_main-default pl-2">Личный
                         кабинет</span></Link>
+                        :
+                        <Link to="/login" className={style.navItem}><ProfileIcon type="secondary"/> <span
+                        className="text text_type_main-default pl-2">Войти</span></Link>}
+
                 </div>
             </nav>
         </header>
