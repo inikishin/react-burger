@@ -1,10 +1,13 @@
-import { useAuth } from '../../services/auth';
 import { Redirect, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import {getUser} from "../../services/actions/auth";
+import {useSelector} from "react-redux";
 
 export function ProtectedRoute({ children, ...rest }) {
-  let { getUser, ...auth } = useAuth();
   const [isUserLoaded, setUserLoaded] = useState(false);
+    const auth = useSelector(store =>
+        store.auth
+    );
 
   const init = async () => {
     await getUser();
@@ -23,7 +26,7 @@ export function ProtectedRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) =>
-        auth.user ? (
+        auth.isAuthenticated ? (
           children
         ) : (
           <Redirect

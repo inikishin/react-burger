@@ -1,16 +1,20 @@
 import React, {useCallback, useEffect, useState, useRef} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-settings.module.css";
-import {useAuth} from "../../services/auth";
+import {useDispatch, useSelector} from "react-redux";
+import {getUser, setUserAttributes} from "../../services/actions/auth";
 
 function ProfileSettings() {
-    const auth = useAuth();
+
+    const dispatch = useDispatch();
+    const auth = useSelector(store => ({...store.auth}));
+
 
     const nameInput = useRef(null);
     const emailInput = useRef(null);
 
     useEffect(() => {
-            auth.getUser();
+            dispatch(getUser());
         },
         []);
 
@@ -20,13 +24,10 @@ function ProfileSettings() {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
-    const saveUser = useCallback(
-        e => {
-            e.preventDefault();
-            auth.setUserAttributes(form);
-        },
-        [auth, form]
-    );
+    const saveUser = e => {
+        e.preventDefault();
+        dispatch(setUserAttributes(form));
+    }
 
     const cancelUser = (e) => {
         e.preventDefault()
@@ -36,7 +37,7 @@ function ProfileSettings() {
 
     return (
         <div className={styles.settingsWrapper}>
-            <form>
+            <form onSubmit={saveUser}>
                 <div className={styles.inputContainer}>
                     <Input ref={nameInput} type="text" placeholder="Имя" name="name" onChange={onChange} value={form.name}
                            icon={'EditIcon'}/>
@@ -47,14 +48,14 @@ function ProfileSettings() {
                 </div>
                 <div className={styles.inputContainer}>
                     <PasswordInput type="password" name="password" placeholder="Пароль" icon={'EditIcon'} defaultValue=""
-                                   onChange={onChange} />
+                                   onChange={onChange} value={form.password}/>
                 </div>
-                <div>
+                <div className={styles.buttonsBlock}>
                     <div className="mb-20">
-                        <Button size="medium" className="mb-20" onClick={saveUser}>Сохранить</Button>
+                        <Button type="primary" size="medium" className="mb-20" >Сохранить</Button>
                     </div>
                     <div className="mb-20">
-                        <Button size="medium" className="mb-20" onClick={cancelUser}>Отмена</Button>
+                        <Button type="secondary" size="medium" className="mb-20" onClick={cancelUser}>Отмена</Button>
                     </div>
                 </div>
             </form>

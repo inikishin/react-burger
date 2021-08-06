@@ -43,7 +43,7 @@ export const ingredients = (state = initialState, action) => {
             if (ingredient.type === "bun") {
                 updatedIngredients.forEach(item => {
                     if (item.type === 'bun') {
-                        (item._id === ingredient._id) ? item.counter = 1 : item.counter = 0
+                        (item._id === ingredient._id) ? item.counter = 2 : item.counter = 0
                     }
                 });
             }

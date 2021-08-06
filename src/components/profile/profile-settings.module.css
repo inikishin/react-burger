@@ -8,3 +8,8 @@
     width: 480px;
     composes: ml-20 from global;
 }
+
+.buttonsBlock {
+    display: flex;
+    justify-content: space-between;
+}

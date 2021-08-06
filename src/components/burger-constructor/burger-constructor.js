@@ -17,6 +17,7 @@ function BurgerConstructor() {
     const [currentIndex, setCurrentIndex] = useState( -1); // стейт для определения текущего ингредиента, на который наведен курсор
 
     const { currentBurger, order } = useSelector(store => ({...store.order}));
+    const auth = useSelector(store => store.auth);
     const dispatch = useDispatch();
 
     const bun = currentBurger.bun;
@@ -80,7 +81,7 @@ function BurgerConstructor() {
                     <div className={`${style.bunItem} p-2 mr-5`}>
                         <ConstructorElement
                             type="top"
-                            isLocked={true} text={bun.name} thumbnail={bun.image}
+                            isLocked={true} text={`${bun.name} (верх)`} thumbnail={bun.image}
                             price={bun.price}/>
                     </div>
                     :
@@ -104,15 +105,19 @@ function BurgerConstructor() {
             <div className={`${style.bunItem} p-2`}>
                 {bun._id && <ConstructorElement
                     type="bottom"
-                    isLocked={true} text={bun.name} thumbnail={bun.image}
+                    isLocked={true} text={`${bun.name} (низ)`} thumbnail={bun.image}
                     price={bun.price} style={{display: "block"}}/>}
             </div>
 
             <div className={`${style.orderFooter} p-5`}>
                 <p className="text text_type_digits-medium">{currentBurger.total} <CurrencyIcon/></p>
-                <Button type="primary" size="large" onClick={createOrder}>
-                    { !order.isLoadingOrderNumber ? `Оформить заказ` : `Получаем номер...`}
-                </Button>
+                {auth.isAuthenticated ?
+                    <Button type="primary" size="large" onClick={createOrder} active={false}>
+                        {!order.isLoadingOrderNumber ? `Оформить заказ` : `Получаем номер...`}
+                    </Button>
+                    :
+                    <span className="text text_type_main-default text_color_inactive">Пожалуйста авторизуйтесь, чтобы сделать заказ</span>
+                }
                 {modalVisible && modal}
             </div>
         </section>

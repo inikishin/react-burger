@@ -1,40 +1,47 @@
-import React, {useCallback} from "react";
+import React, {useCallback, useEffect} from "react";
 import styles from './profile-menu.module.css';
 
-import {Link, NavLink, useHistory} from "react-router-dom";
-import {useAuth} from "../../services/auth";
+import {NavLink, useHistory} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {logout as logoutRequest} from "../../services/actions/auth";
+
 
 function ProfileMenu() {
     const history = useHistory();
-    let auth = useAuth();
+    const auth = useSelector(store => store.auth);
+    const dispatch = useDispatch();
 
     const logout = useCallback(
         () => {
-            // Вызовем функцию signOut
-            auth.signOut().then(() => {
-                // После выхода переадресуем пользователя на маршрут /login
-                history.replace({pathname: '/login'});
-            });
+            dispatch(logoutRequest());
         },
         [auth, history]
     );
+
+    useEffect(() => {
+        if (!auth.isAuthenticated) {
+            // После выхода переадресуем пользователя на маршрут /login
+            console.log('history.replace({pathname: \'/login\'});');
+            history.replace({pathname: '/login'});
+        }
+    }, [auth.isAuthenticated])
 
     return (
         <div className={styles.menuWrapper}>
             <ul className={styles.profileMenu}>
                 <li className={styles.profileMenuItem}>
-                    <NavLink to={{ pathname: `/profile` }} className={styles.link} activeClassName={styles.linkActive}>
+                    <NavLink to={{ pathname: `/profile` }} className={styles.link}>
                         <span className="text text_type_main-medium">Профиль</span>
                     </NavLink>
                 </li>
                 <li className={styles.profileMenuItem}>
-                    <NavLink to={{ pathname: `/history` }} className={styles.link} activeClassName={styles.linkActive}>
+                    <NavLink to={{ pathname: `/profile/orders` }} className={styles.link}>
                         <span className="text text_type_main-medium">История заказов</span>
                     </NavLink>
                 </li>
                 <li className={styles.profileMenuItem}>
-                    <NavLink to={{ pathname: `/logout` }} className={styles.link} activeClassName={styles.linkActive}>
-                        <span className="text text_type_main-medium" activeClassName={styles.linkActive} onClick={logout}>Выход</span>
+                    <NavLink to={{ pathname: `/login` }} className={styles.link} activeClassName={styles.linkActive}>
+                        <span className="text text_type_main-medium" onClick={logout}>Выход</span>
                     </NavLink>
                 </li>
             </ul>
