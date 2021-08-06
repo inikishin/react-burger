@@ -10,6 +10,8 @@ import Modal from "../modal/modal";
 
 import {getOrderNumber, ADD_INGREDIENT_TO_BURGER, CHANGE_INGREDIENT_IN_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/order";
 import { INCREASE_INGREDIENT_COUNTER, DECSEASE_INGREDIENT_COUNTER } from "../../services/actions/ingredients";
+import PropTypes from "prop-types";
+import Ingredient from "../burger-ingredients/ingredient";
 
 function BurgerConstructor() {
 
@@ -172,6 +174,16 @@ function ConstructorElementCusomized(props) {
                 {isOver && <li className={`${style.mainItem} m-5 p-2`}></li>}
             </div>
             )
+}
+
+ConstructorElementCusomized.propTypes = {
+    item: PropTypes.shape({
+        image: PropTypes.string,
+        name: PropTypes.string,
+        price: PropTypes.number,
+        _id: PropTypes.string}),
+    index: PropTypes.number,
+    setCurrentIndex: PropTypes.func
 }
 
 export default BurgerConstructor;

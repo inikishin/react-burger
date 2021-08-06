@@ -13,6 +13,7 @@ function ModalOverlay(props) {
 
 ModalOverlay.propTypes = {
     title: PropTypes.string,
+    children: PropTypes.string,
     onClose: PropTypes.func
 }
 
