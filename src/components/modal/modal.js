@@ -46,7 +46,7 @@ function Modal(props) {
 
 Modal.propTypes = {
     title: PropTypes.string,
-    children: PropTypes.string,
+    children: PropTypes.object,
     onClose: PropTypes.func
 }
 
