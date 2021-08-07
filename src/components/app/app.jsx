@@ -12,6 +12,7 @@ import IngredientPage from "../../pages/ingredient";
 import {ProtectedRoute} from "../protected-route/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import AppHeader from "../app-header/app-header";
 
 function App() {
     return (
@@ -26,7 +27,7 @@ function ModalSwitch() {
     const history = useHistory();
     const background = location.state && location.state.background;
 
-    const closeModal = (e) => {
+    const closeModal = () => {
         history.goBack();
     }
 
@@ -38,6 +39,7 @@ function ModalSwitch() {
 
     return (
         <>
+            <AppHeader />
             <Switch location={background || location}>
                 <Route path="/" exact={true}><HomePage/></Route>
                 <Route path="/login" exact={true}><LoginPage/></Route>

@@ -1,5 +1,4 @@
 import React from "react";
-import AppHeader from "../components/app-header/app-header";
 import style from "../components/app/app.module.css";
 import {DndProvider} from "react-dnd";
 import {HTML5Backend} from "react-dnd-html5-backend";
@@ -15,8 +14,6 @@ function HomePage() {
     } = useSelector((state) => ({...state}));
 
     return (
-        <>
-            <AppHeader/>
             <div className={style.app}>
                 <h1 className={`${style.sectionHeader} pt-5 pb-1`}><span className="text text_type_main-large">Соберите бургер</span>
                 </h1>
@@ -34,7 +31,6 @@ function HomePage() {
                         </main>
                 }
             </div>
-        </>
     );
 }
 
