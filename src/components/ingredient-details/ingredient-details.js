@@ -8,7 +8,7 @@ function IngredientDetails() {
     const {id} = useParams();
 
     const ingredients_array = useSelector(store => store.ingredients.ingredients);
-    const item = ingredients_array.filter(item => item._id = id)[0];
+    const item = ingredients_array.filter(item => item._id === id)[0];
 
     if (item) {
         return (
