@@ -1,4 +1,4 @@
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED} from "../actions/auth";
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, refreshToken} from "../actions/auth";
 import {LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILED} from "../actions/auth";
 import {REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED} from "../actions/auth";
 import {GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAILED} from "../actions/auth";
@@ -12,10 +12,12 @@ const initialState = {
     user: {name: '', email: '', password: ''},
     isAuthenticated: false,
     isLoading: false,
-    hasError: false
+    hasError: false,
+    tokenExpired: false
 }
 
 export const auth = (state = initialState, action) => {
+
     switch (action.type) {
         case LOGIN_REQUEST: {
             return {...state, isLoading: true, hasError: false, isAuthenticated: false,}
@@ -82,12 +84,13 @@ export const auth = (state = initialState, action) => {
             console.log('reducer: GET_USER_SUCCESS');
             console.log(action.data);
 
-            return {...state, isLoading: false, user: action.data.user}
+            return {...state, isAuthenticated: true, isLoading: false, user: action.data.user}
         }
         case GET_USER_FAILED: {
             console.log('GET_USER_FAILED error:');
             console.log(action.error);
-            return {...state, isLoading: false, hasError: true};
+
+            return {...state, isLoading: false, hasError: true, tokenExpired: true};
         }
 
         case SET_USER_REQUEST: {
@@ -115,7 +118,7 @@ export const auth = (state = initialState, action) => {
                 setCookie('refreshToken', action.data.refreshToken);
             }
 
-            return {...state, isLoading: false}
+            return {...state, isLoading: false, tokenExpired: false}
         }
         case REFRESH_TOKEN_FAILED: {
             console.log('REFRESH_TOKEN_FAILED error:');

@@ -221,7 +221,7 @@ export function refreshToken() {
             type: REFRESH_TOKEN_REQUEST
         });
 
-        refreshTokenRequest().then(res => {
+        refreshTokenRequest({token: getCookie('refreshToken')}).then(res => {
             //TODO delete
             console.log('actions, res from refreshToken api')
             console.log(res);
