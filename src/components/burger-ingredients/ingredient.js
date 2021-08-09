@@ -16,13 +16,10 @@ function Ingredient(props) {
         })
     });
 
-    function callBack() {
-        props.openModal(props.ingredient);
-    }
 
     return (
         !isDrag &&
-        <div className={style.container} onClick={callBack} ref={dragRef}>
+        <div className={style.container} ref={dragRef}>
             <img src={props.ingredient.image} alt={props.ingredient.name}/>
             { props.count > 0 && <Counter count={props.count} size="small" /> }
             <p className="text text_type_digits-default">{props.ingredient.price} <CurrencyIcon /></p>
@@ -36,8 +33,7 @@ Ingredient.propTypes = {
         image: PropTypes.string,
         name: PropTypes.string,
         price: PropTypes.number }),
-    count: PropTypes.number,
-    openModal: PropTypes.func
+    count: PropTypes.number
 }
 
 export default Ingredient;

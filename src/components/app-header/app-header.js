@@ -3,23 +3,33 @@ import React from "react";
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import style from "./app-header.module.css";
-
+import {Link} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function AppHeader() {
+    const auth = useSelector(store => ({...store.auth}));
+
     return (
         <header className={style.header}>
             <nav className={style.nav}>
                 <div className="pl-30">
-                    <a className={style.navItem} href="#"><BurgerIcon type="secondary"/> <span
-                        className="text text_type_main-default pl-2"> Конструктор</span></a>
-                    <a className={style.navItem} href="#"><ListIcon type="secondary"/> <span
-                        className="text text_type_main-default pl-2"> Лента заказов</span></a>
+                    <Link className={style.navItem} to="/"><BurgerIcon type="secondary"/> <span
+                        className="text text_type_main-default pl-2"> Конструктор</span></Link>
+                    <Link className={style.navItem} to="/"><ListIcon type="secondary"/> <span
+                        className="text text_type_main-default pl-2"> Лента заказов</span></Link>
                 </div>
-                <Logo/>
+                <Link to="/">
+                    <Logo/>
+                </Link>
                 <div className="pr-30">
-                    <a className={style.navItem} href="#"><ProfileIcon type="secondary"/> <span
+                    {auth.isAuthenticated ?
+                        <Link to="/profile" className={style.navItem}><ProfileIcon type="secondary"/> <span
                         className="text text_type_main-default pl-2">Личный
-                        кабинет</span></a>
+                        кабинет</span></Link>
+                        :
+                        <Link to="/login" className={style.navItem}><ProfileIcon type="secondary"/> <span
+                        className="text text_type_main-default pl-2">Войти</span></Link>}
+
                 </div>
             </nav>
         </header>

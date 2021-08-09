@@ -5,13 +5,13 @@ import { useInView } from 'react-intersection-observer';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Ingredient from "./ingredient";
 import style from "./burger-ingredients.module.css";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modal/modal";
 import {getIngredients, ADD_INGREDIENT_DATA, DELETE_INGREDIENT_DATA} from "../../services/actions/ingredients";
+import {Link, useLocation} from "react-router-dom";
 
 
 function BurgerIngredients() {
 
+    const location = useLocation();
     const [currentTab, setCurrentTab] = React.useState("bun");
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -36,23 +36,13 @@ function BurgerIngredients() {
 
     useEffect(() => {
         dispatch(getIngredients());
-    }, [dispatch])
+    }, [dispatch]);
 
-    const openModal = (item) => {
-        dispatch({type: ADD_INGREDIENT_DATA, currentIngredient: item})
-        setModalVisible(true);
-    }
 
     const closeModal = () => {
         dispatch({type: DELETE_INGREDIENT_DATA});
         setModalVisible(false);
-    }
-
-    const modal = (
-        <Modal onClose={closeModal} title="Детали ингредиента">
-            <IngredientDetails {...currentIngredient} />
-        </Modal>
-    );
+    };
 
     function setCurrent(currentValue) {
         setCurrentTab(currentValue);
@@ -77,24 +67,31 @@ function BurgerIngredients() {
                     <h2 className="text text_type_main-medium mt-15 mb-15" ref={refBun}>Булки</h2><a name="bun" />
                     {ingredients.filter(x => x.type === "bun").map((item, index) => (
                         <li key={index}>
-                            <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
+                            <Link key={item._id} to={{pathname: `/ingredients/${item._id}`, state: { background: location }}} className={style.ingredientLink}>
+                                <Ingredient ingredient={item} count={item.counter}/>
+                            </Link>
                         </li>
                     ))}
                     <h2 className="text text_type_main-medium mt-15 mb-15" ref={refSauce}>Соусы</h2><a name="sauce" />
                     {ingredients.filter(x => x.type === "sauce").map((item, index) => (
                         <li key={index}>
-                            <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
+                            <Link key={item._id}
+                                  to={{pathname: `/ingredients/${item._id}`, state: {background: location}}} className={style.ingredientLink}>
+                                <Ingredient ingredient={item} count={item.counter}/>
+                            </Link>
                         </li>
                     ))}
                     <h2 className="text text_type_main-medium mt-15 mb-15" ref={refMain}>Начинка</h2><a name="main" />
                     {ingredients.filter(x => x.type === "main").map((item, index) => (
                         <li key={index}>
-                            <Ingredient ingredient={item} count={item.counter} openModal={openModal} />
+                            <Link key={item._id}
+                                  to={{pathname: `/ingredients/${item._id}`, state: {background: location}}} className={style.ingredientLink}>
+                                <Ingredient ingredient={item} count={item.counter} />
+                            </Link>
                         </li>
                     ))}
                 </ul>
             </div>
-            {modalVisible && modal}
         </section>
     )
 }

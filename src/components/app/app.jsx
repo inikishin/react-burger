@@ -1,45 +1,84 @@
-import React from 'react';
-import { useSelector } from "react-redux";
+import React, {useEffect} from 'react';
+import {BrowserRouter as Router, Switch, Route, useLocation, useHistory} from 'react-router-dom';
 
-import AppHeader from '../app-header/app-header';
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-
-import style from "./app.module.css";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
+import HomePage from '../../pages/home';
+import LoginPage from "../../pages/login";
+import RegisterPage from "../../pages/register";
+import ForgotPasswordPage from "../../pages/forgot-password";
+import ResetPasswordPage from "../../pages/reset-password";
+import ProfilePage from "../../pages/profile";
+import NotFound404 from "../../pages/not-found-404";
+import IngredientPage from "../../pages/ingredient";
+import {ProtectedRoute} from "../protected-route/protected-route";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import AppHeader from "../app-header/app-header";
+import {useDispatch, useSelector} from "react-redux";
+import {getUser, refreshToken} from "../../services/actions/auth";
+import {getCookie} from "../../utils/cookies";
 
 function App() {
+    const auth = useSelector(store => store.auth);
+    const dispatch = useDispatch();
 
-    const {
-        isLoadingIngredients,
-        hasErrorIngredients,
-        ingredients
-    } = useSelector((state) => ({...state}));
+    useEffect(() => {
+        console.log(auth.isAuthenticated);
+        console.log(getCookie('token'));
+        if (!auth.isAuthenticated && getCookie('token')) {
+            dispatch(getUser());
+        }
+    }, [auth]);
+
+    useEffect(() => {
+        console.log(auth.isAuthenticated);
+        console.log(getCookie('refreshToken'));
+        if (auth.tokenExpired && getCookie('refreshToken')) {
+            dispatch(refreshToken());
+            dispatch(getUser());
+        }
+    }, [auth.tokenExpired]);
 
     return (
-    <>
-        <AppHeader/>
-        <div className={style.app}>
-            <h1 className={`${style.sectionHeader} pt-5 pb-1`}><span className="text text_type_main-large">Соберите бургер</span>
-            </h1>
-            {(isLoadingIngredients) ?
-                <h2 className="text text_type_main-medium">Загрузка данных...</h2>
-                :
-                ([ingredients].length === 0 || hasErrorIngredients) ?
-                    <h2 className="text text_type_main-medium">Ошибка при получении данных</h2>
-                    :
-                    <main className={style.mainDashboard}>
-                        <DndProvider backend={HTML5Backend}>
-                            <BurgerIngredients />
-                            <BurgerConstructor/>
-                        </DndProvider>
-                    </main>
-            }
-        </div>
-    </>
-)
-    ;
+        <Router>
+            <ModalSwitch />
+        </Router>
+    );
+}
+
+function ModalSwitch() {
+    const location = useLocation();
+    const history = useHistory();
+    const background = history.action === 'PUSH' && location.state && location.state.background;
+
+    const closeModal = () => {
+        history.goBack();
+    }
+
+    const modal = (
+        <Modal onClose={closeModal} title="Детали ингредиента">
+            <IngredientDetails  />
+        </Modal>
+    );
+
+    return (
+        <>
+            <AppHeader />
+            <Switch location={background || location}>
+                <Route path="/" exact={true}><HomePage/></Route>
+                <Route path="/login" exact={true}><LoginPage/></Route>
+                <Route path="/register" exact={true}><RegisterPage/></Route>
+                <Route path="/forgot-password" exact={true}><ForgotPasswordPage/></Route>
+                <Route path="/reset-password" exact={true}><ResetPasswordPage/></Route>
+                <ProtectedRoute path="/profile" exact={true}><ProfilePage/></ProtectedRoute>
+                <ProtectedRoute path="/profile/orders" exact={true}></ProtectedRoute>
+                <ProtectedRoute path="/profile/orders/:id" exact={true}></ProtectedRoute>
+                <Route path={'/ingredients/:id'}><IngredientPage/></Route>
+                <Route><NotFound404/></Route>
+            </Switch>
+
+            {background && <Route path="/ingredients/:id" children={modal}/>}
+        </>
+    );
 }
 
 export default App;

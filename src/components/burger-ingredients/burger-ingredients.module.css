@@ -5,3 +5,22 @@
     height: 70vh;
     overflow: auto;
 }
+
+
+.ingredientLink {
+    outline: none;
+    text-decoration: none;
+    padding: 20px;
+    color: #F2F2F3;
+    z-index: 2;
+    display: inline-flex;
+    vertical-align: center;
+}
+
+.ingredientLink:visited {
+    color: #F2F2F3;
+}
+
+.ingredientLink:hover {
+    color: #8585AD;
+}
