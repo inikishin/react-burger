@@ -15,7 +15,7 @@ function AppHeader() {
                 <div className="pl-30">
                     <Link className={style.navItem} to="/"><BurgerIcon type="secondary"/> <span
                         className="text text_type_main-default pl-2"> Конструктор</span></Link>
-                    <Link className={style.navItem} to="/"><ListIcon type="secondary"/> <span
+                    <Link className={style.navItem} to="/feed"><ListIcon type="secondary"/> <span
                         className="text text_type_main-default pl-2"> Лента заказов</span></Link>
                 </div>
                 <Link to="/">

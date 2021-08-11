@@ -1,0 +1,42 @@
+.wrapper{
+    width: 640px;
+
+}
+
+.ingredientsWrapper{
+    margin-bottom: 52px;
+    padding: 0px 20px;
+    display: block;
+    max-height: 256px;
+    overflow: auto;
+}
+
+.ingredientWrapper{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ingredient{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.ordersDone{
+    color: #00CCCC;
+}
+
+.ingredientPreview {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+
+    box-sizing: border-box;
+    margin: 0;
+    border-radius: 100%;
+    border:  solid 3px #6336dd;
+    background-color: #000;
+    background-clip: content-box, border-box;
+    margin-left: -12px;
+}

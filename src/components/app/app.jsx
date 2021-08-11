@@ -16,6 +16,9 @@ import AppHeader from "../app-header/app-header";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, refreshToken} from "../../services/actions/auth";
 import {getCookie} from "../../utils/cookies";
+import FeedPage from "../../pages/feed";
+import OrderInfoPage from "../../pages/order-info";
+import OrderInfo from "../order-info/order-info";
 
 function App() {
     const auth = useSelector(store => store.auth);
@@ -49,14 +52,20 @@ function ModalSwitch() {
     const location = useLocation();
     const history = useHistory();
     const background = history.action === 'PUSH' && location.state && location.state.background;
+    console.log('background',background);
 
     const closeModal = () => {
         history.goBack();
     }
 
-    const modal = (
+    const modalIngredientDetails = (
         <Modal onClose={closeModal} title="Детали ингредиента">
             <IngredientDetails  />
+        </Modal>
+    );
+    const modalOrderInfo = (
+        <Modal onClose={closeModal} title="Детали ингредиента">
+            <OrderInfo />
         </Modal>
     );
 
@@ -72,11 +81,16 @@ function ModalSwitch() {
                 <ProtectedRoute path="/profile" exact={true}><ProfilePage/></ProtectedRoute>
                 <ProtectedRoute path="/profile/orders" exact={true}></ProtectedRoute>
                 <ProtectedRoute path="/profile/orders/:id" exact={true}></ProtectedRoute>
-                <Route path={'/ingredients/:id'}><IngredientPage/></Route>
+                <Route path={'/ingredients/:id'} exact={true}><IngredientPage/></Route>
+                <Route path={'/feed'} exact={true}><FeedPage/></Route>
+                <Route path={'/feed/:id'} exact={true}><OrderInfoPage /></Route>
                 <Route><NotFound404/></Route>
             </Switch>
 
-            {background && <Route path="/ingredients/:id" children={modal}/>}
+            {background && <>
+                <Route path="/ingredients/:id" children={modalIngredientDetails}/>
+                <Route path="/feed/:id" children={modalOrderInfo}/>
+            </>}
         </>
     );
 }
