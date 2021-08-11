@@ -8,3 +8,9 @@
 .profileWrapper {
     display: flex;
 }
+
+.feedWrapper{
+    max-width: 872px;
+    display: grid;
+    grid-template-columns: 1fr;
+}

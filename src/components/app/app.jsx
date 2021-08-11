@@ -19,6 +19,7 @@ import {getCookie} from "../../utils/cookies";
 import FeedPage from "../../pages/feed";
 import OrderInfoPage from "../../pages/order-info";
 import OrderInfo from "../order-info/order-info";
+import ProfileOrdersPage from "../../pages/profile-orders";
 
 function App() {
     const auth = useSelector(store => store.auth);
@@ -79,7 +80,7 @@ function ModalSwitch() {
                 <Route path="/forgot-password" exact={true}><ForgotPasswordPage/></Route>
                 <Route path="/reset-password" exact={true}><ResetPasswordPage/></Route>
                 <ProtectedRoute path="/profile" exact={true}><ProfilePage/></ProtectedRoute>
-                <ProtectedRoute path="/profile/orders" exact={true}></ProtectedRoute>
+                <ProtectedRoute path="/profile/orders" exact={true}><ProfileOrdersPage/></ProtectedRoute>
                 <ProtectedRoute path="/profile/orders/:id" exact={true}></ProtectedRoute>
                 <Route path={'/ingredients/:id'} exact={true}><IngredientPage/></Route>
                 <Route path={'/feed'} exact={true}><FeedPage/></Route>

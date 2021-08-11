@@ -14,7 +14,7 @@ function Feed(props) {
     }, [dispatch]);
 
     return (
-        <ul>
+        <ul className={styles.ordersList}>
             {props.orders.map((item) => (
                 <FeedOrder {...item} key={item._id}/>
             ))}
@@ -34,7 +34,7 @@ function FeedOrder(props) {
     console.log(orderIngredientsPreview);
 
     return (
-        <Link to={{pathname: `/feed/${props._id}`, state: {background: location}}}>
+        <Link to={{pathname: `/feed/${props._id}`, state: {background: location}}} className={styles.orderLink}>
             <li className={styles.order}>
                 <div className={`mb-5 ${styles.orderHeader}`}>
                     <div>

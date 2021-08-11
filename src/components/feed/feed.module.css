@@ -8,6 +8,14 @@ li{
     padding: 24px;
     margin-bottom: 16px;
 }
+
+.ordersList {
+    max-width: 872px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+
 .orderHeader{
     display: flex;
     justify-content: space-between;
@@ -45,4 +53,22 @@ li{
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.orderLink {
+    outline: none;
+    text-decoration: none;
+    padding: 20px;
+    color: #F2F2F3;
+    z-index: 2;
+    display: block;
+    vertical-align: center;
+}
+
+.orderLink:visited {
+    color: #F2F2F3;
+}
+
+.orderLink:hover {
+    color: #8585AD;
 }
