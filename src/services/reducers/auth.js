@@ -23,10 +23,6 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: true, hasError: false, isAuthenticated: false,}
         }
         case LOGIN_SUCCESS: {
-            // TODO delete
-            console.log('reducer: LOGIN_SUCCESS');
-            console.log(action.data);
-
             if (action.data.accessToken) {
                 setCookie('token', action.data.accessToken.split('Bearer ')[1]);
                 setCookie('refreshToken', action.data.refreshToken);
@@ -35,8 +31,6 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: false, isAuthenticated: true, user: action.data.user}
         }
         case LOGIN_FAILED: {
-            console.log('Request error:');
-            console.log(action.error);
             return {...state, isLoading: false, hasError: true};
         }
 
@@ -50,8 +44,6 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: false, isAuthenticated: false, user: initialState.user}
         }
         case LOGOUT_FAILED: {
-            console.log('LOGOUT_FAILED error:');
-            console.log(action.error);
             return {...state, isLoading: false, hasError: true};
         }
 
@@ -59,10 +51,6 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: true, hasError: false}
         }
         case REGISTER_USER_SUCCESS: {
-            // TODO delete
-            console.log('reducer: REGISTER_USER_SUCCESS');
-            console.log(action.data);
-
             if (action.data.accessToken) {
                 setCookie('token', action.data.accessToken.split('Bearer ')[1]);
                 setCookie('refreshToken', action.data.refreshToken);
@@ -71,8 +59,6 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: false, isAuthenticated: true, user: action.data.user}
         }
         case REGISTER_USER_FAILED: {
-            console.log('Request error:');
-            console.log(action.error);
             return {...state, isLoading: false, hasError: true};
         }
 
@@ -80,16 +66,9 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: true, hasError: false}
         }
         case GET_USER_SUCCESS: {
-            // TODO delete
-            console.log('reducer: GET_USER_SUCCESS');
-            console.log(action.data);
-
             return {...state, isAuthenticated: true, isLoading: false, user: action.data.user}
         }
         case GET_USER_FAILED: {
-            console.log('GET_USER_FAILED error:');
-            console.log(action.error);
-
             return {...state, isLoading: false, hasError: true, tokenExpired: true};
         }
 
@@ -97,15 +76,9 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: true, hasError: false}
         }
         case SET_USER_SUCCESS: {
-            // TODO delete
-            console.log('reducer: SET_USER_SUCCESS');
-            console.log(action.data);
-
             return {...state, isLoading: false, user: action.data.user}
         }
         case SET_USER_FAILED: {
-            console.log('SET_USER_FAILED error:');
-            console.log(action.error);
             return {...state, isLoading: false, hasError: true};
         }
 
@@ -121,8 +94,6 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: false, tokenExpired: false}
         }
         case REFRESH_TOKEN_FAILED: {
-            console.log('REFRESH_TOKEN_FAILED error:');
-            console.log(action.error);
             return {...state, isLoading: false, hasError: true};
         }
 
@@ -133,8 +104,6 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: false}
         }
         case RESET_PASSWORD_FAILED: {
-            console.log('RESET_PASSWORD_FAILED error:');
-            console.log(action.error);
             return {...state, isLoading: false, hasError: true};
         }
 
@@ -145,8 +114,6 @@ export const auth = (state = initialState, action) => {
             return {...state, isLoading: false}
         }
         case SET_NEW_PASSWORD_FAILED: {
-            console.log('SET_NEW_PASSWORD_FAILED error:');
-            console.log(action.error);
             return {...state, isLoading: false, hasError: true};
         }
 

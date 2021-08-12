@@ -1,14 +1,5 @@
-import React from "react";
-import styles from './profile.module.css';
-import ProfileMenu from "./profile-menu";
-import Feed from "../feed/feed";
-import ProfileOrdersFeed from "./profile-orders-feed";
-
-
-function ProfileOrders() {
-    const responce = {
-        "success": true,
-        "orders": [
+const initialState = {
+    orders: [
             {
                 "ingredients": [
                     "60d3b41abdacab0026a733c6",
@@ -70,19 +61,14 @@ function ProfileOrders() {
                 "updatedAt": "2021-06-23T14:43:22.603Z"
             }
         ],
-        "total": 15821,
-        "totalToday": 158
-    }
-    return (
-        <div className={styles.profileContainer}>
-            <div className={styles.profileWrapper}>
-                <ProfileMenu/>
-                <div className={styles.feedWrapper}>
-                    <ProfileOrdersFeed orders={responce.orders}/>
-                </div>
-            </div>
-        </div>
-    );
+    total: 15821,
+    totalToday: 158
 }
 
-export default ProfileOrders;
+export const feed = (state = initialState, action) => {
+    switch (action.type) {
+        default: {
+            return state;
+        }
+    }
+}

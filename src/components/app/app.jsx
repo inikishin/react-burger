@@ -31,7 +31,7 @@ function App() {
         if (!auth.isAuthenticated && getCookie('token')) {
             dispatch(getUser());
         }
-    }, [auth]);
+    }, []);
 
     useEffect(() => {
         console.log(auth.isAuthenticated);
@@ -40,7 +40,7 @@ function App() {
             dispatch(refreshToken());
             dispatch(getUser());
         }
-    }, [auth.tokenExpired]);
+    }, [auth.isAuthenticated]);
 
     return (
         <Router>
@@ -70,6 +70,8 @@ function ModalSwitch() {
         </Modal>
     );
 
+
+    // TODO Доделать роут /profile/orders/:id
     return (
         <>
             <AppHeader />
@@ -81,7 +83,7 @@ function ModalSwitch() {
                 <Route path="/reset-password" exact={true}><ResetPasswordPage/></Route>
                 <ProtectedRoute path="/profile" exact={true}><ProfilePage/></ProtectedRoute>
                 <ProtectedRoute path="/profile/orders" exact={true}><ProfileOrdersPage/></ProtectedRoute>
-                <ProtectedRoute path="/profile/orders/:id" exact={true}></ProtectedRoute>
+                <ProtectedRoute path="/profile/orders/:id" exact={true}><OrderInfoPage /></ProtectedRoute>
                 <Route path={'/ingredients/:id'} exact={true}><IngredientPage/></Route>
                 <Route path={'/feed'} exact={true}><FeedPage/></Route>
                 <Route path={'/feed/:id'} exact={true}><OrderInfoPage /></Route>
@@ -91,6 +93,7 @@ function ModalSwitch() {
             {background && <>
                 <Route path="/ingredients/:id" children={modalIngredientDetails}/>
                 <Route path="/feed/:id" children={modalOrderInfo}/>
+                <Route path="/profile/orders/:id" children={modalOrderInfo}/>
             </>}
         </>
     );
