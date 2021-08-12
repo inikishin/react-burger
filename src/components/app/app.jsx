@@ -70,8 +70,6 @@ function ModalSwitch() {
         </Modal>
     );
 
-
-    // TODO Доделать роут /profile/orders/:id
     return (
         <>
             <AppHeader />

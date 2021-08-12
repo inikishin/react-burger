@@ -42,20 +42,12 @@ export function login(form) {
         });
 
         loginRequest(form).then(res => {
-            //TODO delete
-            console.log('actions, res from login api')
-            console.log(res);
-
             if (res && res.ok) {
                 return res.json();
             } else {
                 return Promise.reject(`Error: ${res.status}`);
             }
         }).then((data) => {
-            //TODO delete
-            console.log('actions, data from login api')
-            console.log(data);
-
             if (data.accessToken) {
                 dispatch({type: LOGIN_SUCCESS, data: data});
             }
@@ -79,20 +71,12 @@ export function logout() {
         });
 
         logoutRequest({token: getCookie('refreshToken')}).then(res => {
-            //TODO delete
-            console.log('actions, res from logout api')
-            console.log(res);
-
             if (res && res.ok) {
                 return res.json();
             } else {
                 return Promise.reject(`Error: ${res.status}`);
             }
         }).then((data) => {
-            //TODO delete
-            console.log('actions, data from logout api')
-            console.log(data);
-
             dispatch({type: LOGOUT_SUCCESS});
         }).catch(e => {
                 dispatch({
@@ -111,20 +95,12 @@ export function register(form) {
         });
 
         registerRequest(form).then(res => {
-            //TODO delete
-            console.log('actions, res from register api')
-            console.log(res);
-
             if (res && res.ok) {
                 return res.json();
             } else {
                 return Promise.reject(`Error: ${res.status}`);
             }
         }).then((data) => {
-            //TODO delete
-            console.log('actions, data from register api')
-            console.log(data);
-
             if (data.accessToken) {
                 dispatch({type: REGISTER_USER_SUCCESS, data: data});
             }
@@ -148,20 +124,12 @@ export function getUser() {
         });
 
         getUserRequest().then(res => {
-            //TODO delete
-            console.log('actions, res from getuser api')
-            console.log(res);
-
             if (res && res.ok) {
                 return res.json();
             } else {
                 return Promise.reject(`Error: ${res.status}`);
             }
         }).then((data) => {
-            //TODO delete
-            console.log('actions, data from getuser api')
-            console.log(data);
-
             if (data.user) {
                 dispatch({type: GET_USER_SUCCESS, data: data});
             }
@@ -179,26 +147,16 @@ export function getUser() {
 
 export function setUserAttributes(form) {
     return function (dispatch) {
-        console.log('SET_USER_REQUEST');
         dispatch({
             type: SET_USER_REQUEST,
         });
-        console.log('SET_USER_REQUEST');
         setUserRequest(form).then(res => {
-            //TODO delete
-            console.log('actions, res from setuser api')
-            console.log(res);
-
             if (res && res.ok) {
                 return res.json();
             } else {
                 return Promise.reject(`Error: ${res.status}`);
             }
         }).then((data) => {
-            //TODO delete
-            console.log('actions, data from setuser api')
-            console.log(data);
-
             if (data.user) {
                 dispatch({type: SET_USER_SUCCESS, data: data});
             }
@@ -222,20 +180,12 @@ export function refreshToken() {
         });
 
         refreshTokenRequest({token: getCookie('refreshToken')}).then(res => {
-            //TODO delete
-            console.log('actions, res from refreshToken api')
-            console.log(res);
-
             if (res && res.ok) {
                 return res.json();
             } else {
                 return Promise.reject(`Error: ${res.status}`);
             }
         }).then((data) => {
-            //TODO delete
-            console.log('actions, data from refreshToken api')
-            console.log(data);
-
             dispatch({type: REFRESH_TOKEN_SUCCESS, data: data});
         }).catch(e => {
                 dispatch({
@@ -254,20 +204,12 @@ export function resetPassword(form) {
         });
 
         resetPasswordRequest(form).then(res => {
-            //TODO delete
-            console.log('actions, res from reset api')
-            console.log(res);
-
             if (res && res.ok) {
                 return res.json();
             } else {
                 return Promise.reject(`Error: ${res.status}`);
             }
         }).then((data) => {
-            //TODO delete
-            console.log('actions, data from reset api')
-            console.log(data);
-
             dispatch({type: RESET_PASSWORD_SUCCESS, data: data});
         }).catch(e => {
                 dispatch({
@@ -286,20 +228,12 @@ export function resetSetNewPassword(form) {
         });
 
         passwordResetReset(form).then(res => {
-            //TODO delete
-            console.log('actions, res from set new api')
-            console.log(res);
-
             if (res && res.ok) {
                 return res.json();
             } else {
                 return Promise.reject(`Error: ${res.status}`);
             }
         }).then((data) => {
-            //TODO delete
-            console.log('actions, data from set new api')
-            console.log(data);
-
             dispatch({type: SET_NEW_PASSWORD_SUCCESS});
         }).catch(e => {
                 dispatch({
