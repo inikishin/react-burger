@@ -6,10 +6,15 @@ import FeedTotal from "../components/feed/feed-total";
 import FeedOrdersStatus from "../components/feed/feed-orders-status";
 import {useDispatch, useSelector} from "react-redux";
 import {getIngredients} from "../services/actions/ingredients";
+import {WS_CONNECTION_START} from "../services/actions/feed";
 
 function FeedPage() {
     const dispatch = useDispatch();
     const {orders, total, totalToday} = useSelector(store => ({...store.feed}));
+
+    useEffect(() => {
+        dispatch({ type: WS_CONNECTION_START });
+    }, []);
 
     useEffect(() => {
         dispatch(getIngredients());

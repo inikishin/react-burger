@@ -53,7 +53,6 @@ function ModalSwitch() {
     const location = useLocation();
     const history = useHistory();
     const background = history.action === 'PUSH' && location.state && location.state.background;
-    console.log('background',background);
 
     const closeModal = () => {
         history.goBack();

@@ -2,6 +2,7 @@ import React from "react";
 import styles from './feed.module.css';
 import {Link, useLocation} from "react-router-dom";
 import FeedOrder from "../feed-order/feed-order";
+import PropTypes from "prop-types";
 
 function Feed(props) {
     const location = useLocation();
@@ -16,5 +17,11 @@ function Feed(props) {
         </ul>
     );
 }
+
+Feed.propsTypes = {
+    orders: PropTypes.shape({
+        _id: PropTypes.string
+    })
+};
 
 export default Feed;

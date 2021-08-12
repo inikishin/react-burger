@@ -1,5 +1,5 @@
 import React from "react";
-import styles from './feed-total.module.css';
+import PropTypes from 'prop-types';
 
 function FeedTotal(props) {
     return (
@@ -9,5 +9,10 @@ function FeedTotal(props) {
         </div>
     );
 }
+
+FeedTotal.propsTypes = {
+    title: PropTypes.string,
+    count: PropTypes.number
+};
 
 export default FeedTotal;

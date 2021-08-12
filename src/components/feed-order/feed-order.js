@@ -2,6 +2,7 @@ import {useSelector} from "react-redux";
 import styles from "./feed-order.module.css";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
+import PropTypes from "prop-types";
 
 function FeedOrder(props) {
 
@@ -34,6 +35,16 @@ function FeedOrder(props) {
                 </div>
             </li>
     )
+}
+
+FeedOrder.propTypes = {
+    name: PropTypes.string,
+    createdAt: PropTypes.string,
+    number: PropTypes.string,
+    ingredients: PropTypes.shape({
+        image_mobile: PropTypes.string,
+        _id: PropTypes.string
+    })
 }
 
 export default FeedOrder;
