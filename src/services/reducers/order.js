@@ -10,7 +10,7 @@ import {
 const initialState = {
     currentBurger: {bun: {}, main: [], total: 0},
     currentIngredient: {},
-    order: {number: '', isLoadingOrderNumber: false, hasErrorOrderNumber: false}
+    order: {number: 0, isLoadingOrderNumber: false, hasErrorOrderNumber: false}
 }
 
 export const order = (state = initialState, action) => {
@@ -21,7 +21,7 @@ export const order = (state = initialState, action) => {
         }
 
         case GET_ORDER_NUMBER_SUCCESS: {
-            return {...state, order: {...state.order, number:  action.orderNumber, isLoadingOrderNumber: false}}
+            return {...state, currentBurger: {...initialState.currentBurger, main: state.currentBurger.main.length===0}, order: {...state.order, number:  action.orderNumber, isLoadingOrderNumber: false}}
         }
 
         case GET_ORDER_NUMBER_FAILED: {

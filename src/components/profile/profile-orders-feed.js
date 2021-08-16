@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styles from './profile-orders-feed.module.css';
 import {Link, useLocation} from "react-router-dom";
 import FeedOrder from "../feed-order/feed-order";
@@ -9,7 +9,7 @@ function ProfileOrdersFeed(props) {
 
     return (
         <ul className={styles.ordersList}>
-            {props.orders.map((item) => (
+            {props.orders && props.orders.map((item) => (
                 <Link to={{pathname: `/profile/orders/${item._id}`, state: {background: location}}}
                       className={styles.orderLink} key={item._id}>
                     <FeedOrder {...item} />
@@ -20,9 +20,9 @@ function ProfileOrdersFeed(props) {
 }
 
 ProfileOrdersFeed.propTypes = {
-    orders: PropTypes.shape({
+    orders: PropTypes.arrayOf(PropTypes.shape({
         _id: PropTypes.string
-    })
+    }))
 }
 
 export default ProfileOrdersFeed;

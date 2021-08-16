@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import { useInView } from 'react-intersection-observer';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import Ingredient from "./ingredient";
 import style from "./burger-ingredients.module.css";
-import {getIngredients, ADD_INGREDIENT_DATA, DELETE_INGREDIENT_DATA} from "../../services/actions/ingredients";
+import {getIngredients} from "../../services/actions/ingredients";
 import {Link, useLocation} from "react-router-dom";
 
 
@@ -13,9 +13,8 @@ function BurgerIngredients() {
 
     const location = useLocation();
     const [currentTab, setCurrentTab] = React.useState("bun");
-    const [modalVisible, setModalVisible] = useState(false);
 
-    const { ingredients, currentIngredient } = useSelector(store => ({...store.ingredients}));
+    const { ingredients } = useSelector(store => ({...store.ingredients}));
     const dispatch = useDispatch();
 
     const [refBun, inViewBun] = useInView();
@@ -37,12 +36,6 @@ function BurgerIngredients() {
     useEffect(() => {
         dispatch(getIngredients());
     }, [dispatch]);
-
-
-    const closeModal = () => {
-        dispatch({type: DELETE_INGREDIENT_DATA});
-        setModalVisible(false);
-    };
 
     function setCurrent(currentValue) {
         setCurrentTab(currentValue);

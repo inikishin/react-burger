@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react';
 import styles from './forgot-password.module.css';
-import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
+import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect, useHistory} from "react-router-dom";
 import { resetPassword as resetPasswordAuth } from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";

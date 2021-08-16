@@ -14,7 +14,7 @@ function FeedPage() {
 
     useEffect(() => {
         dispatch({ type: WS_CONNECTION_START });
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         dispatch(getIngredients());

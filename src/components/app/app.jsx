@@ -26,16 +26,12 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(auth.isAuthenticated);
-        console.log(getCookie('token'));
         if (!auth.isAuthenticated && getCookie('token')) {
             dispatch(getUser());
         }
     }, []);
 
     useEffect(() => {
-        console.log(auth.isAuthenticated);
-        console.log(getCookie('refreshToken'));
         if (auth.tokenExpired && getCookie('refreshToken')) {
             dispatch(refreshToken());
             dispatch(getUser());
@@ -64,7 +60,7 @@ function ModalSwitch() {
         </Modal>
     );
     const modalOrderInfo = (
-        <Modal onClose={closeModal} title="Детали ингредиента">
+        <Modal onClose={closeModal} title="">
             <OrderInfo />
         </Modal>
     );

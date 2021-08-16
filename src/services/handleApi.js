@@ -105,7 +105,6 @@ export const setUserRequest = async (form) =>
     });
 
 export const logoutRequest = async (refreshToken) => {
-    console.log(JSON.stringify(refreshToken));
     return await fetch('https://norma.nomoreparties.space/api/auth/logout', {
         method: 'POST',
         mode: 'cors',

@@ -3,7 +3,7 @@ import styles from './register.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {login as loginAuth, register as registerAuth} from "../../services/actions/auth";
+import {register as registerAuth} from "../../services/actions/auth";
 
 
 function Register() {
@@ -22,7 +22,7 @@ function Register() {
             e.preventDefault();
             dispatch(registerAuth(form));
         },
-        [auth, form]
+        [form, dispatch]
     );
 
     if (auth.isAuthenticated) {

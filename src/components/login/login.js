@@ -1,12 +1,13 @@
 import React, {useState, useCallback} from 'react';
 import styles from './login.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Redirect, useHistory} from "react-router-dom";
+import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
 import { login as loginAuth } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 
 function Login() {
+    const location = useLocation();
     const dispatch = useDispatch();
     const auth = useSelector(store => ({...store.auth}));
 
@@ -25,7 +26,8 @@ function Login() {
     );
 
     if (auth.isAuthenticated) {
-        return (<Redirect to={{pathname: '/'}} />);
+        const redirectPath = location.state ? location.state.from.pathname : '/';
+        return (<Redirect to={{pathname: redirectPath, state: {background: location.state && location.state.from}}} />);
     }
 
     return (

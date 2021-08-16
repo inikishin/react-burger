@@ -10,8 +10,8 @@ function Feed(props) {
     return (
         <ul className={styles.ordersList}>
             {props.orders.map((item) => (
-                <Link to={{pathname: `/feed/${item._id}`, state: {background: location}}} className={styles.orderLink}>
-                    <FeedOrder {...item} key={item._id}/>
+                <Link to={{pathname: `/feed/${item._id}`, state: {background: location}}} className={styles.orderLink} key={item._id}>
+                    <FeedOrder {...item} />
                 </Link>
             ))}
         </ul>

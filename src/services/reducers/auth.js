@@ -1,4 +1,4 @@
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, refreshToken} from "../actions/auth";
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED} from "../actions/auth";
 import {LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILED} from "../actions/auth";
 import {REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED} from "../actions/auth";
 import {GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAILED} from "../actions/auth";
