@@ -8,7 +8,8 @@ export const getOrderNumberRequest = async (ingredientsIds) => {
     return await fetch('https://norma.nomoreparties.space/api/orders', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json;charset=utf-8'
+            'Content-Type': 'application/json;charset=utf-8',
+            Authorization: 'Bearer ' + getCookie('token')
         },
         body: JSON.stringify({ingredients: ingredientsIds})
     });
