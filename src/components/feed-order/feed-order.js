@@ -42,6 +42,7 @@ FeedOrder.propTypes = {
     name: PropTypes.string,
     createdAt: PropTypes.string,
     number: PropTypes.number,
+    status: PropTypes.string,
     ingredients: PropTypes.arrayOf(PropTypes.string)
 }
 
