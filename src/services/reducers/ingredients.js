@@ -12,6 +12,7 @@ const initialState = {
     ingredients: [],
     isLoadingIngredients: false,
     hasErrorIngredients: false,
+    currentIngredient: null
 }
 
 export const ingredients = (state = initialState, action) => {

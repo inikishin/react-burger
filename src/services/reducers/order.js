@@ -1,7 +1,9 @@
 import {v4 as uuidv4} from "uuid";
 
 import {
-    ADD_INGREDIENT_TO_BURGER, CHANGE_INGREDIENT_IN_BURGER, DELETE_INGREDIENT_FROM_BURGER,
+    ADD_INGREDIENT_TO_BURGER,
+    CHANGE_INGREDIENT_IN_BURGER,
+    DELETE_INGREDIENT_FROM_BURGER,
     GET_ORDER_NUMBER_FAILED,
     GET_ORDER_NUMBER_REQUEST,
     GET_ORDER_NUMBER_SUCCESS
@@ -21,7 +23,7 @@ export const order = (state = initialState, action) => {
         }
 
         case GET_ORDER_NUMBER_SUCCESS: {
-            return {...state, currentBurger: {...initialState.currentBurger, main: state.currentBurger.main.length===0}, order: {...state.order, number:  action.orderNumber, isLoadingOrderNumber: false}}
+            return {...state, currentBurger: {...initialState.currentBurger, main: []}, order: {...state.order, number:  action.orderNumber, isLoadingOrderNumber: false}}
         }
 
         case GET_ORDER_NUMBER_FAILED: {
