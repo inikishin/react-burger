@@ -14,7 +14,7 @@ describe('Testing order reducer', () => {
     it('initialState', () => {
         expect(order(undefined, {})).toEqual({
             currentBurger: {bun: {}, main: [], total: 0},
-            currentIngredient: {}, // TODO Нужен ли он тут?
+            currentIngredient: {},
             order: {number: 0, isLoadingOrderNumber: false, hasErrorOrderNumber: false}
         });
     });

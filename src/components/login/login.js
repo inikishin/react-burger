@@ -1,7 +1,7 @@
 import React, {useState, useCallback} from 'react';
 import styles from './login.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Redirect, useHistory, useLocation} from "react-router-dom";
+import {Link, Redirect, useLocation} from "react-router-dom";
 import { login as loginAuth } from "../../services/actions/auth";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -35,10 +35,10 @@ function Login() {
             <div className={styles.wrapper}>
                 <h1 className="text text_type_main-medium mb-6">Вход</h1>
                 <form onSubmit={login}>
-                    <div className={styles.inputContainer}>
+                    <div className={styles.inputContainer} id="input-email">
                         <Input type="text" placeholder="E-mail" name="email" onChange={onChange} value={form.email}/>
                     </div>
-                    <div className={styles.inputContainer}>
+                    <div id="input-password" className={styles.inputContainer}>
                         <PasswordInput type="password" placeholder="Пароль" name="password" icon={'ShowIcon'}
                                        onChange={onChange} value={form.password}/>
                     </div>
