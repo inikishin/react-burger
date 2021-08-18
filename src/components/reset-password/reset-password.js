@@ -26,7 +26,7 @@ function ResetPassword() {
                 history.replace('/login');
             }
         },
-        [auth, form]
+        [auth, form, dispatch, history]
     );
 
     if (auth.isAuthenticated) {

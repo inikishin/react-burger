@@ -14,6 +14,14 @@
     text-align: left;
 }
 
+.sectionColumn{
+    width: 50%;
+    flex-basis: content;
+    margin-right: 72px;
+    height: 85vh;
+    overflow: auto;
+}
+
 ul::-webkit-scrollbar {
     width: 12px;
 }
@@ -23,6 +31,20 @@ ul::-webkit-scrollbar-track {
 }
 
 ul::-webkit-scrollbar-thumb {
+    background: #8585AD;
+	border: 3px solid #2F2F37;
+	border-radius: 6px;
+}
+
+div::-webkit-scrollbar {
+    width: 12px;
+}
+
+div::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+div::-webkit-scrollbar-thumb {
     background: #8585AD;
 	border: 3px solid #2F2F37;
 	border-radius: 6px;

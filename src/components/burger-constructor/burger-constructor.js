@@ -11,7 +11,6 @@ import Modal from "../modal/modal";
 import {getOrderNumber, ADD_INGREDIENT_TO_BURGER, CHANGE_INGREDIENT_IN_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/order";
 import { INCREASE_INGREDIENT_COUNTER, DECSEASE_INGREDIENT_COUNTER } from "../../services/actions/ingredients";
 import PropTypes from "prop-types";
-import Ingredient from "../burger-ingredients/ingredient";
 
 function BurgerConstructor() {
 
@@ -72,7 +71,7 @@ function BurgerConstructor() {
 
     const modal = (
         <Modal onClose={closeModal} title="">
-            <OrderDetails orderNumber={order.number} />
+            <OrderDetails orderNumber={order.number.toString()} />
         </Modal>
     );
 
@@ -113,12 +112,12 @@ function BurgerConstructor() {
 
             <div className={`${style.orderFooter} p-5`}>
                 <p className="text text_type_digits-medium">{currentBurger.total} <CurrencyIcon/></p>
-                {auth.isAuthenticated ?
+                {(auth.isAuthenticated && currentBurger.bun._id) ?
                     <Button type="primary" size="large" onClick={createOrder} active={false}>
                         {!order.isLoadingOrderNumber ? `Оформить заказ` : `Получаем номер...`}
                     </Button>
                     :
-                    <span className="text text_type_main-default text_color_inactive">Пожалуйста авторизуйтесь, чтобы сделать заказ</span>
+                    <span className="text text_type_main-default text_color_inactive">Пожалуйста авторизуйтесь и добавьте булку, чтобы сделать заказ</span>
                 }
                 {modalVisible && modal}
             </div>

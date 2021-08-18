@@ -1,0 +1,32 @@
+.containerWrapper{
+    display: flex;
+    composes: mb-15 from global;
+}
+
+.statusContainer{
+    width: 280px;
+}
+
+.ordersListOneColumn{
+    padding: 0;
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.ordersListTwoColumn{
+    padding: 0;
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.ordersWork{
+    list-style: none;
+}
+
+.ordersDone{
+    color: #00CCCC;
+    list-style: none;
+}
+

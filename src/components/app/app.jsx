@@ -16,27 +16,27 @@ import AppHeader from "../app-header/app-header";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, refreshToken} from "../../services/actions/auth";
 import {getCookie} from "../../utils/cookies";
+import FeedPage from "../../pages/feed";
+import OrderInfoPage from "../../pages/order-info";
+import OrderInfo from "../order-info/order-info";
+import ProfileOrdersPage from "../../pages/profile-orders";
 
 function App() {
     const auth = useSelector(store => store.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log(auth.isAuthenticated);
-        console.log(getCookie('token'));
         if (!auth.isAuthenticated && getCookie('token')) {
             dispatch(getUser());
         }
-    }, [auth]);
+    }, []);
 
     useEffect(() => {
-        console.log(auth.isAuthenticated);
-        console.log(getCookie('refreshToken'));
         if (auth.tokenExpired && getCookie('refreshToken')) {
             dispatch(refreshToken());
             dispatch(getUser());
         }
-    }, [auth.tokenExpired]);
+    }, [auth.isAuthenticated]);
 
     return (
         <Router>
@@ -54,9 +54,14 @@ function ModalSwitch() {
         history.goBack();
     }
 
-    const modal = (
+    const modalIngredientDetails = (
         <Modal onClose={closeModal} title="Детали ингредиента">
             <IngredientDetails  />
+        </Modal>
+    );
+    const modalOrderInfo = (
+        <Modal onClose={closeModal} title="">
+            <OrderInfo />
         </Modal>
     );
 
@@ -70,13 +75,19 @@ function ModalSwitch() {
                 <Route path="/forgot-password" exact={true}><ForgotPasswordPage/></Route>
                 <Route path="/reset-password" exact={true}><ResetPasswordPage/></Route>
                 <ProtectedRoute path="/profile" exact={true}><ProfilePage/></ProtectedRoute>
-                <ProtectedRoute path="/profile/orders" exact={true}></ProtectedRoute>
-                <ProtectedRoute path="/profile/orders/:id" exact={true}></ProtectedRoute>
-                <Route path={'/ingredients/:id'}><IngredientPage/></Route>
+                <ProtectedRoute path="/profile/orders" exact={true}><ProfileOrdersPage/></ProtectedRoute>
+                <ProtectedRoute path="/profile/orders/:id" exact={true}><OrderInfoPage /></ProtectedRoute>
+                <Route path={'/ingredients/:id'} exact={true}><IngredientPage/></Route>
+                <Route path={'/feed'} exact={true}><FeedPage/></Route>
+                <Route path={'/feed/:id'} exact={true}><OrderInfoPage /></Route>
                 <Route><NotFound404/></Route>
             </Switch>
 
-            {background && <Route path="/ingredients/:id" children={modal}/>}
+            {background && <>
+                <Route path="/ingredients/:id" children={modalIngredientDetails}/>
+                <Route path="/feed/:id" children={modalOrderInfo}/>
+                <Route path="/profile/orders/:id" children={modalOrderInfo}/>
+            </>}
         </>
     );
 }
