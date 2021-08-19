@@ -28,16 +28,6 @@ describe('Testing order reducer', () => {
         });
     });
 
-    // TODO Что то с этим сделать
-    // it('ADD_INGREDIENT_TO_BURGER for other', () => {
-    //     const action = {type: ADD_INGREDIENT_TO_BURGER, ingredient: {_id: '1', type: 'main', name: 'main 1', price: 100}}
-    //     expect(order(initialState, action)).toEqual({
-    //         currentBurger: {bun: {}, main: [{_id: '1', type: 'main', name: 'main 1', price: 100, key: '1'}], total: 100},
-    //         currentIngredient: {},
-    //         order: {number: 0, isLoadingOrderNumber: false, hasErrorOrderNumber: false}
-    //     });
-    // });
-
     it('CHANGE_INGREDIENT_IN_BURGER', () => {
         const action = {type: CHANGE_INGREDIENT_IN_BURGER, oldIndex: 0, currentIndex: 2};
         const state = {
@@ -136,6 +126,18 @@ describe('Testing order reducer', () => {
             currentIngredient: {},
             order: {number: 999999, isLoadingOrderNumber: false, hasErrorOrderNumber: false}
         });
+    });
+
+    it('ADD_INGREDIENT_TO_BURGER for other', () => {
+        const action = {type: ADD_INGREDIENT_TO_BURGER, ingredient: {_id: '1', type: 'main', name: 'main 1', price: 100}};
+        const initialStateFake = initialState;
+        const returnValue = order(initialStateFake, action);
+        expect(returnValue.currentBurger.main[0]).toHaveProperty('price', 100);
+        expect(returnValue.currentBurger.main[0]).toHaveProperty('name', 'main 1');
+        expect(returnValue.currentBurger.main[0]).toHaveProperty('key');
+        expect(returnValue.currentBurger).toHaveProperty('total', 100);
+        expect(returnValue).toHaveProperty('currentIngredient', {});
+        expect(returnValue).toHaveProperty('order', {number: 0, isLoadingOrderNumber: false, hasErrorOrderNumber: false});
     });
 
 });

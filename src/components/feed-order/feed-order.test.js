@@ -29,12 +29,13 @@ it('Компонент FeedOrder рендерится без ошибок', () =
     const store = mockStore(initialState);
 
     let today = new Date();
-    today.setDate(today.getDate()-16);
-    today.setHours(0, 0);
+    today.setDate(today.getDate()-15);
+    today.setHours(-6, 0);
     const tree = renderer
         .create(<Provider store={store}>
             <FeedOrder name="test name" createdAt={today.toISOString()} number={123} ingredients={testIngredients} status="done"/>
         </Provider>)
         .toJSON();
+
     expect(tree).toMatchSnapshot();
 });

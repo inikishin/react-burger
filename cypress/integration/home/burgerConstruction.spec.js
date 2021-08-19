@@ -1,6 +1,12 @@
 describe('Сборка бургера', () => {
+    Cypress.Cookies.debug(true);
+
     before(() => {
         cy.visit('http://localhost:3000');
+    });
+
+    beforeEach(() => {
+        Cypress.Cookies.preserveOnce('token');
     });
 
     it('Должна открыться главная страница', () => {
@@ -14,6 +20,7 @@ describe('Сборка бургера', () => {
     });
 
     it('Логинимся', function () {
+        Cypress.Cookies.debug(true);
         cy.get('#input-email > div > div > input').type('inikishin@gmail.com');
         cy.get('#input-password > div > div > input').type('123456');
         cy.get('button').contains('Войти').click();
@@ -33,10 +40,9 @@ describe('Сборка бургера', () => {
         cy.contains('5600'); // Проверяем итоговую сумму
     });
 
-    // TODO Доделать, отсутсвуют куки
-    // it('Отправляем заказ', function () {
-    //     cy.get('button', {timeout: 20000}).contains('Оформить заказ').click();
-    //     cy.contains('Получаем номер...');
-    // });
+    it('Отправляем заказ', function () {
+        cy.get('button').contains('Оформить заказ').click();
+        cy.contains('идентификатор заказа', {timeout: 120000});
+    });
 
 });

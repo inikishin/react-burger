@@ -16,8 +16,8 @@ export function convertOrderDate(date){
         deltaString = delta + ' дней назад';
     }
 
-    const options = {timeZoneName: 'short', hour: 'numeric', minute: 'numeric'}
-    return deltaString + ", " + newDate.toLocaleTimeString("ru-RU", options);
+    const options = {timeZone: 'Europe/Moscow', timeZoneName: 'short', hour: '2-digit', minute: '2-digit'}
+    return deltaString + ", " + newDate.toLocaleTimeString('ru-RU', options);
 }
 
 export function getReadableStatus(status){
@@ -33,3 +33,5 @@ export function getReadableStatus(status){
         }
     }
 }
+
+export default convertOrderDate;
