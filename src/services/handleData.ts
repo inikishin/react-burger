@@ -1,4 +1,4 @@
-export function convertOrderDate(date){
+export function convertOrderDate(date: string): string{
     const newDate = new Date(date);
     const currentDate = new Date();
     const delta = currentDate.getDate() - newDate.getDate();
@@ -17,10 +17,11 @@ export function convertOrderDate(date){
     }
 
     const options = {timeZone: 'Europe/Moscow', timeZoneName: 'short', hour: '2-digit', minute: '2-digit'}
+    // @ts-ignore
     return deltaString + ", " + newDate.toLocaleTimeString('ru-RU', options);
 }
 
-export function getReadableStatus(status){
+export function getReadableStatus(status: string): string{
     switch (status) {
         case 'done': {
             return 'Выполнен';

@@ -4,7 +4,7 @@ export const getIngredientRequest = async () => {
     return await fetch('https://norma.nomoreparties.space/api/ingredients');
 }
 
-export const getOrderNumberRequest = async (ingredientsIds) => {
+export const getOrderNumberRequest = async (ingredientsIds: Array<string>) => {
     return await fetch('https://norma.nomoreparties.space/api/orders', {
         method: 'POST',
         headers: {
@@ -15,23 +15,23 @@ export const getOrderNumberRequest = async (ingredientsIds) => {
     });
 }
 
-
-export const deserializeQuery = (query, noQuestionMark = false) => {
-    const pairs = (noQuestionMark ? query : query.substring(1)).split('&');
-    const array = pairs.map(elem => elem.split('='));
-    return Object.fromEntries(array);
-};
-
-export const serializeQuery = queryParams =>
+export const serializeQuery = (queryParams: any): string =>
     Object.entries(queryParams).reduce((acc, [key, value], index, array) => {
         if (typeof value === 'undefined') {
             return acc;
         }
         const postfix = index === array.length - 1 ? '' : '&';
+        // @ts-ignore
         return `${acc}${encodeURIComponent(key)}=${encodeURIComponent(value)}${postfix}`;
     }, '?');
 
-export const loginRequest = async form => {
+
+interface ILoginForm {
+    email: string,
+    password: string
+};
+
+export const loginRequest = async (form: ILoginForm) => {
     return await fetch('https://norma.nomoreparties.space/api/auth/login', {
         method: 'POST',
         mode: 'cors',
@@ -46,7 +46,13 @@ export const loginRequest = async form => {
     });
 };
 
-export const registerRequest = async form => {
+interface IRegisterForm {
+    email: string,
+    name: string,
+    password: string
+};
+
+export const registerRequest = async (form: IRegisterForm) => {
     return await fetch('https://norma.nomoreparties.space/api/auth/register', {
         method: 'POST',
         mode: 'cors',
@@ -61,7 +67,7 @@ export const registerRequest = async form => {
     });
 };
 
-export const refreshTokenRequest = async (refreshToken) =>
+export const refreshTokenRequest = async (refreshToken: { token: string | undefined }) =>
     await fetch('https://norma.nomoreparties.space/api/auth/token', {
         method: 'POST',
         mode: 'cors',
@@ -89,7 +95,9 @@ export const getUserRequest = async () =>
         referrerPolicy: 'no-referrer'
     });
 
-export const setUserRequest = async (form) =>
+
+
+export const setUserRequest = async (form: IRegisterForm) =>
     await fetch('https://norma.nomoreparties.space/api/auth/user', {
         method: 'PATCH',
         mode: 'cors',
@@ -104,7 +112,7 @@ export const setUserRequest = async (form) =>
         body: JSON.stringify(form)
     });
 
-export const logoutRequest = async (refreshToken) => {
+export const logoutRequest = async (refreshToken: { token: string | undefined }) => {
     return await fetch('https://norma.nomoreparties.space/api/auth/logout', {
         method: 'POST',
         mode: 'cors',
@@ -119,7 +127,11 @@ export const logoutRequest = async (refreshToken) => {
     });
 };
 
-export const passwordReset = async (form) => {
+interface IPasswordResetForm {
+    email: string
+}
+
+export const passwordReset = async (form: IPasswordResetForm) => {
     return await fetch('https://norma.nomoreparties.space/api/password-reset', {
         method: 'POST',
         mode: 'cors',
@@ -134,7 +146,12 @@ export const passwordReset = async (form) => {
     });
 };
 
-export const passwordResetReset = async (form) => {
+interface IPasswordResetResetForm {
+    password: string,
+    token: string
+}
+
+export const passwordResetReset = async (form: IPasswordResetResetForm) => {
     return await fetch('https://norma.nomoreparties.space/api/password-reset/reset', {
         method: 'POST',
         mode: 'cors',
