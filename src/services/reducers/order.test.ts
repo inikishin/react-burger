@@ -1,4 +1,4 @@
-import {initialState, order} from "./order";
+import {initialState, order, TOrderState} from "./order";
 
 import {
     ADD_INGREDIENT_TO_BURGER,
@@ -6,7 +6,8 @@ import {
     DELETE_INGREDIENT_FROM_BURGER,
     GET_ORDER_NUMBER_FAILED,
     GET_ORDER_NUMBER_REQUEST,
-    GET_ORDER_NUMBER_SUCCESS
+    GET_ORDER_NUMBER_SUCCESS,
+    TOrderActions
 } from "../actions/order";
 
 describe('Testing order reducer', () => {
@@ -20,7 +21,7 @@ describe('Testing order reducer', () => {
     });
 
     it('ADD_INGREDIENT_TO_BURGER for BUN', () => {
-        const action = {type: ADD_INGREDIENT_TO_BURGER, ingredient: {_id: '1', type: 'bun', name: 'bunny', price: 100}}
+        const action: TOrderActions = {type: ADD_INGREDIENT_TO_BURGER, ingredient: {_id: '1', type: 'bun', name: 'bunny', price: 100}, ingredientIndex: 0}
         expect(order(initialState, action)).toEqual({
             currentBurger: {bun: {_id: '1', type: 'bun', name: 'bunny', price: 100}, main: [], total: 200},
             currentIngredient: {},
@@ -29,8 +30,8 @@ describe('Testing order reducer', () => {
     });
 
     it('CHANGE_INGREDIENT_IN_BURGER', () => {
-        const action = {type: CHANGE_INGREDIENT_IN_BURGER, oldIndex: 0, currentIndex: 2};
-        const state = {
+        const action: TOrderActions = {type: CHANGE_INGREDIENT_IN_BURGER, oldIndex: 0, currentIndex: 2};
+        const state: TOrderState = {
             currentBurger: {
                 bun: {_id: '1', type: 'bun', name: 'bunny', price: 100}, main: [
                     {_id: '2', type: 'main', name: 'main 1', price: 100},
@@ -58,8 +59,8 @@ describe('Testing order reducer', () => {
     });
 
     it('DELETE_INGREDIENT_FROM_BURGER', () => {
-        const action = {type: DELETE_INGREDIENT_FROM_BURGER, ingredientIndex: 1};
-        const state = {
+        const action: TOrderActions = {type: DELETE_INGREDIENT_FROM_BURGER, ingredientIndex: 1};
+        const state: TOrderState = {
             currentBurger: {
                 bun: {_id: '1', type: 'bun', name: 'bunny', price: 100}, main: [
                     {_id: '2', type: 'main', name: 'main 1', price: 100},
@@ -86,7 +87,7 @@ describe('Testing order reducer', () => {
     });
 
     it('GET_ORDER_NUMBER_REQUEST', () => {
-        const action = {type: GET_ORDER_NUMBER_REQUEST};
+        const action: TOrderActions = {type: GET_ORDER_NUMBER_REQUEST};
         expect(order(initialState, action)).toEqual({
             currentBurger: {bun: {}, main: [], total: 0},
             currentIngredient: {},
@@ -95,7 +96,7 @@ describe('Testing order reducer', () => {
     });
 
     it('GET_ORDER_NUMBER_FAILED', () => {
-        const action = {type: GET_ORDER_NUMBER_FAILED};
+        const action: TOrderActions = {type: GET_ORDER_NUMBER_FAILED};
         expect(order(initialState, action)).toEqual({
             currentBurger: {bun: {}, main: [], total: 0},
             currentIngredient: {},
@@ -104,8 +105,8 @@ describe('Testing order reducer', () => {
     });
 
     it('GET_ORDER_NUMBER_SUCCESS', () => {
-        const action = {type: GET_ORDER_NUMBER_SUCCESS, orderNumber: 999999};
-        const state = {
+        const action: TOrderActions = {type: GET_ORDER_NUMBER_SUCCESS, orderNumber: 999999};
+        const state: TOrderState = {
             currentBurger: {
                 bun: {_id: '1', type: 'bun', name: 'bunny', price: 100}, main: [
                     {_id: '2', type: 'main', name: 'main 1', price: 100},
@@ -129,7 +130,7 @@ describe('Testing order reducer', () => {
     });
 
     it('ADD_INGREDIENT_TO_BURGER for other', () => {
-        const action = {type: ADD_INGREDIENT_TO_BURGER, ingredient: {_id: '1', type: 'main', name: 'main 1', price: 100}};
+        const action: TOrderActions = {type: ADD_INGREDIENT_TO_BURGER, ingredient: {_id: '1', type: 'main', name: 'main 1', price: 100}, ingredientIndex: 0};
         const initialStateFake = initialState;
         const returnValue = order(initialStateFake, action);
         expect(returnValue.currentBurger.main[0]).toHaveProperty('price', 100);

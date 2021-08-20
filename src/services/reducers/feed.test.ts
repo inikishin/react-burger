@@ -9,6 +9,7 @@ import {
 describe('Testing feed reducer', () => {
 
     it('initialState', () => {
+        // TODO Задать вопрос по ошибке ниже
         expect(feed(undefined, {})).toEqual({
             total: 0,
             totalToday: 0,

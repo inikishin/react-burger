@@ -9,13 +9,37 @@ import {
     GET_ORDER_NUMBER_SUCCESS
 } from "../actions/order";
 
-const initialState = {
+import {TOrderActions} from "../actions/order";
+
+type TOrder = {number: number, isLoadingOrderNumber: boolean, hasErrorOrderNumber: boolean};
+type TIngredient = {
+    _id?: string,
+    type?: "bun" | "main" | "sauce",
+    key?: string,
+    name?: string,
+    price?: number | undefined,
+    image_large?: string,
+    calories?: number,
+    proteins?: number,
+    fat?: number,
+    carbohydrates?: number
+};
+
+type TCurrentBurger = {bun: TIngredient, main: Array<TIngredient>, total: number};
+
+export type TOrderState = {
+    currentBurger: TCurrentBurger,
+    currentIngredient: TIngredient,
+    order: TOrder
+};
+
+export const initialState: TOrderState = {
     currentBurger: {bun: {}, main: [], total: 0},
     currentIngredient: {},
     order: {number: 0, isLoadingOrderNumber: false, hasErrorOrderNumber: false}
 }
 
-export const order = (state = initialState, action) => {
+export const order = (state = initialState, action: TOrderActions) => {
 
     switch (action.type) {
         case GET_ORDER_NUMBER_REQUEST: {
@@ -32,7 +56,7 @@ export const order = (state = initialState, action) => {
 
         case ADD_INGREDIENT_TO_BURGER: {
             let ingredient = action.ingredient;
-            let newState = {};
+            let newState = initialState;
 
             if (ingredient.type === "bun") {
                 newState = {...state,
@@ -52,7 +76,8 @@ export const order = (state = initialState, action) => {
 
             let total = 0;
             newState.currentBurger.bun.price && (total = newState.currentBurger.bun.price * 2);
-            newState.currentBurger.main.forEach((item) => {total += item.price});
+            newState.currentBurger.main.forEach((item) => { // @ts-ignore
+                total += item.price});
             newState = {...newState, currentBurger: {...newState.currentBurger, total: total} }
             return newState
         }
@@ -66,18 +91,16 @@ export const order = (state = initialState, action) => {
         }
 
         case DELETE_INGREDIENT_FROM_BURGER: {
-            // Удаляем элемент из конструктора
             let newMain = state.currentBurger.main;
             newMain.splice(action.ingredientIndex, 1);
 
-            // Обновляем тотал
             let total = 0;
             state.currentBurger.bun.price && (total = state.currentBurger.bun.price * 2);
-            newMain.forEach((item) => {total += item.price});
+            newMain.forEach((item) => { // @ts-ignore
+                total += item.price});
 
             return {...state,
                     currentBurger: {...state.currentBurger, main: newMain, total: total},
-                    //ingredients: updatedIngredients
             }
         }
 

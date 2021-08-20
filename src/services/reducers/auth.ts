@@ -8,7 +8,22 @@ import {RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED} f
 import {SET_NEW_PASSWORD_REQUEST, SET_NEW_PASSWORD_SUCCESS, SET_NEW_PASSWORD_FAILED} from "../actions/auth";
 import {deleteCookie, setCookie} from "../../utils/cookies";
 
-const initialState = {
+import type { TAuthActions } from '../actions/auth';
+
+type TUser = {
+    name: string,
+    email: string,
+    password: string
+};
+type TAuthState = {
+    user: TUser,
+    isAuthenticated: boolean,
+    isLoading: boolean,
+    hasError: boolean,
+    tokenExpired: boolean
+}
+
+export const initialState: TAuthState = {
     user: {name: '', email: '', password: ''},
     isAuthenticated: false,
     isLoading: false,
@@ -16,7 +31,7 @@ const initialState = {
     tokenExpired: false
 }
 
-export const auth = (state = initialState, action) => {
+export const auth = (state = initialState, action: TAuthActions): TAuthState => {
 
     switch (action.type) {
         case LOGIN_REQUEST: {

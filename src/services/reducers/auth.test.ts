@@ -7,11 +7,11 @@ import {SET_USER_REQUEST, SET_USER_SUCCESS, SET_USER_FAILED} from "../actions/au
 import {REFRESH_TOKEN_REQUEST, REFRESH_TOKEN_SUCCESS, REFRESH_TOKEN_FAILED} from "../actions/auth";
 import {RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILED} from "../actions/auth";
 import {SET_NEW_PASSWORD_REQUEST, SET_NEW_PASSWORD_SUCCESS, SET_NEW_PASSWORD_FAILED} from "../actions/auth";
-import {deleteCookie, setCookie} from "../../utils/cookies";
 
 describe('Testing feed reducer', () => {
 
     it('initialState', () => {
+        // TODO Задать вопрос по ошибке ниже
         expect(auth(undefined, {})).toEqual({
             user: {name: '', email: '', password: ''},
             isAuthenticated: false,

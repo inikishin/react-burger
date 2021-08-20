@@ -5,17 +5,38 @@ import {
     ADD_INGREDIENT_DATA,
     DELETE_INGREDIENT_DATA,
     INCREASE_INGREDIENT_COUNTER,
-    DECSEASE_INGREDIENT_COUNTER,
+    DECSEASE_INGREDIENT_COUNTER, TIngredientsActions,
 } from '../actions/ingredients';
 
-const initialState = {
+type TIngredient = {
+    _id?: string,
+    type?: "bun" | "main" | "sauce",
+    key?: string,
+    name?: string,
+    price?: number | undefined,
+    image_large?: string,
+    calories?: number,
+    proteins?: number,
+    fat?: number,
+    carbohydrates?: number,
+    counter?: number
+};
+
+export type TIngredientsState = {
+    ingredients: Array<TIngredient>,
+    isLoadingIngredients: boolean,
+    hasErrorIngredients: boolean,
+    currentIngredient: TIngredient | null
+};
+
+export const initialState: TIngredientsState = {
     ingredients: [],
     isLoadingIngredients: false,
     hasErrorIngredients: false,
     currentIngredient: null
 }
 
-export const ingredients = (state = initialState, action) => {
+export const ingredients = (state = initialState, action: TIngredientsActions) => {
     switch (action.type) {
         case GET_INGREDIENTS_REQUEST: {
             return {...state, isLoadingIngredients: true, hasErrorIngredients: false}
@@ -62,6 +83,7 @@ export const ingredients = (state = initialState, action) => {
             let updatedIngredients = state.ingredients;
             let item = state.ingredients.find(item => item._id === action.ingredient._id);
             let itemIndex = state.ingredients.findIndex(item => item._id === action.ingredient._id);
+            // @ts-ignore
             item.counter ? item = {...item, counter: item.counter - 1} : item = {...item, counter: 0};
             updatedIngredients.splice(itemIndex, 1, item);
 
