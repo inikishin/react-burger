@@ -24,12 +24,12 @@ export const initialState: TFeedState = {
     error: ''
 }
 
-export const feed = (state = initialState, action: TFeedActions) => {
+export const feed = (state = initialState, action: TFeedActions): TFeedState => {
     switch (action.type) {
         case WS_CONNECTION_SUCCESS: {
             return {
                 ...state,
-                error: null,
+                error: "",
                 wsConnected: true
             };
         }
@@ -44,14 +44,14 @@ export const feed = (state = initialState, action: TFeedActions) => {
         case WS_CONNECTION_CLOSED:
             return {
                 ...state,
-                error: null,
+                error: '',
                 wsConnected: false
             };
 
         case WS_GET_MESSAGE:
             return {
                 ...state,
-                error: null,
+                error: '',
                 messages: state.messages.length
                     ? [...state.messages, action.payload]
                     : [action.payload],

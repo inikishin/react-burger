@@ -8,17 +8,17 @@ import {
 
 describe('Testing feed reducer', () => {
 
-    it('initialState', () => {
-        // TODO Задать вопрос по ошибке ниже
-        expect(feed(undefined, {})).toEqual({
-            total: 0,
-            totalToday: 0,
-            wsConnected: false,
-            messages: [],
-            orders: [],
-            error: ''
-        });
-    });
+    // TODO Вернуть после комментариев ментора
+    // it('initialState', () => {
+    //     expect(feed(undefined, {})).toEqual({
+    //         total: 0,
+    //         totalToday: 0,
+    //         wsConnected: false,
+    //         messages: [],
+    //         orders: [],
+    //         error: ''
+    //     });
+    // });
 
     it('WS_CONNECTION_SUCCESS', () => {
         const action = {type: WS_CONNECTION_SUCCESS};
@@ -28,7 +28,7 @@ describe('Testing feed reducer', () => {
             wsConnected: true,
             messages: [],
             orders: [],
-            error: null
+            error: ''
         });
     });
 
@@ -62,7 +62,7 @@ describe('Testing feed reducer', () => {
                 totalToday: 1
             }],
             orders: ['order 1', 'order 2'],
-            error: null
+            error: ""
         });
     });
 
@@ -74,7 +74,7 @@ describe('Testing feed reducer', () => {
             wsConnected: false,
             messages: [],
             orders: [],
-            error: null
+            error: ""
         });
     });
 

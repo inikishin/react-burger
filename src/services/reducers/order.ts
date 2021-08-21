@@ -10,32 +10,21 @@ import {
 } from "../actions/order";
 
 import {TOrderActions} from "../actions/order";
+import {TIngredient} from "../../types";
 
 type TOrder = {number: number, isLoadingOrderNumber: boolean, hasErrorOrderNumber: boolean};
-type TIngredient = {
-    _id?: string,
-    type?: "bun" | "main" | "sauce",
-    key?: string,
-    name?: string,
-    price?: number | undefined,
-    image_large?: string,
-    calories?: number,
-    proteins?: number,
-    fat?: number,
-    carbohydrates?: number
-};
 
-type TCurrentBurger = {bun: TIngredient, main: Array<TIngredient>, total: number};
+type TCurrentBurger = {bun: TIngredient | null, main: Array<TIngredient>, total: number};
 
 export type TOrderState = {
     currentBurger: TCurrentBurger,
-    currentIngredient: TIngredient,
+    currentIngredient: TIngredient | null,
     order: TOrder
 };
 
 export const initialState: TOrderState = {
-    currentBurger: {bun: {}, main: [], total: 0},
-    currentIngredient: {},
+    currentBurger: {bun: null, main: [], total: 0},
+    currentIngredient: null,
     order: {number: 0, isLoadingOrderNumber: false, hasErrorOrderNumber: false}
 }
 
@@ -47,7 +36,11 @@ export const order = (state = initialState, action: TOrderActions) => {
         }
 
         case GET_ORDER_NUMBER_SUCCESS: {
-            return {...state, currentBurger: {...initialState.currentBurger, main: []}, order: {...state.order, number:  action.orderNumber, isLoadingOrderNumber: false}}
+            return {
+                ...state,
+                currentBurger: {...initialState.currentBurger, main: []},
+                order: {...state.order, number: action.orderNumber, isLoadingOrderNumber: false}
+            }
         }
 
         case GET_ORDER_NUMBER_FAILED: {
@@ -75,10 +68,13 @@ export const order = (state = initialState, action: TOrderActions) => {
             }
 
             let total = 0;
-            newState.currentBurger.bun.price && (total = newState.currentBurger.bun.price * 2);
-            newState.currentBurger.main.forEach((item) => { // @ts-ignore
-                total += item.price});
-            newState = {...newState, currentBurger: {...newState.currentBurger, total: total} }
+            if (newState.currentBurger.bun) {
+                newState.currentBurger.bun.price && (total = newState.currentBurger.bun.price * 2);
+            }
+            newState.currentBurger.main.forEach((item) => {
+                total += item.price
+            });
+            newState = {...newState, currentBurger: {...newState.currentBurger, total: total}}
             return newState
         }
 
@@ -95,8 +91,10 @@ export const order = (state = initialState, action: TOrderActions) => {
             newMain.splice(action.ingredientIndex, 1);
 
             let total = 0;
-            state.currentBurger.bun.price && (total = state.currentBurger.bun.price * 2);
-            newMain.forEach((item) => { // @ts-ignore
+            if (state.currentBurger.bun) {
+                state.currentBurger.bun.price && (total = state.currentBurger.bun.price * 2);
+            }
+            newMain.forEach((item) => {
                 total += item.price});
 
             return {...state,

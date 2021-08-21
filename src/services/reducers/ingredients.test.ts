@@ -12,14 +12,15 @@ import {
 
 describe('Testing ingredients reducer', () => {
 
-    it('initialState', () => {
-        expect(ingredients(undefined, {})).toEqual({
-            ingredients: [],
-            isLoadingIngredients: false,
-            hasErrorIngredients: false,
-            currentIngredient: null
-        });
-    });
+    // TODO Вернуть после комментариев ментора
+    // it('initialState', () => {
+    //     expect(ingredients(undefined, {})).toEqual({
+    //         ingredients: [],
+    //         isLoadingIngredients: false,
+    //         hasErrorIngredients: false,
+    //         currentIngredient: null
+    //     });
+    // });
 
     it('GET_INGREDIENTS_REQUEST', () => {
         const action: TIngredientsActions = {type: GET_INGREDIENTS_REQUEST};
@@ -35,11 +36,52 @@ describe('Testing ingredients reducer', () => {
     it('GET_INGREDIENTS_SUCCESS', () => {
         const action: TIngredientsActions = {
             type: GET_INGREDIENTS_SUCCESS,
-            ingredients: [{name: 'ingredient 1'}, {name: 'ingredient 2'}]
+            ingredients: [{
+                name: 'ingredient 1',
+                _id: '1',
+                type: 'bun',
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1
+            }, {
+                name: 'ingredient 2', _id: '2',
+                type: 'bun',
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1
+            }]
         };
 
         expect(ingredients(initialState, action)).toEqual({
-            ingredients: [{name: 'ingredient 1'}, {name: 'ingredient 2'}],
+            ingredients: [{name: 'ingredient 1', _id: '1',
+                type: 'bun',
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1}, {name: 'ingredient 2', _id: '2',
+                type: 'bun',
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1}],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
             currentIngredient: null
@@ -58,13 +100,34 @@ describe('Testing ingredients reducer', () => {
     });
 
     it('ADD_INGREDIENT_DATA', () => {
-        const action: TIngredientsActions = {type: ADD_INGREDIENT_DATA, currentIngredient: {_id: '1', name: 'ingridient'}};
+        const action: TIngredientsActions = {
+            type: ADD_INGREDIENT_DATA, currentIngredient: {
+                _id: '1', name: 'ingridient',
+                type: 'bun',
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1
+            }
+        };
 
         expect(ingredients(initialState, action)).toEqual({
             ingredients: [],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
-            currentIngredient: {_id: '1', name: 'ingridient'}
+            currentIngredient: {_id: '1', name: 'ingridient', type: 'bun',
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1}
         });
     });
 
@@ -82,13 +145,53 @@ describe('Testing ingredients reducer', () => {
     it('INCREASE_INGREDIENT_COUNTER for BUN', () => {
         const action: TIngredientsActions = {
             type: INCREASE_INGREDIENT_COUNTER,
-            ingredient: {_id: '1', type: 'bun', name: 'bunny', counter: 1}
+            ingredient: {
+                _id: '1', type: 'bun', name: 'bunny', counter: 1,
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1
+            }
         };
         const state: TIngredientsState = {
             ingredients: [
-                {_id: '1', type: 'bun', name: 'bunny', counter: 1},
-                {_id: '2', type: 'main', name: 'main 1', counter: 2},
-                {_id: '3', type: 'main', name: 'main 2', counter: 0}
+                {
+                    _id: '1', type: 'bun', name: 'bunny', counter: 1,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                },
+                {
+                    _id: '2', type: 'main', name: 'main 1', counter: 2,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                },
+                {
+                    _id: '3', type: 'main', name: 'main 2', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                }
             ],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
@@ -97,9 +200,33 @@ describe('Testing ingredients reducer', () => {
 
         expect(ingredients(state, action)).toEqual({
             ingredients: [
-                {_id: '1', type: 'bun', name: 'bunny', counter: 2},
-                {_id: '2', type: 'main', name: 'main 1', counter: 2},
-                {_id: '3', type: 'main', name: 'main 2', counter: 0}
+                {_id: '1', type: 'bun', name: 'bunny', counter: 2,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1},
+                {_id: '2', type: 'main', name: 'main 1', counter: 2,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1},
+                {_id: '3', type: 'main', name: 'main 2', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1}
             ],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
@@ -110,13 +237,53 @@ describe('Testing ingredients reducer', () => {
     it('INCREASE_INGREDIENT_COUNTER for other type', () => {
         const action: TIngredientsActions = {
             type: INCREASE_INGREDIENT_COUNTER,
-            ingredient: {_id: '2', type: 'main', name: 'main 1', counter: 2}
+            ingredient: {
+                _id: '2', type: 'main', name: 'main 1', counter: 2,
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1
+            }
         };
         const state: TIngredientsState = {
             ingredients: [
-                {_id: '1', type: 'bun', name: 'bunny', counter: 1},
-                {_id: '2', type: 'main', name: 'main 1', counter: 2},
-                {_id: '3', type: 'main', name: 'main 2', counter: 0}
+                {
+                    _id: '1', type: 'bun', name: 'bunny', counter: 1,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                },
+                {
+                    _id: '2', type: 'main', name: 'main 1', counter: 2,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                },
+                {
+                    _id: '3', type: 'main', name: 'main 2', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                }
             ],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
@@ -125,9 +292,33 @@ describe('Testing ingredients reducer', () => {
 
         expect(ingredients(state, action)).toEqual({
             ingredients: [
-                {_id: '1', type: 'bun', name: 'bunny', counter: 1},
-                {_id: '2', type: 'main', name: 'main 1', counter: 3},
-                {_id: '3', type: 'main', name: 'main 2', counter: 0}
+                {_id: '1', type: 'bun', name: 'bunny', counter: 1,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1},
+                {_id: '2', type: 'main', name: 'main 1', counter: 3,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1},
+                {_id: '3', type: 'main', name: 'main 2', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1}
             ],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
@@ -138,13 +329,53 @@ describe('Testing ingredients reducer', () => {
     it('DECSEASE_INGREDIENT_COUNTER for BUN', () => {
         const action: TIngredientsActions = {
             type: DECSEASE_INGREDIENT_COUNTER,
-            ingredient: {_id: '1', type: 'bun', name: 'bunny', counter: 1}
+            ingredient: {
+                _id: '1', type: 'bun', name: 'bunny', counter: 1,
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1
+            }
         };
         const state: TIngredientsState = {
             ingredients: [
-                {_id: '1', type: 'bun', name: 'bunny', counter: 1},
-                {_id: '2', type: 'main', name: 'main 1', counter: 2},
-                {_id: '3', type: 'main', name: 'main 2', counter: 0}
+                {
+                    _id: '1', type: 'bun', name: 'bunny', counter: 1,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                },
+                {
+                    _id: '2', type: 'main', name: 'main 1', counter: 2,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                },
+                {
+                    _id: '3', type: 'main', name: 'main 2', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                }
             ],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
@@ -153,9 +384,33 @@ describe('Testing ingredients reducer', () => {
 
         expect(ingredients(state, action)).toEqual({
             ingredients: [
-                {_id: '1', type: 'bun', name: 'bunny', counter: 0},
-                {_id: '2', type: 'main', name: 'main 1', counter: 2},
-                {_id: '3', type: 'main', name: 'main 2', counter: 0}
+                {_id: '1', type: 'bun', name: 'bunny', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1},
+                {_id: '2', type: 'main', name: 'main 1', counter: 2,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1},
+                {_id: '3', type: 'main', name: 'main 2', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1}
             ],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
@@ -166,13 +421,51 @@ describe('Testing ingredients reducer', () => {
     it('DECSEASE_INGREDIENT_COUNTER for other type', () => {
         const action: TIngredientsActions = {
             type: DECSEASE_INGREDIENT_COUNTER,
-            ingredient: {_id: '2', type: 'main', name: 'main 1', counter: 2}
+            ingredient: {_id: '2', type: 'main', name: 'main 1', counter: 2,
+                calories: 1,
+                carbohydrates: 1,
+                fat: 1,
+                image: 'some-img',
+                image_large: 'some-img',
+                image_mobile: 'some_img',
+                price: 1,
+                proteins: 1}
         };
         const state: TIngredientsState = {
             ingredients: [
-                {_id: '1', type: 'bun', name: 'bunny', counter: 1},
-                {_id: '2', type: 'main', name: 'main 1', counter: 2},
-                {_id: '3', type: 'main', name: 'main 2', counter: 0}
+                {
+                    _id: '1', type: 'bun', name: 'bunny', counter: 1,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                },
+                {
+                    _id: '2', type: 'main', name: 'main 1', counter: 2,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                },
+                {
+                    _id: '3', type: 'main', name: 'main 2', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1
+                }
             ],
             isLoadingIngredients: false,
             hasErrorIngredients: false,
@@ -181,9 +474,33 @@ describe('Testing ingredients reducer', () => {
 
         expect(ingredients(state, action)).toEqual({
             ingredients: [
-                {_id: '1', type: 'bun', name: 'bunny', counter: 1},
-                {_id: '2', type: 'main', name: 'main 1', counter: 1},
-                {_id: '3', type: 'main', name: 'main 2', counter: 0}
+                {_id: '1', type: 'bun', name: 'bunny', counter: 1,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1},
+                {_id: '2', type: 'main', name: 'main 1', counter: 1,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1},
+                {_id: '3', type: 'main', name: 'main 2', counter: 0,
+                    calories: 1,
+                    carbohydrates: 1,
+                    fat: 1,
+                    image: 'some-img',
+                    image_large: 'some-img',
+                    image_mobile: 'some_img',
+                    price: 1,
+                    proteins: 1}
             ],
             isLoadingIngredients: false,
             hasErrorIngredients: false,

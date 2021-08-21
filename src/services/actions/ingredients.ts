@@ -10,6 +10,7 @@ import {
     IOrderNumberRequestAction,
     IOrderNumberSuccessAction
 } from "./order";
+import {TIngredient} from "../../types";
 
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
@@ -20,20 +21,6 @@ export const DELETE_INGREDIENT_DATA: 'DELETE_INGREDIENT_DATA' = 'DELETE_INGREDIE
 
 export const INCREASE_INGREDIENT_COUNTER: 'INCREASE_INGREDIENT_COUNTER' = 'INCREASE_INGREDIENT_COUNTER';
 export const DECSEASE_INGREDIENT_COUNTER: 'DECSEASE_INGREDIENT_COUNTER' = 'DECSEASE_INGREDIENT_COUNTER';
-
-type TIngredient = {
-    _id?: string,
-    type?: "bun" | "main" | "sauce",
-    key?: string,
-    name?: string,
-    price?: number | undefined,
-    image_large?: string,
-    calories?: number,
-    proteins?: number,
-    fat?: number,
-    carbohydrates?: number,
-    counter?: number
-};
 
 export interface IGetIngredientsRequestAction {
   readonly type: typeof GET_INGREDIENTS_REQUEST

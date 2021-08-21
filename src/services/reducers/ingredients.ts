@@ -7,20 +7,7 @@ import {
     INCREASE_INGREDIENT_COUNTER,
     DECSEASE_INGREDIENT_COUNTER, TIngredientsActions,
 } from '../actions/ingredients';
-
-type TIngredient = {
-    _id?: string,
-    type?: "bun" | "main" | "sauce",
-    key?: string,
-    name?: string,
-    price?: number | undefined,
-    image_large?: string,
-    calories?: number,
-    proteins?: number,
-    fat?: number,
-    carbohydrates?: number,
-    counter?: number
-};
+import {TIngredient} from "../../types";
 
 export type TIngredientsState = {
     ingredients: Array<TIngredient>,
@@ -83,9 +70,10 @@ export const ingredients = (state = initialState, action: TIngredientsActions) =
             let updatedIngredients = state.ingredients;
             let item = state.ingredients.find(item => item._id === action.ingredient._id);
             let itemIndex = state.ingredients.findIndex(item => item._id === action.ingredient._id);
-            // @ts-ignore
-            item.counter ? item = {...item, counter: item.counter - 1} : item = {...item, counter: 0};
-            updatedIngredients.splice(itemIndex, 1, item);
+            if (item) {
+                item.counter ? item = {...item, counter: item.counter - 1} : item = {...item, counter: 0};
+                updatedIngredients.splice(itemIndex, 1, item);
+            }
 
             return {...state, ingredients: updatedIngredients};
         }

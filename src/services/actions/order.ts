@@ -1,4 +1,5 @@
 import {getOrderNumberRequest} from "../handleApi";
+import {TIngredient} from "../../types";
 
 export const GET_ORDER_NUMBER_REQUEST: 'GET_ORDER_NUMBER_REQUEST' = 'GET_ORDER_NUMBER_REQUEST';
 export const GET_ORDER_NUMBER_SUCCESS: 'GET_ORDER_NUMBER_SUCCESS' = 'GET_ORDER_NUMBER_SUCCESS';
@@ -7,19 +8,6 @@ export const GET_ORDER_NUMBER_FAILED: 'GET_ORDER_NUMBER_FAILED' = 'GET_ORDER_NUM
 export const ADD_INGREDIENT_TO_BURGER: 'ADD_INGREDIENT_TO_BURGER' = 'ADD_INGREDIENT_TO_BURGER';
 export const CHANGE_INGREDIENT_IN_BURGER: 'CHANGE_INGREDIENT_IN_BURGER' = 'CHANGE_INGREDIENT_IN_BURGER';
 export const DELETE_INGREDIENT_FROM_BURGER: 'DELETE_INGREDIENT_FROM_BURGER' = 'DELETE_INGREDIENT_FROM_BURGER';
-
-type TIngredient = {
-    _id?: string,
-    type?: "bun" | "main" | "sauce",
-    key?: string,
-    name?: string,
-    price?: number | undefined,
-    image_large?: string,
-    calories?: number,
-    proteins?: number,
-    fat?: number,
-    carbohydrates?: number
-};
 
 export interface IOrderNumberRequestAction {
   readonly type: typeof GET_ORDER_NUMBER_REQUEST
