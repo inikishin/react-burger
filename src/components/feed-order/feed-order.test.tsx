@@ -4,8 +4,7 @@ import renderer from 'react-test-renderer';
 import FeedOrder from "./feed-order";
 import configureStore from 'redux-mock-store'; //ES6 modules
 
-const middlewares = [];
-const mockStore = configureStore(middlewares);
+const mockStore = configureStore();
 
 it('Компонент FeedOrder рендерится без ошибок', () =>{
     const testIngredients = ['1', '2']

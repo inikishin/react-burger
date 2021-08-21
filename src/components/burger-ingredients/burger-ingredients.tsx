@@ -7,6 +7,7 @@ import Ingredient from "./ingredient";
 import style from "./burger-ingredients.module.css";
 import {getIngredients} from "../../services/actions/ingredients";
 import {Link, useLocation} from "react-router-dom";
+import {TRootState} from "../../services/reducers";
 
 
 function BurgerIngredients() {
@@ -14,7 +15,7 @@ function BurgerIngredients() {
     const location = useLocation();
     const [currentTab, setCurrentTab] = React.useState("bun");
 
-    const { ingredients } = useSelector(store => ({...store.ingredients}));
+    const { ingredients } = useSelector((store:TRootState) => ({...store.ingredients}));
     const dispatch = useDispatch();
 
     const [refBun, inViewBun] = useInView();
@@ -37,7 +38,7 @@ function BurgerIngredients() {
         dispatch(getIngredients());
     }, [dispatch]);
 
-    function setCurrent(currentValue) {
+    function setCurrent(currentValue: string): void {
         setCurrentTab(currentValue);
         window.location.href = '/#' + currentValue;
     }
@@ -57,7 +58,7 @@ function BurgerIngredients() {
             </div>
             <div>
                 <ul className={style.ingredients}>
-                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refBun}>Булки</h2><a name="bun" />
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refBun}>Булки</h2><a id="bun" />
                     {ingredients.filter(x => x.type === "bun").map((item, index) => (
                         <li key={index}>
                             <Link key={item._id} to={{pathname: `/ingredients/${item._id}`, state: { background: location }}} className={style.ingredientLink}>
@@ -65,7 +66,7 @@ function BurgerIngredients() {
                             </Link>
                         </li>
                     ))}
-                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refSauce}>Соусы</h2><a name="sauce" />
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refSauce}>Соусы</h2><a id="sauce" />
                     {ingredients.filter(x => x.type === "sauce").map((item, index) => (
                         <li key={index}>
                             <Link key={item._id}
@@ -74,7 +75,7 @@ function BurgerIngredients() {
                             </Link>
                         </li>
                     ))}
-                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refMain}>Начинка</h2><a name="main" />
+                    <h2 className="text text_type_main-medium mt-15 mb-15" ref={refMain}>Начинка</h2><a id="main" />
                     {ingredients.filter(x => x.type === "main").map((item, index) => (
                         <li key={index}>
                             <Link key={item._id}

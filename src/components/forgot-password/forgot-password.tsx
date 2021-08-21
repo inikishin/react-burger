@@ -4,16 +4,17 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import {Link, Redirect, useHistory} from "react-router-dom";
 import { resetPassword as resetPasswordAuth } from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
+import {TRootState} from "../../services/reducers";
 
 
 function ForgotPassword() {
     const dispatch = useDispatch();
-    const auth = useSelector(store => ({...store.auth}));
+    const auth = useSelector((store:TRootState) => ({...store.auth}));
     const history = useHistory();
 
     const [form, setValue] = useState({ email: '' });
 
-    const onChange = e => {
+    const onChange = (e: { target: { name: string; value: any; }; }) => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
@@ -39,7 +40,7 @@ function ForgotPassword() {
                         <Input type="text" placeholder="Укажите e-mail" name="email" onChange={onChange} value={form.email}/>
                     </div>
                     <div className="mb-20">
-                        <Button size="medium" className="mb-20">Восстановить</Button>
+                        <Button size="medium">Восстановить</Button>
                     </div>
                 </form>
                 <p className="text text_type_main-default text_color_inactive mb-4">Вспомнили пароль?

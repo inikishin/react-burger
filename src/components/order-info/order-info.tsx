@@ -7,15 +7,17 @@ import {useLocation, useParams} from "react-router-dom";
 import {WS_CONNECTION_START} from "../../services/actions/feed";
 import {getCookie} from "../../utils/cookies";
 import {convertOrderDate, getReadableStatus} from "../../services/handleData";
+import {TRootState} from "../../services/reducers";
 
 function OrderInfo() {
 
-    const {id} = useParams();
+    const {id} = useParams<{id: string}>();
     const location = useLocation();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getIngredients());
+        // @ts-ignore
         if (location.state.background.pathname.indexOf('/profile/orders') > -1 ) {
             dispatch({type: WS_CONNECTION_START, payload: getCookie('token')})
         }
@@ -24,11 +26,11 @@ function OrderInfo() {
         }
     }, []);
 
-    const {orders} = useSelector(store => ({...store.feed}));
-    const {ingredients} = useSelector(store => ({...store.ingredients}));
+    const {orders} = useSelector((store: TRootState) => ({...store.feed}));
+    const {ingredients} = useSelector((store: TRootState) => ({...store.ingredients}));
 
     if (orders.length > 0 && ingredients.length > 0) {
-        const order = orders.find(item => item._id === id);
+        const order = orders.find((item: { _id: string; }) => item._id === id);
         const orderIngredients = ingredients.filter(item => order.ingredients.indexOf(item._id) !== -1);
         const orderTotal = orderIngredients.reduce((previousValue, currentItem) => (currentItem.price + previousValue), 0);
 
@@ -49,13 +51,13 @@ function OrderInfo() {
                                 <img src={item.image_mobile} alt={`ingredient-preview-${item._id}`} className={styles.ingredientPreview}/>
                                 <span className="text text_type_main-default ml-4">{item.name}</span>
                             </div>
-                            <span className="text text_type_digits-default">1 x {item.price} <CurrencyIcon/></span>
+                            <span className="text text_type_digits-default">1 x {item.price} <CurrencyIcon type="primary"/></span>
                         </li>
                     ))}
                 </ul>
                 <div className={styles.ingredientWrapper}>
                     <span className="text text_type_main-default text_color_inactive">{convertOrderDate(order.createdAt)}</span>
-                    <span className="text text_type_digits-default">{orderTotal} <CurrencyIcon/></span>
+                    <span className="text text_type_digits-default">{orderTotal} <CurrencyIcon type="primary"/></span>
                 </div>
             </div>
         );

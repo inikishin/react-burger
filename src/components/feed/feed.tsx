@@ -3,8 +3,13 @@ import styles from './feed.module.css';
 import {Link, useLocation} from "react-router-dom";
 import FeedOrder from "../feed-order/feed-order";
 import PropTypes from "prop-types";
+import {TOrder} from "../../types";
 
-function Feed(props) {
+interface IFeedProps {
+    orders: Array<TOrder>
+};
+
+function Feed(props: IFeedProps) {
     const location = useLocation();
 
     return (

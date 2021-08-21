@@ -3,11 +3,12 @@ import React from "react";
 import style from './ingredient-details.module.css';
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
+import {TRootState} from "../../services/reducers";
 
 function IngredientDetails() {
-    const {id} = useParams();
+    const {id} = useParams<{id: string}>();
 
-    const ingredients_array = useSelector(store => store.ingredients.ingredients);
+    const ingredients_array = useSelector((store:TRootState) => store.ingredients.ingredients);
     const item = ingredients_array.filter(item => item._id === id)[0];
 
     if (item) {

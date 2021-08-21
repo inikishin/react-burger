@@ -4,11 +4,12 @@ import styles from './profile-menu.module.css';
 import {NavLink, useHistory} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {logout as logoutRequest} from "../../services/actions/auth";
+import {TRootState} from "../../services/reducers";
 
 
 function ProfileMenu() {
     const history = useHistory();
-    const auth = useSelector(store => store.auth);
+    const auth = useSelector((store:TRootState) => store.auth);
     const dispatch = useDispatch();
 
     const logout = useCallback(

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {MouseEventHandler, useEffect} from "react";
 import ReactDOM from 'react-dom';
 
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
@@ -9,18 +9,25 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 
 const modalRoot = document.getElementById("modal");
 
-function Modal(props) {
+interface IModalProps {
+    title: string,
+    children: object,
+    onClose: () => void
+};
 
-    function onCloseModal(e) {
+function Modal(props: IModalProps) {
+
+    function onCloseModal(e: any): void  {
+
         if ((e.target.id === 'my-modal') || (e.currentTarget.id === "close-modal") || (e.key === 'Escape')) {
             props.onClose();
             e.stopPropagation();
         }
     }
 
-    function keyUpHandler(e) {
-                props.onClose(e);
-            };
+    function keyUpHandler() {
+        props.onClose();
+    };
 
     useEffect(() => {
         document.addEventListener('keyup', keyUpHandler);
@@ -29,19 +36,26 @@ function Modal(props) {
             }
     }, []);
 
-    return ReactDOM.createPortal(
+
+    if (modalRoot) {
+        return ReactDOM.createPortal(
         (
-        <ModalOverlay onClose={onCloseModal}>
+        <ModalOverlay onClose={() => onCloseModal} title="">
             <div id="modalContent" className={style.modalContent}>
                 <div className={style.modalHeader}>
                     <h2 className="text text_type_main-medium">{props.title}</h2>
-                    <span className={style.close} onClick={onCloseModal} id="close-modal"><CloseIcon/></span>
+                    <span className={style.close} onClick={onCloseModal} id="close-modal"><CloseIcon type="primary"/></span>
                 </div>
                 <div className={style.modalMain}>{props.children}</div>
             </div>
         </ModalOverlay>
         ), modalRoot
     )
+    }
+    else {
+        return (<></>)
+    }
+
 }
 
 Modal.propTypes = {

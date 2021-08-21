@@ -4,9 +4,18 @@ import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import PropTypes from "prop-types";
 import {convertOrderDate, getReadableStatus} from "../../services/handleData";
+import {TRootState} from "../../services/reducers";
 
-function FeedOrder(props) {
-    const {ingredients} = useSelector(store => ({...store.ingredients}));
+interface IFeedOrderProps {
+    name: string,
+    createdAt: string,
+    number: number,
+    status: string,
+    ingredients: Array<string>
+};
+
+function FeedOrder(props: IFeedOrderProps) {
+    const {ingredients} = useSelector((store:TRootState) => ({...store.ingredients}));
     const orderIngredients = ingredients.filter(item => props.ingredients.indexOf(item._id) !== -1);
 
     const orderTotal = orderIngredients.reduce((previousValue, currentItem) => (currentItem.price + previousValue), 0);
@@ -31,7 +40,7 @@ function FeedOrder(props) {
                         }
                     </div>
                     <div>
-                        <span className="text text_type_digits-default">{orderTotal} <CurrencyIcon/></span>
+                        <span className="text text_type_digits-default">{orderTotal} <CurrencyIcon type="primary"/></span>
                     </div>
                 </div>
             </li>

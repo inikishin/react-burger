@@ -3,8 +3,13 @@ import styles from './profile-orders-feed.module.css';
 import {Link, useLocation} from "react-router-dom";
 import FeedOrder from "../feed-order/feed-order";
 import PropTypes from "prop-types";
+import {TOrder} from "../../types";
 
-function ProfileOrdersFeed(props) {
+interface IProfileOrdersFeedProps {
+    orders: Array<TOrder>
+};
+
+function ProfileOrdersFeed(props: IProfileOrdersFeedProps) {
     const location = useLocation();
 
     return (

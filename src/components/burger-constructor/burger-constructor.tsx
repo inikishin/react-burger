@@ -11,20 +11,23 @@ import Modal from "../modal/modal";
 import {getOrderNumber, ADD_INGREDIENT_TO_BURGER, CHANGE_INGREDIENT_IN_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/order";
 import { INCREASE_INGREDIENT_COUNTER, DECSEASE_INGREDIENT_COUNTER } from "../../services/actions/ingredients";
 import PropTypes from "prop-types";
+import {TRootState} from "../../services/reducers";
+import {TIngredient} from "../../types";
+
 
 function BurgerConstructor() {
 
     const [modalVisible, setModalVisible] = useState(false);
     const [currentIndex, setCurrentIndex] = useState( -1); // стейт для определения текущего ингредиента, на который наведен курсор
 
-    const { currentBurger, order } = useSelector(store => ({...store.order}));
-    const auth = useSelector(store => store.auth);
+    const { currentBurger, order } = useSelector((store: TRootState) => ({...store.order}));
+    const auth = useSelector((store: TRootState) => store.auth);
     const dispatch = useDispatch();
 
     const bun = currentBurger.bun;
     const main = currentBurger.main;
 
-    const onDropHandler = (item) => {
+    const onDropHandler = (item: any) => {
         if (item.change) {
             dispatch({type: CHANGE_INGREDIENT_IN_BURGER, oldIndex: item.index, currentIndex: currentIndex});
         }
@@ -54,10 +57,12 @@ function BurgerConstructor() {
         }
     }, [isOver]);
 
-    const createOrder = (e) => {
-        const ingredientsIds = [];
-        bun && ingredientsIds.push(bun._id);
-        main.forEach((item) => {ingredientsIds.push(item._id)});
+    const createOrder = () => {
+        const ingredientsIds: Array<string> = [];
+        if (bun != null) {
+            bun && ingredientsIds.push(bun._id);
+        }
+        main.forEach(item => {item._id && ingredientsIds.push(item._id)});
         dispatch(getOrderNumber(ingredientsIds));
     }
 
@@ -78,12 +83,12 @@ function BurgerConstructor() {
     return (
         <section style={{width: "50%"}} ref={dropTarget} id="section-burger-constructor">
             <div ref={dropRef}>
-                {bun._id ?
+                {bun ?
                     <div className={`${style.bunItem} p-2 mr-5`}>
                         <ConstructorElement
                             type="top"
-                            isLocked={true} text={`${bun.name} (верх)`} thumbnail={bun.image}
-                            price={bun.price}/>
+                            isLocked={true} text={`${bun.name} (верх)`} thumbnail={bun.image ? bun.image : ''}
+                            price={bun.price ? bun.price : 0}/>
                     </div>
                     :
                     <div className={`${style.emptyItems} m-2 p-2`}>
@@ -104,16 +109,16 @@ function BurgerConstructor() {
             }
 
             <div className={`${style.bunItem} p-2`}>
-                {bun._id && <ConstructorElement
+                {bun && <ConstructorElement
                     type="bottom"
-                    isLocked={true} text={`${bun.name} (низ)`} thumbnail={bun.image}
-                    price={bun.price} style={{display: "block"}}/>}
+                    isLocked={true} text={`${bun.name} (низ)`} thumbnail={bun.image ? bun.image : ''}
+                    price={bun.price ? bun.price : 0}/>}
             </div>
 
             <div className={`${style.orderFooter} p-5`}>
-                <p className="text text_type_digits-medium">{currentBurger.total} <CurrencyIcon/></p>
-                {(auth.isAuthenticated && currentBurger.bun._id) ?
-                    <Button type="primary" size="large" onClick={createOrder} active={false}>
+                <p className="text text_type_digits-medium">{currentBurger.total} <CurrencyIcon type="primary"/></p>
+                {(auth.isAuthenticated && currentBurger.bun) ?
+                    <Button type="primary" size="large" onClick={createOrder}>
                         {!order.isLoadingOrderNumber ? `Оформить заказ` : `Получаем номер...`}
                     </Button>
                     :
@@ -125,7 +130,13 @@ function BurgerConstructor() {
     )
 }
 
-function ConstructorElementCusomized(props) {
+interface IConstructorElementCusomizedProps {
+    item: TIngredient,
+    index: number,
+    setCurrentIndex: (a: number) => void;
+}
+
+function ConstructorElementCusomized(props: IConstructorElementCusomizedProps) {
     const dispatch = useDispatch();
 
     const [{isOver}, dropRef ] = useDrop({
@@ -164,10 +175,10 @@ function ConstructorElementCusomized(props) {
 
     return (<div ref={dragRef}>
                 {!isDrag && <li className={`${style.mainItem} p-2`} ref={dropRef}>
-                                <DragIcon/>
+                                <DragIcon type="primary"/>
                                 <ConstructorElement
                                     isLocked={false} text={props.item.name} thumbnail={props.item.image}
-                                    price={props.item.price} handleClose={handleDeleteElement} style={{display: "block"}}/>
+                                    price={props.item.price} handleClose={handleDeleteElement}/>
 
                             </li>}
                 {isOver && <li className={`${style.mainItem} m-5 p-2`}></li>}

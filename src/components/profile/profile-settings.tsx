@@ -3,15 +3,16 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import styles from "./profile-settings.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {getUser, setUserAttributes} from "../../services/actions/auth";
+import {TRootState} from "../../services/reducers";
 
 function ProfileSettings() {
 
     const dispatch = useDispatch();
-    const auth = useSelector(store => ({...store.auth}));
+    const auth = useSelector((store: TRootState) => ({...store.auth}));
 
 
-    const nameInput = useRef(null);
-    const emailInput = useRef(null);
+    const nameInput = useRef<HTMLInputElement>(null);
+    const emailInput = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
             dispatch(getUser());
@@ -20,19 +21,23 @@ function ProfileSettings() {
 
     const [form, setValue] = useState({ name: auth.user.name, email: auth.user.email, password: '' });
 
-    const onChange = e => {
+    const onChange = (e: { target: { name: string; value: any; }; }) => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
-    const saveUser = e => {
+    const saveUser = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         dispatch(setUserAttributes(form));
     }
 
-    const cancelUser = (e) => {
+    const cancelUser = (e: { preventDefault: () => void; }) => {
         e.preventDefault()
-        nameInput.current.value = auth.user.name;
-        emailInput.current.value = auth.user.email;
+        if (nameInput.current) {
+            nameInput.current.value = auth.user.name
+        };
+        if (emailInput.current) {
+            emailInput.current.value = auth.user.email
+        };
     }
 
     return (
@@ -47,15 +52,15 @@ function ProfileSettings() {
                            onChange={onChange} icon={'EditIcon'}/>
                 </div>
                 <div className={styles.inputContainer}>
-                    <PasswordInput type="password" name="password" placeholder="Пароль" icon={'EditIcon'} defaultValue=""
+                    <PasswordInput name="password"
                                    onChange={onChange} value={form.password}/>
                 </div>
                 <div className={styles.buttonsBlock}>
                     <div className="mb-20">
-                        <Button type="primary" size="medium" className="mb-20" >Сохранить</Button>
+                        <Button type="primary" size="medium">Сохранить</Button>
                     </div>
                     <div className="mb-20">
-                        <Button type="secondary" size="medium" className="mb-20" onClick={cancelUser}>Отмена</Button>
+                        <Button type="secondary" size="medium" onClick={() => cancelUser}>Отмена</Button>
                     </div>
                 </div>
             </form>

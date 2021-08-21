@@ -2,7 +2,13 @@ import React from 'react';
 import styles from './feed-orders-status.module.css';
 import PropTypes from "prop-types";
 
-function FeedOrdersStatus(props) {
+interface IFeedOrdersStatusProps {
+    orders: Array<{_id: string,
+        status: string,
+        number: string}>
+};
+
+function FeedOrdersStatus(props: IFeedOrdersStatusProps) {
     const pendingOrders = props.orders.filter(item => item.status === 'pending').slice(0, 20);
     const doneOrders = props.orders.filter(item => item.status === 'done').slice(0, 20);
 

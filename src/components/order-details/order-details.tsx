@@ -5,7 +5,11 @@ import {CheckMarkIcon} from "@ya.praktikum/react-developer-burger-ui-components"
 import style from './order-details.module.css';
 import PropTypes from "prop-types";
 
-function OrderDetails(props) {
+interface IOrderDetailsProps {
+    orderNumber: string
+};
+
+function OrderDetails(props: IOrderDetailsProps) {
     return (
         <div className={style.bodyContent}>
             <p className="text text_type_digits-large p-15">{props.orderNumber}</p>

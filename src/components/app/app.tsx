@@ -20,9 +20,10 @@ import FeedPage from "../../pages/feed";
 import OrderInfoPage from "../../pages/order-info";
 import OrderInfo from "../order-info/order-info";
 import ProfileOrdersPage from "../../pages/profile-orders";
+import {TRootState} from "../../services/reducers";
 
 function App() {
-    const auth = useSelector(store => store.auth);
+    const auth = useSelector((store:TRootState) => store.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -48,6 +49,7 @@ function App() {
 function ModalSwitch() {
     const location = useLocation();
     const history = useHistory();
+    // @ts-ignore
     const background = history.action === 'PUSH' && location.state && location.state.background;
 
     const closeModal = () => {

@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import {socketMiddleware} from "./services/middleware/socketMiddleware";
 
 // Подключаем Redux DevTools и хранилище
-import { rootReducer } from './services/reducers/index';
+import { rootReducer } from './services/reducers';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from 'redux-thunk';

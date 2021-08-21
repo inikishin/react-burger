@@ -5,8 +5,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 
-const middlewares = [];
-const mockStore = configureStore(middlewares);
+const mockStore = configureStore();
 
 it('Тестируем AppHeader без авторизованного пользователя', () => {
     const initialState = {auth: {

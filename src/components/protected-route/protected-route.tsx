@@ -2,11 +2,13 @@ import { Redirect, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {getUser} from "../../services/actions/auth";
 import {useDispatch, useSelector} from "react-redux";
+import {TRootState} from "../../services/reducers";
 
+// @ts-ignore
 export function ProtectedRoute({ children, ...rest }) {
   const dispatch = useDispatch();
   const [isUserLoaded, setUserLoaded] = useState(false);
-    const auth = useSelector(store =>
+    const auth = useSelector((store:TRootState) =>
         store.auth
     );
 

@@ -4,16 +4,17 @@ import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger
 import {Link, Redirect} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {register as registerAuth} from "../../services/actions/auth";
+import {TRootState} from "../../services/reducers";
 
 
 function Register() {
 
-    const auth = useSelector(store => store.auth);
+    const auth = useSelector((store: TRootState) => store.auth);
     const dispatch = useDispatch();
 
     const [form, setValue] = useState({ name: '', email: '', password: '' });
 
-    const onChange = e => {
+    const onChange = (e: { target: { name: string; value: any; }; }) => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
@@ -42,11 +43,11 @@ function Register() {
                         <Input type="text" placeholder="E-mail" name="email" onChange={onChange} value={form.email}/>
                     </div>
                     <div className={styles.inputContainer}>
-                        <PasswordInput type="password" placeholder="Пароль" name="password" icon={'ShowIcon'}
+                        <PasswordInput name="password"
                                        onChange={onChange} value={form.password}/>
                     </div>
                     <div className="mb-20">
-                        <Button size="medium" className="mb-20">Зарегистрироваться</Button>
+                        <Button size="medium">Зарегистрироваться</Button>
                     </div>
                 </form>
                 <p className="text text_type_main-default text_color_inactive mb-4">Уже зарегистрированы?
