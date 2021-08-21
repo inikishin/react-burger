@@ -24,8 +24,8 @@ describe('Сборка бургера', () => {
         cy.get('#input-email > div > div > input').type('inikishin@gmail.com');
         cy.get('#input-password > div > div > input').type('123456');
         cy.get('button').contains('Войти').click();
-        cy.contains('Личный кабинет');
-        cy.contains('Соберите бургер');
+        cy.contains('Личный кабинет', {timeout: 120000});
+        cy.contains('Соберите бургер', {timeout: 120000});
     });
 
     it('Переносим элементы в конструктор', function () {
