@@ -76,7 +76,7 @@ function BurgerConstructor() {
     );
 
     return (
-        <section style={{width: "50%"}} ref={dropTarget}>
+        <section style={{width: "50%"}} ref={dropTarget} id="section-burger-constructor">
             <div ref={dropRef}>
                 {bun._id ?
                     <div className={`${style.bunItem} p-2 mr-5`}>
