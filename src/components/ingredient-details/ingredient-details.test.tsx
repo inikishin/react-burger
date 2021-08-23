@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import configureStore from 'redux-mock-store';
 import IngredientDetails from "./ingredient-details";
 import {Provider} from "react-redux";
-import {BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter, MemoryRouter, Route, Switch} from "react-router-dom";
 
 const mockStore = configureStore();
 
@@ -16,16 +16,19 @@ it('Тестируем ingredientDetails', () => {
     }};
     const store = mockStore(initialState);
 
-    // TODO Вернуть после комментариев ментора
-    // const tree = renderer
-    //     .create(<Provider store={store}>
-    //         <BrowserRouter>
-    //             <Route match={{params: {id: '1'}}}>
-    //                 <IngredientDetails/>
-    //             </Route>
-    //         </BrowserRouter>
-    //     </Provider>)
-    //     .toJSON();
-    //
-    // expect(tree).toMatchSnapshot();
+    const tree = renderer
+        .create(<Provider store={store}>
+            <BrowserRouter>
+                <MemoryRouter initialEntries={['/ingredient/1']}>
+                    <Switch>
+                        <Route path='/ingredient/:id'>
+                            <IngredientDetails />
+                        </Route>
+                    </Switch>
+                </MemoryRouter>
+            </BrowserRouter>
+        </Provider>)
+        .toJSON();
+
+    expect(tree).toMatchSnapshot();
 });
