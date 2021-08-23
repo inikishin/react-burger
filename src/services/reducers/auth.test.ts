@@ -1,5 +1,5 @@
 import {initialState, auth} from './auth';
-import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED} from "../actions/auth";
+import {LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILED, TAuthActions} from "../actions/auth";
 import {LOGOUT_REQUEST, LOGOUT_SUCCESS, LOGOUT_FAILED} from "../actions/auth";
 import {REGISTER_USER_REQUEST, REGISTER_USER_SUCCESS, REGISTER_USER_FAILED} from "../actions/auth";
 import {GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAILED} from "../actions/auth";
@@ -10,17 +10,16 @@ import {SET_NEW_PASSWORD_REQUEST, SET_NEW_PASSWORD_SUCCESS, SET_NEW_PASSWORD_FAI
 
 describe('Testing feed reducer', () => {
 
-    // TODO Вернуть после комментариев ментора
-    // it('initialState', () => {
-    //
-    //     expect(auth(undefined, {})).toEqual({
-    //         user: {name: '', email: '', password: ''},
-    //         isAuthenticated: false,
-    //         isLoading: false,
-    //         hasError: false,
-    //         tokenExpired: false
-    //     });
-    // });
+    it('initialState', () => {
+
+        expect(auth(undefined, {} as TAuthActions)).toEqual({
+            user: {name: '', email: '', password: ''},
+            isAuthenticated: false,
+            isLoading: false,
+            hasError: false,
+            tokenExpired: false
+        });
+    });
 
     it('LOGIN_REQUEST', () => {
         const action = {type: LOGIN_REQUEST};

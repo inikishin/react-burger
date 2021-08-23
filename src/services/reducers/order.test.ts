@@ -12,14 +12,13 @@ import {
 
 describe('Testing order reducer', () => {
 
-    // TODO Вернуть после комментариев ментора
-    // it('initialState', () => {
-    //     expect(order(undefined, {})).toEqual({
-    //         currentBurger: {bun: {}, main: [], total: 0},
-    //         currentIngredient: {},
-    //         order: {number: 0, isLoadingOrderNumber: false, hasErrorOrderNumber: false}
-    //     });
-    // });
+    it('initialState', () => {
+        expect(order(undefined, {} as TOrderActions)).toEqual({
+            currentBurger: {bun: null, main: [], total: 0},
+            currentIngredient: null,
+            order: {number: 0, isLoadingOrderNumber: false, hasErrorOrderNumber: false}
+        });
+    });
 
     it('ADD_INGREDIENT_TO_BURGER for BUN', () => {
         const action: TOrderActions = {

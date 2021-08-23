@@ -12,15 +12,14 @@ import {
 
 describe('Testing ingredients reducer', () => {
 
-    // TODO Вернуть после комментариев ментора
-    // it('initialState', () => {
-    //     expect(ingredients(undefined, {})).toEqual({
-    //         ingredients: [],
-    //         isLoadingIngredients: false,
-    //         hasErrorIngredients: false,
-    //         currentIngredient: null
-    //     });
-    // });
+    it('initialState', () => {
+        expect(ingredients(undefined, {} as TIngredientsActions)).toEqual({
+            ingredients: [],
+            isLoadingIngredients: false,
+            hasErrorIngredients: false,
+            currentIngredient: null
+        });
+    });
 
     it('GET_INGREDIENTS_REQUEST', () => {
         const action: TIngredientsActions = {type: GET_INGREDIENTS_REQUEST};
