@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.90cdffdc.chunk.css",
+    "main.js": "/static/js/main.2ab88b3a.chunk.js",
+    "main.js.map": "/static/js/main.2ab88b3a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.50ade86e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.50ade86e.js.map",
+    "static/css/2.47626a8f.chunk.css": "/static/css/2.47626a8f.chunk.css",
+    "static/js/2.4c0593e0.chunk.js": "/static/js/2.4c0593e0.chunk.js",
+    "static/js/2.4c0593e0.chunk.js.map": "/static/js/2.4c0593e0.chunk.js.map",
+    "static/js/3.b7fb668d.chunk.js": "/static/js/3.b7fb668d.chunk.js",
+    "static/js/3.b7fb668d.chunk.js.map": "/static/js/3.b7fb668d.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.47626a8f.chunk.css.map": "/static/css/2.47626a8f.chunk.css.map",
+    "static/css/main.90cdffdc.chunk.css.map": "/static/css/main.90cdffdc.chunk.css.map",
+    "static/js/2.4c0593e0.chunk.js.LICENSE.txt": "/static/js/2.4c0593e0.chunk.js.LICENSE.txt",
+    "static/media/fonts.css": "/static/media/iceland.77ad7fc2.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.50ade86e.js",
+    "static/css/2.47626a8f.chunk.css",
+    "static/js/2.4c0593e0.chunk.js",
+    "static/css/main.90cdffdc.chunk.css",
+    "static/js/main.2ab88b3a.chunk.js"
+  ]
+}

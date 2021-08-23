@@ -6,14 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import {socketMiddleware} from "./services/middleware/socketMiddleware";
 
 // Подключаем Redux DevTools и хранилище
-import { rootReducer } from './services/reducers/index';
+import {rootReducer, TRootState} from './services/reducers';
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from 'redux-thunk';
+import thunk, {ThunkMiddleware} from 'redux-thunk';
+import {TFeedActions} from "./services/actions/feed";
 const enhancer = composeWithDevTools(applyMiddleware(thunk, socketMiddleware()));
 // end Подключаем Redux DevTools
 
-const store = createStore(rootReducer, enhancer);
+export const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
     <React.StrictMode>

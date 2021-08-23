@@ -18,7 +18,7 @@ describe('Логин и переход на страницу профиля и �
         cy.get('#input-email > div > div > input').type('inikishin@gmail.com');
         cy.get('#input-password > div > div > input').type('123456');
         cy.get('button').contains('Войти').click();
-        cy.contains('Личный кабинет');
+        cy.contains('Личный кабинет', {timeout: 120000});
     });
 
     it('Переходим в личный кабинет', function () {
