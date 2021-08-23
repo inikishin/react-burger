@@ -1,11 +1,17 @@
 import { Redirect, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FC } from 'react';
 import {getUser} from "../../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {TRootState} from "../../services/reducers";
 
-// @ts-ignore
-export function ProtectedRoute({ children, ...rest }) {
+interface IProtectedRouteProps extends React.HTMLAttributes<Element> {
+    children: React.ReactNode,
+    path: string,
+    exact: boolean
+}
+
+export function ProtectedRoute({ children, ...rest }: IProtectedRouteProps) {
   const dispatch = useDispatch();
   const [isUserLoaded, setUserLoaded] = useState(false);
     const auth = useSelector((store:TRootState) =>

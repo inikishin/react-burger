@@ -1,8 +1,8 @@
-import {useSelector} from "react-redux";
+//import {useSelector} from "react-redux";
+import { useSelector } from '../../types/hooks';
 import styles from "./feed-order.module.css";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
-import PropTypes from "prop-types";
 import {convertOrderDate, getReadableStatus} from "../../services/handleData";
 import {TRootState} from "../../services/reducers";
 
@@ -45,14 +45,6 @@ function FeedOrder(props: IFeedOrderProps) {
                 </div>
             </li>
     )
-}
-
-FeedOrder.propTypes = {
-    name: PropTypes.string,
-    createdAt: PropTypes.string,
-    number: PropTypes.number,
-    status: PropTypes.string,
-    ingredients: PropTypes.arrayOf(PropTypes.string)
 }
 
 export default FeedOrder;

@@ -1,5 +1,5 @@
 import {getOrderNumberRequest} from "../handleApi";
-import {TIngredient} from "../../types";
+import {AppDispatch, AppThunk, TIngredient} from "../../types";
 
 export const GET_ORDER_NUMBER_REQUEST: 'GET_ORDER_NUMBER_REQUEST' = 'GET_ORDER_NUMBER_REQUEST';
 export const GET_ORDER_NUMBER_SUCCESS: 'GET_ORDER_NUMBER_SUCCESS' = 'GET_ORDER_NUMBER_SUCCESS';
@@ -45,8 +45,8 @@ export type TOrderActions =
     | IChangeIngredientInBurgerAction
     | IDeleteIngredientFromBurgerAction;
 
-export function getOrderNumber(ingredientsIds: Array<string>) {
-    return function (dispatch: any) {
+export const getOrderNumber: AppThunk = (ingredientsIds: Array<string>) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: GET_ORDER_NUMBER_REQUEST
         });

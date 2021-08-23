@@ -2,7 +2,8 @@ import React from "react";
 
 import style from './ingredient-details.module.css';
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
+//import {useSelector} from "react-redux";
+import { useSelector } from '../../types/hooks';
 import {TRootState} from "../../services/reducers";
 
 function IngredientDetails() {

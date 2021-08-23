@@ -3,7 +3,8 @@ import styles from './profile.module.css';
 import ProfileMenu from "./profile-menu";
 import ProfileOrdersFeed from "./profile-orders-feed";
 import {WS_CONNECTION_START} from "../../services/actions/feed";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {getCookie} from "../../utils/cookies";
 import {TRootState} from "../../services/reducers";
 

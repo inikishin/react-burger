@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './feed-orders-status.module.css';
-import PropTypes from "prop-types";
 
 interface IFeedOrdersStatusProps {
     orders: Array<{_id: string,
@@ -39,13 +38,5 @@ function FeedOrdersStatus(props: IFeedOrdersStatusProps) {
         </div>
     );
 }
-
-FeedOrdersStatus.propsTypes = {
-    orders: PropTypes.shape({
-        _id: PropTypes.string,
-        status: PropTypes.string,
-        number: PropTypes.string
-    })
-};
 
 export default FeedOrdersStatus;

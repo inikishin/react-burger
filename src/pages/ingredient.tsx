@@ -1,11 +1,12 @@
 import React, {useEffect} from "react";
 import {useParams} from 'react-router-dom';
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../types/hooks';
 import {getIngredients} from "../services/actions/ingredients";
 
 function IngredientPage() {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
     const dispatch = useDispatch();
 
     useEffect(() => {

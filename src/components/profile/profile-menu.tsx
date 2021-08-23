@@ -2,7 +2,8 @@ import React, {useCallback, useEffect} from "react";
 import styles from './profile-menu.module.css';
 
 import {NavLink, useHistory} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {logout as logoutRequest} from "../../services/actions/auth";
 import {TRootState} from "../../services/reducers";
 

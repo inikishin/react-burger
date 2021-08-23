@@ -13,7 +13,7 @@ import thunk from 'redux-thunk';
 const enhancer = composeWithDevTools(applyMiddleware(thunk, socketMiddleware()));
 // end Подключаем Redux DevTools
 
-const store = createStore(rootReducer, enhancer);
+export const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(
     <React.StrictMode>

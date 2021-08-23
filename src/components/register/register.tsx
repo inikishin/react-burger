@@ -2,7 +2,8 @@ import React, {useCallback, useState} from 'react';
 import styles from './register.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {register as registerAuth} from "../../services/actions/auth";
 import {TRootState} from "../../services/reducers";
 
@@ -14,7 +15,7 @@ function Register() {
 
     const [form, setValue] = useState({ name: '', email: '', password: '' });
 
-    const onChange = (e: { target: { name: string; value: any; }; }) => {
+    const onChange = (e: { target: { name: string; value: string; }; }) => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 

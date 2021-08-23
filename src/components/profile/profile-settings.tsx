@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./profile-settings.module.css";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {getUser, setUserAttributes} from "../../services/actions/auth";
 import {TRootState} from "../../services/reducers";
 
@@ -21,7 +22,7 @@ function ProfileSettings() {
 
     const [form, setValue] = useState({ name: auth.user.name, email: auth.user.email, password: '' });
 
-    const onChange = (e: { target: { name: string; value: any; }; }) => {
+    const onChange = (e: { target: { name: string; value: string; }; }) => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 

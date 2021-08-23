@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {useDrop, useDrag} from 'react-dnd';
 
 import { CurrencyIcon, DragIcon, Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -10,10 +11,13 @@ import Modal from "../modal/modal";
 
 import {getOrderNumber, ADD_INGREDIENT_TO_BURGER, CHANGE_INGREDIENT_IN_BURGER, DELETE_INGREDIENT_FROM_BURGER} from "../../services/actions/order";
 import { INCREASE_INGREDIENT_COUNTER, DECSEASE_INGREDIENT_COUNTER } from "../../services/actions/ingredients";
-import PropTypes from "prop-types";
 import {TRootState} from "../../services/reducers";
 import {TIngredient} from "../../types";
 
+interface IBurgerConstructorIngredient extends TIngredient {
+    change: boolean,
+    index: number
+}
 
 function BurgerConstructor() {
 
@@ -27,7 +31,7 @@ function BurgerConstructor() {
     const bun = currentBurger.bun;
     const main = currentBurger.main;
 
-    const onDropHandler = (item: any) => {
+    const onDropHandler = (item: IBurgerConstructorIngredient) => {
         if (item.change) {
             dispatch({type: CHANGE_INGREDIENT_IN_BURGER, oldIndex: item.index, currentIndex: currentIndex});
         }
@@ -39,7 +43,7 @@ function BurgerConstructor() {
 
     const [, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(item) {
+        drop(item: IBurgerConstructorIngredient) {
             onDropHandler(item);
         }
     });
@@ -184,16 +188,6 @@ function ConstructorElementCusomized(props: IConstructorElementCusomizedProps) {
                 {isOver && <li className={`${style.mainItem} m-5 p-2`}></li>}
             </div>
             )
-}
-
-ConstructorElementCusomized.propTypes = {
-    item: PropTypes.shape({
-        image: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number,
-        _id: PropTypes.string}),
-    index: PropTypes.number,
-    setCurrentIndex: PropTypes.func
 }
 
 export default BurgerConstructor;

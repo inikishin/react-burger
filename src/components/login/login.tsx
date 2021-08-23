@@ -3,18 +3,20 @@ import styles from './login.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect, useLocation} from "react-router-dom";
 import { login as loginAuth } from "../../services/actions/auth";
-import { useDispatch, useSelector } from "react-redux";
+//import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {TRootState} from "../../services/reducers";
+import {IAppLocation} from "../../types";
 
 
 function Login() {
-    const location = useLocation();
+    const location = useLocation<IAppLocation>();
     const dispatch = useDispatch();
     const auth = useSelector((store:TRootState) => ({...store.auth}));
 
     const [form, setValue] = useState({ email: '', password: '' });
 
-    const onChange = (e: { target: { name: any; value: any; }; }) => {
+    const onChange = (e: { target: { name: string; value: string; }; }) => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
@@ -27,13 +29,13 @@ function Login() {
     );
 
     if (auth.isAuthenticated) {
-        // @ts-ignore
-        const redirectPath = location.state ? location.state.from.pathname : '/';
-        // @ts-ignore
+        const redirectPath = '/';
+        if (location.state) {
+            const redirectPath = location.state.from ? location.state.from.pathname : '/';
+        }
         return (<Redirect to={{pathname: redirectPath, state: {background: location.state && location.state.from}}} />);
     }
 
-    // @ts-ignore
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>

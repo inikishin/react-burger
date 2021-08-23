@@ -10,7 +10,7 @@ import {
     IOrderNumberRequestAction,
     IOrderNumberSuccessAction
 } from "./order";
-import {TIngredient} from "../../types";
+import {AppDispatch, AppThunk, TIngredient} from "../../types";
 
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
@@ -60,8 +60,8 @@ export type TIngredientsActions =
     | IIncreaseIngredientAction
     | IDecseaseIngredientAction;
 
-export function getIngredients() {
-    return function (dispatch: any) {
+export const getIngredients: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: GET_INGREDIENTS_REQUEST
         });

@@ -1,6 +1,7 @@
 import {loginRequest, getUserRequest, setUserRequest, logoutRequest, registerRequest, refreshTokenRequest,
 passwordReset as resetPasswordRequest, passwordResetReset} from "../handleApi";
 import {getCookie} from "../../utils/cookies";
+import {AppDispatch, AppThunk} from "../../types";
 
 export const LOGIN_REQUEST: 'LOGIN_REQUEST' = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS: 'LOGIN_SUCCESS' = 'LOGIN_SUCCESS';
@@ -152,8 +153,8 @@ interface ILoginForm {
     password: string
 };
 
-export function login(form: ILoginForm) {
-    return function (dispatch: any) {
+export const login: AppThunk = (form: ILoginForm) => {
+    return function (dispatch: AppDispatch) {
 
         dispatch({
             type: LOGIN_REQUEST
@@ -181,8 +182,8 @@ export function login(form: ILoginForm) {
     }
 }
 
-export function logout() {
-    return function (dispatch: any) {
+export const logout: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
 
         dispatch({
             type: LOGOUT_REQUEST
@@ -211,8 +212,8 @@ interface IRegisterForm {
     password: string
 };
 
-export function register(form: IRegisterForm) {
-    return function (dispatch: any) {
+export const register: AppThunk = (form: IRegisterForm) => {
+    return function (dispatch: AppDispatch) {
 
         dispatch({
             type: REGISTER_USER_REQUEST
@@ -240,8 +241,8 @@ export function register(form: IRegisterForm) {
     }
 }
 
-export function getUser() {
-    return function (dispatch: any) {
+export const getUser: AppThunk = () => {
+    return function (dispatch: AppDispatch) {
 
         dispatch({
             type: GET_USER_REQUEST
@@ -269,8 +270,8 @@ export function getUser() {
     }
 }
 
-export function setUserAttributes(form: IRegisterForm) {
-    return function (dispatch: any) {
+export const setUserAttributes: AppThunk = (form: IRegisterForm) => {
+    return function (dispatch: AppDispatch) {
         dispatch({
             type: SET_USER_REQUEST,
         });
@@ -296,8 +297,8 @@ export function setUserAttributes(form: IRegisterForm) {
     }
 }
 
-export function refreshToken() {
-    return function (dispatch: any) {
+export const refreshToken:AppThunk = () => {
+    return function (dispatch: AppDispatch) {
 
         dispatch({
             type: REFRESH_TOKEN_REQUEST
@@ -324,8 +325,8 @@ interface IPasswordResetForm {
     email: string
 }
 
-export function resetPassword(form: IPasswordResetForm) {
-    return function (dispatch: any) {
+export const resetPassword: AppThunk = (form: IPasswordResetForm) => {
+    return function (dispatch: AppDispatch) {
 
         dispatch({
             type: RESET_PASSWORD_REQUEST
@@ -353,8 +354,8 @@ interface IPasswordResetResetForm {
     token: string
 }
 
-export function resetSetNewPassword(form: IPasswordResetResetForm) {
-    return function (dispatch: any) {
+export const resetSetNewPassword: AppThunk = (form: IPasswordResetResetForm) => {
+    return function (dispatch: AppDispatch) {
 
         dispatch({
             type: SET_NEW_PASSWORD_REQUEST

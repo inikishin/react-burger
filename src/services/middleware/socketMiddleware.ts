@@ -1,4 +1,5 @@
 import {WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_GET_MESSAGE, WS_SEND_MESSAGE, WS_CONNECTION_CLOSED} from "../actions/feed";
+import {AppDispatch, AppThunk} from "../../types";
 
 export const socketMiddleware = () => {
     return (store: { dispatch: any; }) => {

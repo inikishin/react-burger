@@ -1,29 +1,34 @@
 import React, {useEffect} from "react";
 import styles from './order-info.module.css';
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {getIngredients} from "../../services/actions/ingredients";
 import {useLocation, useParams} from "react-router-dom";
 import {WS_CONNECTION_START} from "../../services/actions/feed";
 import {getCookie} from "../../utils/cookies";
 import {convertOrderDate, getReadableStatus} from "../../services/handleData";
 import {TRootState} from "../../services/reducers";
+import {IAppLocation} from "../../types";
 
 function OrderInfo() {
 
     const {id} = useParams<{id: string}>();
-    const location = useLocation();
+    const location = useLocation<IAppLocation>();
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getIngredients());
-        // @ts-ignore
-        if (location.state.background.pathname.indexOf('/profile/orders') > -1 ) {
-            dispatch({type: WS_CONNECTION_START, payload: getCookie('token')})
-        }
-        else {
-            dispatch({type: WS_CONNECTION_START});
-        }
+        if (location.state.background) {
+            if (location.state.background.pathname.indexOf('/profile/orders') > -1) {
+                dispatch({type: WS_CONNECTION_START, payload: getCookie('token')})
+            } else {
+                dispatch({type: WS_CONNECTION_START});
+            }
+        } else {
+                dispatch({type: WS_CONNECTION_START});
+            }
+
     }, []);
 
     const {orders} = useSelector((store: TRootState) => ({...store.feed}));

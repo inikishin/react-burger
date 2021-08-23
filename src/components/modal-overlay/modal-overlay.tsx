@@ -1,7 +1,6 @@
 import React from "react";
 
 import style from './model-overlay.module.css';
-import PropTypes from "prop-types";
 
 interface IModalOverlayProps {
     title: string,
@@ -14,12 +13,6 @@ function ModalOverlay(props: IModalOverlayProps) {
             {props.children}
         </div>
     );
-}
-
-ModalOverlay.propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.object,
-    onClose: PropTypes.func
 }
 
 export default ModalOverlay;

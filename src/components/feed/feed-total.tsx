@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 interface IFeedTotalProps {
     title: string,
@@ -14,10 +13,5 @@ function FeedTotal(props: IFeedTotalProps) {
         </div>
     );
 }
-
-FeedTotal.propsTypes = {
-    title: PropTypes.string,
-    count: PropTypes.number
-};
 
 export default FeedTotal;

@@ -3,7 +3,6 @@ import React, {ReactNode} from "react";
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import style from './ingredient.module.css';
-import PropTypes from "prop-types";
 import {useDrag} from "react-dnd";
 
 interface IIngredientProps {
@@ -34,14 +33,6 @@ function Ingredient(props: IIngredientProps): JSX.Element {
     } else {
         return (<div></div>);
     }
-}
-
-Ingredient.propTypes = {
-    ingredient: PropTypes.shape({
-        image: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number }),
-    count: PropTypes.number
 }
 
 export default Ingredient;

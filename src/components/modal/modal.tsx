@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 
 import style from './modal.module.css';
-import PropTypes from "prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 
 const modalRoot = document.getElementById("modal");
@@ -17,7 +16,7 @@ interface IModalProps {
 
 function Modal(props: IModalProps) {
 
-    function onCloseModal(e: any): void  {
+    function onCloseModal(e: any): void {
 
         if ((e.target.id === 'my-modal') || (e.currentTarget.id === "close-modal") || (e.key === 'Escape')) {
             props.onClose();
@@ -56,12 +55,6 @@ function Modal(props: IModalProps) {
         return (<></>)
     }
 
-}
-
-Modal.propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.object,
-    onClose: PropTypes.func
 }
 
 export default Modal;

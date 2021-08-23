@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import styles from "../components/app/app.module.css";
-
 import Feed from "../components/feed/feed";
 import FeedTotal from "../components/feed/feed-total";
 import FeedOrdersStatus from "../components/feed/feed-orders-status";
-import {useDispatch, useSelector} from "react-redux";
-import {getIngredients} from "../services/actions/ingredients";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../types/hooks';
+import { getIngredients } from "../services/actions/ingredients";
 import {WS_CONNECTION_START} from "../services/actions/feed";
 
 function FeedPage() {

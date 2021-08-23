@@ -3,7 +3,8 @@ import styles from './reset-password.module.css';
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, Redirect, useHistory} from "react-router-dom";
 import { resetSetNewPassword } from "../../services/actions/auth";
-import {useDispatch, useSelector} from "react-redux";
+//import {useDispatch, useSelector} from "react-redux";
+import { useSelector, useDispatch } from '../../types/hooks';
 import {TRootState} from "../../services/reducers";
 
 
@@ -15,7 +16,7 @@ function ResetPassword() {
 
     const [form, setValue] = useState({ password: '', token: '' });
 
-    const onChange = (e: { target: { name: string; value: any; }; }) => {
+    const onChange = (e: { target: { name: string; value: string; }; }) => {
         setValue({...form, [e.target.name]: e.target.value});
     };
 
