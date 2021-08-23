@@ -15,17 +15,6 @@ export const getOrderNumberRequest = async (ingredientsIds: Array<string>) => {
     });
 }
 
-// export const serializeQuery = (queryParams: any): string =>
-//     Object.entries(queryParams).reduce((acc, [key, value], index, array) => {
-//         if (typeof value === 'undefined') {
-//             return acc;
-//         }
-//         const postfix = index === array.length - 1 ? '' : '&';
-//
-//         return `${acc}${encodeURIComponent(key)}=${encodeURIComponent(value)}${postfix}`;
-//     }, '?');
-
-
 interface ILoginForm {
     email: string,
     password: string

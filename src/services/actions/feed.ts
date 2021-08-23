@@ -12,24 +12,28 @@ type TFeedRespond = {
 };
 
 export interface IConnectionStartAction {
-  readonly type: typeof WS_CONNECTION_START
+  readonly type: typeof WS_CONNECTION_START,
+  readonly payload: undefined;
 }
 export interface IConnectionSuccessAction {
-  readonly type: typeof WS_CONNECTION_SUCCESS
+  readonly type: typeof WS_CONNECTION_SUCCESS,
+  readonly payload: undefined;
 }
 export interface IConnectionErrorAction {
   readonly type: typeof WS_CONNECTION_ERROR,
   readonly payload: string;
 }
 export interface IConnectionClosedAction {
-  readonly type: typeof WS_CONNECTION_CLOSED
+  readonly type: typeof WS_CONNECTION_CLOSED,
+  readonly payload: undefined;
 }
 export interface IGetMessageAction {
   readonly type: typeof WS_GET_MESSAGE,
   readonly payload: TFeedRespond
 }
 export interface ISendMessageAction {
-  readonly type: typeof WS_SEND_MESSAGE
+  readonly type: typeof WS_SEND_MESSAGE,
+  readonly payload: undefined;
 }
 
 export type TFeedActions =

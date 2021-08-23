@@ -1,10 +1,21 @@
-import {WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_CONNECTION_ERROR, WS_GET_MESSAGE, WS_SEND_MESSAGE, WS_CONNECTION_CLOSED} from "../actions/feed";
+import {
+    WS_CONNECTION_START,
+    WS_CONNECTION_SUCCESS,
+    WS_CONNECTION_ERROR,
+    WS_GET_MESSAGE,
+    WS_SEND_MESSAGE,
+    WS_CONNECTION_CLOSED,
+    TFeedActions
+} from "../actions/feed";
 import {AppDispatch, AppThunk} from "../../types";
+import {Middleware} from "redux";
+import {TRootState} from "../reducers";
 
-export const socketMiddleware = () => {
-    return (store: { dispatch: any; }) => {
+export const socketMiddleware = (): Middleware => {
+    return (store: { dispatch: AppDispatch }) => {
+
         let socket: WebSocket | null = null;
-        return (next: (arg0: any) => void) => (action: { type: any; payload: any; }) => {
+        return ((next: (arg0: TFeedActions) => void) => (action: TFeedActions) => {
             const {dispatch} = store;
             const {type, payload} = action;
 
@@ -23,11 +34,11 @@ export const socketMiddleware = () => {
 
             if (socket) {
                 socket.onopen = event => {
-                    dispatch({type: WS_CONNECTION_SUCCESS, payload: event});
+                    dispatch({type: WS_CONNECTION_SUCCESS, payload: undefined});
                 };
 
                 socket.onerror = event => {
-                    dispatch({type: WS_CONNECTION_ERROR, payload: event});
+                    dispatch({type: WS_CONNECTION_ERROR, payload: event.toString()});
                 };
 
                 socket.onmessage = event => {
@@ -36,7 +47,7 @@ export const socketMiddleware = () => {
                 };
 
                 socket.onclose = event => {
-                    dispatch({type: WS_CONNECTION_CLOSED, payload: event});
+                    dispatch({type: WS_CONNECTION_CLOSED, payload: undefined});
                 };
 
                 if (type === WS_SEND_MESSAGE) {
@@ -44,6 +55,6 @@ export const socketMiddleware = () => {
                 }
             }
             next(action);
-        }
+        })
     }
 }
