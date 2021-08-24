@@ -1,15 +1,12 @@
 import React from "react";
 
 import { BurgerIcon, ListIcon, ProfileIcon, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
-
 import style from "./app-header.module.css";
 import {Link} from "react-router-dom";
-//import {useSelector} from "react-redux";
 import { useSelector } from '../../types/hooks';
-import {TRootState} from "../../services/reducers";
 
 function AppHeader() {
-    const auth = useSelector((store: TRootState) => ({...store.auth}));
+    const auth = useSelector((store) => ({...store.auth}));
 
     return (
         <header className={style.header}>

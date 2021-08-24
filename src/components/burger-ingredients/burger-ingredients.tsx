@@ -1,5 +1,4 @@
 import React, {useEffect} from "react";
-//import {useDispatch, useSelector} from "react-redux";
 import { useSelector, useDispatch } from '../../types/hooks';
 import { useInView } from 'react-intersection-observer';
 
@@ -16,7 +15,7 @@ function BurgerIngredients() {
     const location = useLocation();
     const [currentTab, setCurrentTab] = React.useState("bun");
 
-    const { ingredients, isLoadingIngredients } = useSelector((store:TRootState) => ({...store.ingredients}));
+    const { ingredients, isLoadingIngredients } = useSelector((store) => ({...store.ingredients}));
     const dispatch = useDispatch();
 
     const [refBun, inViewBun] = useInView();
