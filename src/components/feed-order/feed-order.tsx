@@ -1,4 +1,3 @@
-//import {useSelector} from "react-redux";
 import { useSelector } from '../../types/hooks';
 import styles from "./feed-order.module.css";
 import {CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";

@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react";
-//import {useDispatch, useSelector} from "react-redux";
 import { useSelector, useDispatch } from '../../types/hooks';
 import {useDrop, useDrag} from 'react-dnd';
 
@@ -25,7 +24,7 @@ function BurgerConstructor() {
     const [currentIndex, setCurrentIndex] = useState( -1); // стейт для определения текущего ингредиента, на который наведен курсор
 
     const { currentBurger, order } = useSelector((store: TRootState) => ({...store.order}));
-    const auth = useSelector((store: TRootState) => store.auth);
+    const auth = useSelector((store) => store.auth);
     const dispatch = useDispatch();
 
     const bun = currentBurger.bun;

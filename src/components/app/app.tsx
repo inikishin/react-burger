@@ -13,21 +13,17 @@ import {ProtectedRoute} from "../protected-route/protected-route";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import AppHeader from "../app-header/app-header";
-
-//import {useDispatch, useSelector} from "react-redux";
 import { useSelector, useDispatch } from '../../types/hooks';
-
 import {getUser, refreshToken} from "../../services/actions/auth";
 import {getCookie} from "../../utils/cookies";
 import FeedPage from "../../pages/feed";
 import OrderInfoPage from "../../pages/order-info";
 import OrderInfo from "../order-info/order-info";
 import ProfileOrdersPage from "../../pages/profile-orders";
-import {TRootState} from "../../services/reducers";
 import {IAppLocation} from "../../types";
 
 function App() {
-    const auth = useSelector((store:TRootState) => store.auth);
+    const auth = useSelector((store) => store.auth);
     const dispatch = useDispatch();
 
     useEffect(() => {
