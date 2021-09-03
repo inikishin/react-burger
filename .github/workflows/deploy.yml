@@ -24,7 +24,7 @@ jobs:
     steps:
       - name: install all dependencies
         run: |
-          apt-get install ncftp
+          sudo apt-get install ncftp
           
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
