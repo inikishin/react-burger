@@ -45,8 +45,5 @@ jobs:
           
       # connect to ftp
       - name: connect to ftp
-        run: |
-          cd build
-          ls
-          
-          ncftpput -R -v -u "u1016303_testuse" 37.140.192.184/ / *
+        run: |          
+          ncftpput -R -v -u -p "u1016303_testuse:dR6sC4eJ9pkA8w" 37.140.192.184/ /build *
