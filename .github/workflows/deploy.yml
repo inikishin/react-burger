@@ -22,6 +22,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+          
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
@@ -40,6 +41,14 @@ jobs:
         run: ls
         
       # connect to ssh
+      - name: connect to ssh
+        env:
+          SSH_PASS: ${{ secrets.SSH_PASS }}
+        run: |
+          u1016303:${{ SSH_PASS }}@37.140.192.184
+          ls
+          
+      # connect to ftp
       - name: connect to ftp
         run: |
           HOST='ftp.example.com'
