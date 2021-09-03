@@ -42,5 +42,15 @@ jobs:
       # connect to ssh
       - name: connect to ftp
         run: |
-          ftp -in ftp://u1016303_testuse:dR6sC4eJ9pkA8w@37.140.192.184/ README.md
-          ls
+          HOST='ftp.example.com'
+          USER='yourid'
+          PASSWD='yourpw'
+          FILE='file.txt'
+
+          ftp -n 37.140.192.184 <<END_SCRIPT
+          quote USER u1016303_testuse
+          quote PASS dR6sC4eJ9pkA8w
+          binary
+          put README.md
+          quit
+          END_SCRIPT
