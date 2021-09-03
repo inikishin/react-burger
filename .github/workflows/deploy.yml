@@ -45,7 +45,7 @@ jobs:
         env:
           SSH_PASS: ${{ secrets.SSH_PASS }}
         run: |
-          u1016303:${{ SSH_PASS }}@37.140.192.184
+          u1016303:"$SSH_PASS"@37.140.192.184
           ls
           
       # connect to ftp
