@@ -38,3 +38,9 @@ jobs:
       # View list of checkout files
       - name: View list of checkout files
         run: ls
+        
+      # connect to ssh
+      - name: connect to ssh
+        run: |
+          ssh u1016303@37.140.192.184
+          ls
