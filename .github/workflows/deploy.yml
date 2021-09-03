@@ -42,5 +42,5 @@ jobs:
       # connect to ssh
       - name: connect to ssh
         run: |
-          ssh -tt u1016303@37.140.192.184
+          ssh -T u1016303@37.140.192.184
           ls
