@@ -40,7 +40,7 @@ jobs:
         run: ls
         
       # connect to ssh
-      - name: connect to ssh
+      - name: connect to ftp
         run: |
-          ssh -T u1016303@37.140.192.184
+          ftp -in -u ftp://u1016303_testuse:dR6sC4eJ9pkA8w@37.140.192.184/ README.md
           ls
