@@ -51,7 +51,7 @@ jobs:
           PASSWD='yourpw'
           FILE='file.txt'
 
-          ftp -n 37.140.192.184 <<END_SCRIPT
+          ftp -n -p -i -v 37.140.192.184 <<END_SCRIPT
           quote USER u1016303_testuse
           quote PASS dR6sC4eJ9pkA8w
           binary
