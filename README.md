@@ -1,5 +1,7 @@
 # React burger
 
+[Single Page Application доступно по ссылке](https://main.d2q6nvxxxktt0e.amplifyapp.com/)
+
 ## Описание
 
 Учебный проект констурктора бургеров и их заказа. Фронтент написан на JavaScript с использованием библиотеки React, а затем был произведен рефакторинг на TypeScript. В качестве бекенда используется стороннее api на Node Express.
